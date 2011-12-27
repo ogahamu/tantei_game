@@ -1,0 +1,76 @@
+<style type="text/css">
+<!--
+.style1 {
+  font-size: 24px;
+  font-weight: bold;
+  color: #FFFFFF;
+}
+.style3 {
+  color: #FF0000;
+  font-weight: bold;
+  font-size: 18px;
+}
+-->
+</style>
+<link href="/js/progress/jquery-ui-1.8.11.custom.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="/js/progress/jquery-1.5.1.min.js"></script>
+<script type="text/javascript" src="/js/progress/jquery-ui-1.8.11.custom.min.js"></script>
+<style type="text/css">
+#progressbar {width: 120px; height: 10px;}
+#progressbar .ui-progressbar-value { background-color: #0033CC;}
+</style>
+
+<script type="text/javascript">
+$(function(){
+    // プログレスバーを生成
+    $("#progressbar").progressbar();
+    $(window).load(function() {
+            var start = $(this);
+            var value =100;
+            var timer = setInterval(function(){
+                if(value <= <?php echo $power; ?>) {
+                    clearInterval(timer);
+                    value = <?php echo $power; ?>;
+                } else {
+                    value = value - 5;
+                }
+                // プログレスバーの値を変更
+                $("#progressbar").progressbar("option", "value", value);
+            }, 100);
+        })
+});
+</script>
+
+<form name="form" method="post" action="/cake/product/power_charge_execute/">
+<table width="320" border="0">
+  <tr>
+    <td height="106"><img src="/jpg/test.gif" width="311" height="147"></td>
+  </tr>
+  <tr>
+    <td><table class="message" width="320" border="0">
+      <tr>
+        <td><table width="293" border="0">
+          <tr>
+            <td width="86" rowspan="2">現在の体力</td>
+            <td height="16"><div id="progressbar"></div></td>
+          </tr>
+          <tr>
+            <td height="16"><?php echo $power; ?>/<?php echo $max_power; ?></td>
+          </tr>
+        </table>
+          <img src="/jpg/icon_money.png" width="29" height="30">$<?php echo $money; ?>-&gt;$<?php echo $money; ?></td>
+      </tr>
+    </table>
+    </td>
+  </tr>
+  <tr>
+    <td>&nbsp; </td>
+  </tr>
+  <tr>
+    <td><span class="style3"><?php echo $error_txt;?></span><input type="submit" name="Submit2" value="HP１００:回復させる($100)" <?php if($bottan_disabled_flag==1){ ?>disabled<?php } ?>></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+</form>

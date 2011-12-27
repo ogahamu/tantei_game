@@ -1,0 +1,24 @@
+<style type="text/css">
+<!--
+.style11 {color: #000000}
+-->
+</style>
+<table width="310" border="0">
+  <tr>
+    <td height="119"><p><img name="bank_list_off_r1_c1" src="/jpg/bank/<?php echo $bank_id;?>.png" width="315" height="185" border="0" alt=""></p></td>
+  </tr>
+  <tr>
+    <td height="34"><table class="message" width="315" border="0" bordercolor="#CCCCCC" bgcolor="#CCCCCC">
+      <tr>
+        <td><span class="style11">銀行を発見しました..</span> <br>
+          これから侵入します。</td>
+      </tr>
+    </table></td>
+  </tr>
+  <tr>
+    <td height="81">
+
+      <div align="center"><a href="/cake/battle/goto/"><img src="/jpg/inbank.png" width="200" height="50" border="0"></a>
+      </div></td>
+  </tr>
+</table>

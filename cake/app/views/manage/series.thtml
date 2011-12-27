@@ -1,0 +1,42 @@
+<style type="text/css">
+<!--
+.style1 {
+  color: #CCCCCC;
+  font-size: 16px;
+}
+.style2 {
+  font-size: 18px;
+  font-weight: bold;
+}
+-->
+</style>
+<table width="320" height="231" border="0" bgcolor="#000000">
+  <tr>
+    <td height="39"><img src="/jpg/treasure_list.png" width="320" height="37"></td>
+  </tr>
+  <tr>
+    <td height="25"><br>      <span class="style1">現在コンプリートしているお宝は<?php echo $compleate_count ?>個です。<br>
+      <a href="/cake/manage/treasure_list">全部のお宝一覧</a></span></td>
+  </tr>
+  <tr>
+    <td height="120"><table width="320" border="0">
+      <?php foreach($data as $datas): ?>
+      <tr>
+        <td width="104" height="41"><a href="/cake/manage/detail/<?php echo $datas['target']['series_id'];?>"><img src="/jpg/treasure_genre/sub_<?php echo $datas['target']['series_id'];?>.png" width="100" height="100"></a></td>
+        <td width="160"><a href="/cake/manage/detail/<?php echo $datas['target']['series_id'];?>" class="style2"><?php echo $datas['treasure_series']['name'];?></a><span class="style1"><br>
+コンプ率[<?php echo $datas[0]['count'];?>/<?php echo $datas['treasure_series']['compleate_count'];?>]</span></td>
+      </tr>
+      <?php endforeach; ?>
+    </table>
+      <br>
+      <?php if(count($data)==0){ ?>
+      <table width="320" height="55" border="0">
+        <tr>
+          <td class="style1">所持しているお宝はありません。<br>
+            頑張って収集しましょう！</td>
+        </tr>
+      </table>
+    <?php } ?></td>
+  </tr>
+</table>
+
