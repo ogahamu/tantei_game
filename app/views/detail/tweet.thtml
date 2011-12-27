@@ -1,0 +1,45 @@
+<script type="text/javascript" charset="UTF-8" src="http://static.mixi.jp/js/application/touch.js"></script>
+<script type="text/javascript">
+
+var params = {};
+params[mixi.Status.Field.URL] =
+        "http://mixi.jp/run_appli.pl?id=32239&appParams=..."
+params[mixi.Status.Field.MOBILE_URL] =
+        "http://ma.mixi.net/32239/?url=...";
+params[mixi.Status.Field.TOUCH_URL] =
+        "http://mixi.jp/run_appli.pl?id=32239&appParams=..."
+mixi.requestUpdateStatus("アプリからテスト投稿！<?php echo $photo_url;?>", function(response) {
+  if (response.hadError()) {
+    var code = response.getErrorCode();
+    var msg = response.getErrorMessage();
+    // エラー時の処理
+  } else {
+    // 成功時の処理
+  }
+}, params);
+
+</script><style type="text/css">
+<!--
+body {
+  background-color: #333333;
+}
+-->
+</style>
+<table width="320" border="0" bgcolor="#333333">
+  <tr>
+    <td bgcolor="#333333">&nbsp;</td>
+  </tr>
+  <tr>
+    <td>この画面は招待用のページです。<br>
+      Mixi本体側から招待ウインドウが開きます。<br>
+      ウィンドウが開かない場合は、対応機種等確認してください。</td>
+  </tr>
+  <tr>
+    <td height="128">&nbsp;</td>
+  </tr>
+</table>
+
+
+
+
+

@@ -1,0 +1,47 @@
+<style type="text/css">
+<!--
+.style1 {
+  font-size: 24px;
+  font-weight: bold;
+  color: #FFFFFF;
+}
+.style3 {
+  color: #FF0000;
+  font-weight: bold;
+  font-size: 18px;
+}
+-->
+</style>
+<form action="/cake/product/number_suggest_execute/" name="form" method="post">
+<table width="320" border="0">
+  <tr>
+    <td height="106"><img src="/jpg/test.gif" width="311" height="147"></td>
+  </tr>
+  <tr>
+    <td><table width="307" border="0" class="message">
+      <tr>
+        <td width="36" height="16">解読</td>
+        <td width="188"><table width="188" height="66" border="0">
+          <tr>
+            <td width="54"><input name="data[open_place_id]" type="radio" value="1" checked></td>
+            <td width="59"><input name="data[open_place_id]" type="radio" value="2"></td>
+            <td width="57"><input name="data[open_place_id]" type="radio" value="3"></td>
+          </tr>
+          <tr>
+            <td class="style1"><?php echo $first_spell_id; ?></td>
+            <td class="style1"><?php echo $second_spell_id; ?></td>
+            <td class="style1"><?php echo $third_spell_id; ?></td>
+          </tr>
+        </table></td>
+        </tr>
+    </table></td>
+  </tr>
+  <tr>
+    <td><span class="style3"><?php echo $error_txt;?></span>
+      <input type="submit" name="Submit2" value="１個暗号を解除する($100)" <?php if($bottan_disabled_flag==1){ ?>disabled<?php } ?>></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+</form>

@@ -1,0 +1,226 @@
+
+
+<link href="/js/progress/jquery-ui-1.8.11.custom.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="/js/progress/jquery-1.5.1.min.js"></script>
+<script type="text/javascript" src="/js/progress/jquery-ui-1.8.11.custom.min.js"></script>
+<script type="text/javascript" src="http://test4.blamestitch.com/js/typewriter.js"></script>
+<style type="text/css">
+#progressbar {width: 120px; height: 10px;}
+#progressbar .ui-progressbar-value { background-color: #0033CC;}
+</style>
+    <link type="text/css" rel="stylesheet" href="http://test4.blamestitch.com/cake/app/webroot/js/jquery.modalbox-1.2.1/css/jquery.modalbox.css" />
+    <script type="text/javascript" src="http://test4.blamestitch.com/cake/app/webroot/js/jquery.modalbox-1.2.1/js/jquery.modalbox-1.2.1.js"></script>
+
+<script type="text/javascript">
+$(function(){
+    // プログレスバーを生成
+    $("#progressbar").progressbar();
+    $(window).load(function() {
+            var start = $(this);
+            var value =100;
+            var timer = setInterval(function(){
+                if(value <= <?php echo ceil($power/$max_power*100); ?>) {
+                    clearInterval(timer);
+                    value = <?php echo ceil($power/$max_power*100); ?>;
+                } else {
+                    value = value - 5;
+                }
+                // プログレスバーの値を変更
+                $("#progressbar").progressbar("option", "value", value);
+            }, 100);
+        })
+});
+</script>
+
+<script>
+$(function(){
+$('#style2').typewriter(2000,function(){});
+});
+</script>
+
+
+<script type="text/JavaScript">
+
+function reset_spell(){
+  var old_first_spell = 0;
+  var old_second_spell = 0;
+  var old_third_spell = 0;
+  document.getElementById("first_spell").value=99;
+  document.getElementById("second_spell").value=99;
+  document.getElementById("third_spell").value=99;
+  for(i=0;i<=10;i++){
+    document.getElementById("first_spell_"+i).disabled=false;
+    document.getElementById("second_spell_"+i).disabled=false;
+    document.getElementById("third_spell_"+i).disabled=false;
+  }
+  document.getElementById("use_key").disabled=true;
+}
+
+function key_botan_enable(){
+  var all_number = parseInt(document.getElementById("first_spell").value) + parseInt(document.getElementById("second_spell").value) +  parseInt(document.getElementById("third_spell").value);
+  if((all_number>2)&&(all_number<60)){
+    document.getElementById("use_key").disabled=false;
+  }else{
+    document.getElementById("use_key").disabled=true;
+  }
+}
+
+
+
+$(function(){
+  var old_first_spell = 0;
+  var old_second_spell = 0;
+  var old_third_spell = 0;
+  //document.getElementById("second_spell_1").disabled=true;
+  <?php echo $jscode;?>
+
+  //セレクトボックスを監視
+  $("#first_spell").bind("change",
+    function(){
+      //前のスペルは有効にする
+      document.getElementById("second_spell_"+old_first_spell).disabled=false;
+      document.getElementById("third_spell_"+old_first_spell).disabled=false;
+      var target_id = $(this).val();
+      //ここで選択した番号は、他の入力では無効化する
+      document.getElementById("second_spell_"+target_id).disabled=true;
+      document.getElementById("third_spell_"+target_id).disabled=true;
+      //変数に保存する
+      old_first_spell = target_id;
+      //キーボタンの状態を変化
+      key_botan_enable();
+  });
+  $("#second_spell").bind("change",
+    function(){
+      //前のスペルは有効にする
+      document.getElementById("first_spell_"+old_second_spell).disabled=false;
+      document.getElementById("third_spell_"+old_second_spell).disabled=false;
+      var target_id = $(this).val();
+      document.getElementById("first_spell_"+target_id).disabled=true;
+      document.getElementById("third_spell_"+target_id).disabled=true;
+      //変数に保存する
+      old_second_spell = target_id;
+      //キーボタンの状態を変化
+      key_botan_enable();
+  });
+  $("#third_spell").bind("change",
+    function(){
+      //前のスペルは有効にする
+      document.getElementById("first_spell_"+old_third_spell).disabled=false;
+      document.getElementById("second_spell_"+old_third_spell).disabled=false;
+      var target_id = $(this).val();
+      document.getElementById("first_spell_"+target_id).disabled=true;
+      document.getElementById("second_spell_"+target_id).disabled=true;
+      //変数に保存する
+      old_third_spell = target_id;
+      //キーボタンの状態を変化
+      key_botan_enable();
+  });
+});
+
+
+</script>
+<style type="text/css">
+<!--
+#style2 {
+  color: #CCCCCC;
+  font-size: 26px;
+}
+#test-1 {color: #FFFFFF}
+.style6 {color: #666666}
+.style9 {color: #CCCCCC}
+.style10 {color: #666666; }
+-->
+</style>
+<form method="post" action="/cake/battle/battle_start/">
+  <table border="0" cellpadding="0" cellspacing="0" width="320">
+    <!-- fwtable fwsrc="/jpg/unlock_pc.png" fwbase="unlock_pc.png" fwstyle="Dreamweaver" fwdocid = "707795064" fwnested="0" -->
+    <tr>
+      <td><img src="/jpg/bank_img_2.png" width="320" height="180"></td>
+      <td><img src="/jpg/spacer.gif" width="1" height="1" border="0" alt=""></td>
+    </tr>
+    <tr>
+      <td><img name="unlock_pc_r1_c1" src="/jpg/unlock_pc_r1_c1.png" width="320" height="35" border="0" alt=""></td>
+      <td><img src="/jpg/spacer.gif" width="1" height="35" border="0" alt=""></td>
+    </tr>
+    <tr>
+      <td background="/jpg/unlock_pc_r2_c1.png">
+        <div align="center"><span id="style2">you can lock the bank success......</span></span></div></td>
+      <td><img src="/jpg/spacer.gif" width="1" height="68" border="0" alt=""></td>
+    </tr>
+    <tr>
+      <td background="/jpg/unlock_pc_r3_c1.png"><table width="318" border="0" bgcolor="#181818">
+          <tr>
+            <td width="55" bgcolor="#000000"><span class="style6">場所</span></td>
+            <td width="245"><span class="style10"><?php echo $bank_name; ?>(LV:<?php echo $bank_lv; ?>)</span></td>
+          </tr>
+          <tr>
+            <td bgcolor="#000000"><span class="style6">リトライ数</span></td>
+            <td width="245" class="style10 style9">残り<?php echo $max_challenge_count - $challenge_count; ?>回</td>
+          </tr>
+          <tr>
+            <td bgcolor="#000000"><span class="style6">パワー</span></td>
+            <td><div class="style6" id="progressbar"></div>
+              <span class="style10"><?php echo $power; ?>/<?php echo $max_power; ?></span></td>
+          </tr>
+        </table></td>
+      <td><img src="/jpg/spacer.gif" width="1" height="65" border="0" alt=""></td>
+    </tr>
+    <tr>
+      <td background="/jpg/unlock_pc_r4_c1.png"> <div id="page">
+          <div align="center">
+            <select name="data[first_spell]" size="4" id="first_spell" style="font-size:16pt">
+              <option value="99">--</option>
+              <?php for($i=0;$i<=$max_spell;$i++){ ?>
+              <option id= "first_spell_<?php echo $i;?>" value="<?php echo $i;?>" <?php if($target_first_spell==$i){ ?>selected<?php } ?>><?php echo $i;?></option>
+              <?php } ?>
+            </select>
+            <select name="data[second_spell]" size="4" id="second_spell" style="font-size:16pt">
+              <option value="99">--</option>
+              <?php for($i=0;$i<=$max_spell;$i++){ ?>
+              <option id= "second_spell_<?php echo $i;?>" value="<?php echo $i;?>" <?php if($target_second_spell==$i){ ?>selected<?php } ?>><?php echo $i;?></option>
+              <?php } ?>
+            </select>
+            <select name="data[third_spell]" size="4" id="third_spell" style="font-size:16pt">
+              <option value="99">--</option>
+              <?php for($i=0;$i<=$max_spell;$i++){ ?>
+              <option id= "third_spell_<?php echo $i;?>" value="<?php echo $i;?>" <?php if($target_third_spell==$i){ ?>selected<?php } ?>><?php echo $i;?></option>
+              <?php } ?>
+            </select>
+            <br>
+          </div>
+        </div>
+        <script src="/jpg/http://www.google.com/jsapi"></script>
+        <script>
+  google.load("jquery", "1.6.1");
+  google.load("jqueryui", "1.7.1");
+</script> </td>
+      <td><img src="/jpg/spacer.gif" width="1" height="51" border="0" alt=""></td>
+    </tr>
+    <tr>
+      <td bgcolor="#181818"><a class="openmodalbox" href="javascript:void(0);">
+    <img src="/jpg/omedetou_link.png" width="320" height="70">
+    <span class="modalboxContent">
+
+<table width="300" border="0">
+  <tr>
+    <td><p><strong>Mission　Success!!</strong></p>    </td>
+  </tr>
+  <tr>
+    <td><img src="/jpg/collection/<?php echo $treasure_id;?>.png" width="150" height="150"><br>
+    <?php echo $treasure_name;?>を手に入れました。</td>
+  </tr>
+  <tr>
+    <td><?php echo $gain_txt;?>......</td>
+  </tr>
+  <tr>
+    <td><a href="/cake/top/top/"><img src="/jpg/return_ajito.png" width="200" height="50"></a></td>
+  </tr>
+</table>
+
+
+    </span>
+</a></td>
+      <td><img src="/jpg/spacer.gif" width="1" height="41" border="0" alt=""></td>
+    </tr>
+  </table>
+</form>

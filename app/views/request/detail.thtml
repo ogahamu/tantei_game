@@ -1,0 +1,56 @@
+<?php foreach($datas as $data): ?>
+<style type="text/css">
+<!--
+.style1 {
+  font-size: 18px;
+  font-weight: bold;
+  color: #CCCCCC;
+}
+.style2 {
+  color: #CCCCCC;
+  font-size: 14px;
+}
+.style3 {
+  color: #FF0000;
+  font-weight: bold;
+  font-size: 18px;
+}
+-->
+</style>
+
+<table width="310" border="0" bgcolor="#000000">
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td bgcolor="#000000">
+    <?php if($datas['MemberRequest']['limit_time']>= date("Y-m-d g:i:s")){ ?><img src="/jpg/timeover.png" alt="時間切れ" width="30" height="30">
+    <?php }else if($datas['MemberRequest']['process_status']==0){ ?><img src="/jpg/mikai.png" alt="依頼待ち" width="30" height="30">
+    <?php }else if($datas['MemberRequest']['process_status']==2){ ?><img src="/jpg/sumi.png" alt="解決済" width="30" height="30">
+    <?php }else if($datas['MemberRequest']['process_status']==3){ ?><img src="/jpg/taiho_icon.png" alt="逮捕(失敗)" width="30" height="30">
+    <?php }else{ ?><?php } ?>
+    <span class="style1"><?php echo $datas['MemberRequest']['title'];?></span></td>
+  </tr>
+  <tr>
+    <td bgcolor="#000000"><hr></td>
+  </tr>
+  <tr>
+    <td height="158"><span class="style2"><?php echo $datas['MemberRequest']['message_body'];?></span> <br>
+      <span class="style3"><?php echo $already_txt;?></span><br>
+      <hr>      <p>------------------------------------ <br>
+        <table class="treasure" border="0">
+  <tr>
+    <td><img src="/jpg/collection/<?php echo $datas['MemberRequest']['treasure_id'];?>.png" width="130" height="130"></td>
+  </tr>
+</table>
+<span class="style2"><br>
+        <?php echo $datas['MemberRequest']['treasure_name'];?></span><br>
+      -------------    </td>
+  </tr>
+  <tr>
+    <td height="33"><div align="center">
+    <?php if(($datas['MemberRequest']['limit_time']>= date("Y-m-d H:i:s"))&&($datas['MemberRequest']['process_status']==0)){ ?><a href="/cake/request/regist/<?php echo $datas['MemberRequest']['id'];?>"><img src="/jpg/accept_request.png" width="137" height="50" border="0"></a>
+    <?php } ?></div></td>
+  </tr>
+</table>
+<?php endforeach; ?>

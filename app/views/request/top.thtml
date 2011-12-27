@@ -1,0 +1,88 @@
+<style type="text/css">
+<!--
+.style1 {
+  font-size: 18px;
+  font-weight: bold;
+  color: #FFFFFF;
+}
+.style2 {
+  font-size: 16px;
+  color: #CCCCCC;
+  font-weight: bold;
+}
+-->
+</style>
+
+<table width="310" border="0" bgcolor="#000000" cellpadding="0" cellspacing="0">
+  <tr>
+    <td><table border="0" cellpadding="0" cellspacing="0" width="320">
+      <!-- fwtable fwsrc="/jpg/mail_box_top.png" fwbase="mail_box_top.gif" fwstyle="Dreamweaver" fwdocid = "244579664" fwnested="0" -->
+      <tr>
+        <td><img src="/jpg/spacer.gif" width="118" height="1" border="0" alt=""></td>
+        <td><img src="/jpg/spacer.gif" width="28" height="1" border="0" alt=""></td>
+        <td><img src="/jpg/spacer.gif" width="16" height="1" border="0" alt=""></td>
+        <td><img src="/jpg/spacer.gif" width="39" height="1" border="0" alt=""></td>
+        <td><img src="/jpg/spacer.gif" width="24" height="1" border="0" alt=""></td>
+        <td><img src="/jpg/spacer.gif" width="13" height="1" border="0" alt=""></td>
+        <td><img src="/jpg/spacer.gif" width="82" height="1" border="0" alt=""></td>
+        <td><img src="/jpg/spacer.gif" width="1" height="1" border="0" alt=""></td>
+      </tr>
+      <tr>
+        <td colspan="7"><img name="mail_box_top_r1_c1" src="/jpg/mail_box_top_r1_c1.gif" width="320" height="10" border="0" alt=""></td>
+        <td><img src="/jpg/spacer.gif" width="1" height="10" border="0" alt=""></td>
+      </tr>
+      <tr>
+        <td colspan="3"><img name="mail_box_top_r2_c1" src="/jpg/mail_box_top_r2_c1.gif" width="162" height="23" border="0" alt=""></td>
+        <td colspan="3" bgcolor="#000000" class="style2"><a href="/cake/request/top/">(<?php echo $all_count;?>)</a></td>
+        <td><img name="mail_box_top_r2_c7" src="/jpg/mail_box_top_r2_c7.gif" width="82" height="23" border="0" alt=""></td>
+        <td><img src="/jpg/spacer.gif" width="1" height="23" border="0" alt=""></td>
+      </tr>
+      <tr>
+        <td colspan="7"><img name="mail_box_top_r3_c1" src="/jpg/mail_box_top_r3_c1.gif" width="320" height="10" border="0" alt=""></td>
+        <td><img src="/jpg/spacer.gif" width="1" height="10" border="0" alt=""></td>
+      </tr>
+      <tr>
+        <td colspan="2"><img name="mail_box_top_r4_c1" src="/jpg/mail_box_top_r4_c1.gif" width="146" height="22" border="0" alt=""></td>
+        <td colspan="3" bgcolor="#000000"><a href="/cake/request/top/2/" class="style2">(<?php echo $info_count;?>)</a></td>
+        <td colspan="2"><img name="mail_box_top_r4_c6" src="/jpg/mail_box_top_r4_c6.gif" width="95" height="22" border="0" alt=""></td>
+        <td><img src="/jpg/spacer.gif" width="1" height="22" border="0" alt=""></td>
+      </tr>
+      <tr>
+        <td colspan="7"><img name="mail_box_top_r5_c1" src="/jpg/mail_box_top_r5_c1.gif" width="320" height="6" border="0" alt=""></td>
+        <td><img src="/jpg/spacer.gif" width="1" height="6" border="0" alt=""></td>
+      </tr>
+      <tr>
+        <td><img name="mail_box_top_r6_c1" src="/jpg/mail_box_top_r6_c1.gif" width="118" height="22" border="0" alt=""></td>
+        <td colspan="3" bgcolor="#000000"><a href="/cake/request/top/1/" class="style2">(<?php echo $request_count;?>)</a></td>
+        <td colspan="3"><img name="mail_box_top_r6_c5" src="/jpg/mail_box_top_r6_c5.gif" width="119" height="22" border="0" alt=""></td>
+        <td><img src="/jpg/spacer.gif" width="1" height="22" border="0" alt=""></td>
+      </tr>
+      <tr>
+        <td colspan="7"><img name="mail_box_top_r7_c1" src="/jpg/mail_box_top_r7_c1.gif" width="320" height="27" border="0" alt=""></td>
+        <td><img src="/jpg/spacer.gif" width="1" height="27" border="0" alt=""></td>
+      </tr>
+    </table></td>
+  </tr>
+  <tr>
+    <td bgcolor="#000000">
+
+  <?php foreach($datas as $data): ?>
+  <table width="320" border="0">
+        <tr>
+          <td width="24" rowspan="2"><?php if($data['MemberRequest']['read_flag'] == 0){ ?><img src="/jpg/letter.gif" width="34"><?php }else{ ?><img src="/jpg/letter_open.gif" width="34"><?php } ?></td>
+          <td width="286"><a href="/cake/request/detail/<?php echo $data['MemberRequest']['id']?>" class="style1"><?php echo $data['MemberRequest']['title']?></a></td>
+        </tr>
+        <tr>
+          <td><div align="right"><a href="/cake/request/detail/<?php echo $data['MemberRequest']['id']?>"><?php echo $data['MemberRequest']['insert_time']?></a></div></td>
+        </tr>
+        <tr>
+          <td colspan="2"><hr></td>
+        </tr>
+    </table>
+  <?php endforeach; ?>  </td>
+  </tr>
+  <tr>
+    <td height="33"></td>
+  </tr>
+</table>
+

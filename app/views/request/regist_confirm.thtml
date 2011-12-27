@@ -1,0 +1,17 @@
+<table width="320" border="0">
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>既に他の依頼を受けていますが、削除してOKですか？</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td><a href="/cake/request/regist/<?php echo $member_request_id;?>">OKです</a></td>
+  </tr>
+  <tr>
+    <td height="130">&nbsp;</td>
+  </tr>
+</table>

@@ -1,0 +1,40 @@
+<style type="text/css">
+<!--
+.style1 {
+  font-size: 24px;
+  font-weight: bold;
+  color: #FFFFFF;
+}
+.style3 {
+  color: #FF0000;
+  font-weight: bold;
+  font-size: 18px;
+}
+-->
+</style>
+
+<form action="/cake/product/give_bribery_execute/" name="form" method="post">
+<table width="320" border="0">
+  <tr>
+    <td height="106"><img src="/jpg/test.gif" width="311" height="147"></td>
+  </tr>
+  <tr>
+    <td><table width="310" border="0" class="message">
+      <tr>
+        <td width="109" height="16">現在ミッション<br>
+          通報までの回数</td>
+        <td width="191" class="style1">残り<?php echo $nokori_challenge_count;?>回</td>
+        </tr>
+      <tr>
+        <td height="16" colspan="2"><img src="/jpg/icon_money.png" width="29" height="30">$<?php echo $money; ?>-&gt;$<?php echo $money-50; ?></td>
+        </tr>
+    </table></td>
+  </tr>
+  <tr>
+    <td><span class="style3"><?php echo $error_txt;?></span><input type="submit" name="Submit2" value="通報を１回遅らせる($<?php echo $money-50; ?>)" <?php if($bottan_disabled_flag==1){ ?>disabled<?php } ?>></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+</form>

@@ -1,0 +1,40 @@
+<table width="320" border="0">
+  <tr>
+    <td width="106" colspan="2">&nbsp;</td>
+    <td width="103" colspan="2">&nbsp;</td>
+    <td width="97" colspan="2">&nbsp;</td>
+  </tr>
+  <tr>
+    <td height="65" colspan="6"><img src="/jpg/collection/<?php echo $datas[0]['treasure_id'];?>.png" width="312" height="97"></td>
+  </tr>
+  <tr>
+    <td colspan="2">&nbsp;</td>
+    <td colspan="2">&nbsp;</td>
+    <td colspan="2">&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="2"><a href="/cake/product/power_charge/"><img src="/jpg/drink.png" width="81" height="82"></a></td>
+    <td colspan="2"><a href="/cake/product/number_suggest/"><img src="/jpg/number.png" width="81" height="82"></a></td>
+    <td colspan="2"><a href="/cake/product/give_bribery/"><img src="/jpg/spanexchange.png" width="81" height="82"></a></td>
+  </tr>
+  <tr>
+    <td colspan="2"><a href="/cake/product/power_charge/">[栄養ドリンク]</a></td>
+    <td colspan="2"><a href="/cake/product/number_suggest/">[暗号解読ソフト]</a></td>
+    <td colspan="2"><a href="/cake/product/give_bribery/">[警察に賄賂]</a></td>
+  </tr>
+  <tr>
+    <td bgcolor="#CCCCCC">栄養ドリンクを飲んで
+    パワーを回復できます。<br></td>
+    <td>&nbsp;</td>
+    <td bgcolor="#CCCCCC">最新の暗号ソフトで
+    １桁だけ開錠コードを開示できます</td>
+    <td>&nbsp;</td>
+    <td bgcolor="#CCCCCC">警察の到着を遅らせることができます</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="2">&nbsp;</td>
+    <td colspan="2">&nbsp;</td>
+    <td colspan="2">&nbsp;</td>
+  </tr>
+</table>

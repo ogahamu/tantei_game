@@ -1,0 +1,79 @@
+<a name="page_top"></a>
+<form name="form" method="post" action="/cake/shop/buy/">
+<table width="315" border="0" bgcolor="#AFD8AF">
+  <tr>
+    <td width="19">&nbsp;</td>
+    <td width="697">&nbsp;</td>
+    <td width="17">&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td bgcolor="#DFEFDF"><H2>購入確認画面</H2></td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td bgcolor="#DFEFDF"><?php foreach($data as $datas): ?>
+      <table width="315" height="30" border="0">
+        <tr bgcolor="#999999">
+          <td width="79">画像</td>
+          <td>名称</td>
+          </tr>
+        <tr>
+          <td><img src="/img/<?php echo $datas['id']?>.png" width="61" height="71"></td>
+          <td><?php echo $datas['name']?>(<?php echo $datas['price']?>両）</td>
+          </tr>
+      </table>
+    <?php endforeach; ?></td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td bgcolor="#DFEFDF"><table width="216" height="30" border="0">
+      <tr>
+        <td width="85">現在残高</td>
+        <td width="23">&nbsp;</td>
+        <td width="94">購入後残高</td>
+      </tr>
+      <tr>
+        <td><?php echo $before_price; ?></td>
+        <td>→</td>
+        <td width="94"><?php echo $after_price; ?></td>
+      </tr>
+    </table></td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td bgcolor="#DFEFDF"><input type="submit" name="submit" value="購入する">
+    <input type="hidden" name="data[submit]" value="<?php echo $item_code; ?>">
+    </td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+</form>
+<script type="text/javascript">
+window.onload = function(){
+window.location.hash = 'page_top'
+};
+</script>

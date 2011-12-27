@@ -1,0 +1,136 @@
+<link href="/js/progress/jquery-ui-1.8.11.custom.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="/js/progress/jquery-1.5.1.min.js"></script>
+<script type="text/javascript" src="/js/progress/jquery-ui-1.8.11.custom.min.js"></script>
+<style type="text/css">
+#progressbar {width: 120px; height: 10px;}
+#progressbar .ui-progressbar-value { background-color: #0033CC;}
+</style>
+
+<script type="text/javascript">
+$(function(){
+    // プログレスバーを生成
+    $("#progressbar").progressbar();
+    $(window).load(function() {
+            var start = $(this);
+            var value =100;
+            var timer = setInterval(function(){
+                if(value <= <?php echo $power; ?>) {
+                    clearInterval(timer);
+                    value = <?php echo $power; ?>;
+                } else {
+                    value = value - 5;
+                }
+                // プログレスバーの値を変更
+                $("#progressbar").progressbar("option", "value", value);
+            }, 100);
+        })
+});
+</script>
+
+
+<style type="text/css">
+<!--
+.style1 {color: #CCCCCC}
+.style4 {color: #CCCCCC; font-size: 16px; }
+-->
+</style>
+<table width="310"  border="0" cellpadding="0" cellspacing="0" bgcolor="#000000" >
+  <tr>
+    <td bgcolor="#000000"><p><img src="/jpg/ajito_<?php echo $avater_id; ?>.png" width="320" height="180"></p></td>
+  </tr>
+  <tr>
+    <td height="10"><table class="message" width="315" border="0" bordercolor="#CCCCCC" bgcolor="#CCCCCC">
+        <tr>
+          <td>最近の動き<br>
+          <?php echo $no_read;?></td>
+        </tr>
+      </table>            </td>
+  </tr>
+  <tr>
+    <td height="11">&nbsp;</td>
+  </tr>
+  <tr>
+    <td height="135">
+
+<?php foreach($mdata as $mdatas): ?>
+      <table width="304" border="0" bgcolor="#000000">
+        <tr class="style1">
+          <td width="71"><span class="style4"><img src="<?php echo $mdatas['thumnail_url'];?>" width="44"></span></td>
+          <td width="215"><span class="style4"><?php echo $mdatas['name'];?> [Lv<?php echo $mdatas['lv'];?>]</span>          </td>
+        </tr>
+        <tr class="style1">
+          <td colspan="2"><hr></td>
+        </tr>
+        <tr class="style1">
+          <td width="71"><span class="style4">Exp</span></td>
+          <td width="215"><span class="style4">Exp<?php echo $mdatas['exp'];?>[次のレベルまで<?php echo $mdatas['least_next_exp'];?>]</span>          </td>
+        </tr>
+        <tr class="style1">
+          <td colspan="2"><hr></td>
+        </tr>
+        <tr class="style1">
+          <td><span class="style4">体力</span></td>
+          <td><div id="progressbar">
+
+            <span class="style1"></span></div></td>
+        </tr>
+        <tr class="style1">
+          <td colspan="2"><hr></td>
+        </tr>
+        <tr class="style1">
+          <td><span class="style4">所持金</span></td>
+          <td><span class="style4">$<?php echo $mdatas['money'];?></span>          </td>
+        </tr>
+        <tr class="style1">
+          <td colspan="2"><hr></td>
+        </tr>
+        <tr class="style1">
+          <td><span class="style4">順位</span></td>
+          <td><span class="style4"><?php echo $ranking_txt; ?></span>          </td>
+        </tr>
+        <tr class="style1">
+          <td colspan="2"><hr></td>
+        </tr>
+      </table>
+   <?php endforeach; ?>
+   <table width="300" border="0">
+     <tr>
+       <td width="81"><a href="/cake/top/top/"><img src="/jpg/ajitobotan.png" alt="アジトへ" width="70" border="0"></a></td>
+       <td width="17">&nbsp;</td>
+       <td width="70"><a href="/cake/top/profile/"><img src="/jpg/status.png" alt="ステータス" width="70" border="0"></a></td>
+       <td width="17">&nbsp;</td>
+       <td width="103"><a href="/cake/manage/series/"><img src="/jpg/treasure.png" alt="お宝" width="70" border="0"></a></td>
+       <td width="103">&nbsp;</td>
+       <td width="103"><a href="/cake/request/top/"><img src="/jpg/mail.png" alt="メール" width="70" border="0"></a></td>
+     </tr>
+     <tr>
+       <td>&nbsp;</td>
+       <td>&nbsp;</td>
+       <td>&nbsp;</td>
+       <td>&nbsp;</td>
+       <td>&nbsp;</td>
+       <td>&nbsp;</td>
+       <td>&nbsp;</td>
+     </tr>
+     <tr>
+       <td><a href="/cake/battle/top/"><img src="/jpg/mission.png" alt="金庫" width="70" border="0"></a></td>
+       <td>&nbsp;</td>
+       <td><a href="/cake/ranking/top/"><img src="/jpg/raking.png" alt="ランキング" width="70" border="0"></a></td>
+       <td>&nbsp;</td>
+       <td><a href="/cake/product/top/"><img src="/jpg/drink.png" alt="お店" width="70" border="0"></a></td>
+       <td>&nbsp;</td>
+       <td><a href="/cake/top/help"><img src="/jpg/number.png" alt="ヘルプ" width="70" border="0"></a></td>
+     </tr>
+     <tr>
+       <td>&nbsp;</td>
+       <td>&nbsp;</td>
+       <td>&nbsp;</td>
+       <td>&nbsp;</td>
+       <td>&nbsp;</td>
+       <td>&nbsp;</td>
+       <td>&nbsp;</td>
+     </tr>
+   </table>
+    </td>
+  </tr>
+</table>
