@@ -1,3 +1,0 @@
-To use this plugin just drop the tzSelect folder in your website root, and include jquery.tzSelect.css and jquery.tzSelect.js in your pages.
-
-http://tutorialzine.com/license/
