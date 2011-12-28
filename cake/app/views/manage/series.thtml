@@ -15,8 +15,11 @@
     <td height="39"><img src="/jpg/treasure_list.png" width="320" height="37"></td>
   </tr>
   <tr>
-    <td height="25"><br>      <span class="style1">現在コンプリートしているお宝は<?php echo $compleate_count ?>個です。<br>
+    <td height="11"><br><span class="style1">現在コンプリートしているお宝は<?php echo $compleate_count ?>個です。<br>
       <a href="/cake/manage/treasure_list">全部のお宝一覧</a></span></td>
+  </tr>
+  <tr>
+    <td height="12"><p><a href="/cake/manage/series/2/">取得順</a> / <a href="/cake/manage/series/1/">シリーズ順</a></p>    </td>
   </tr>
   <tr>
     <td height="120"><table width="320" border="0">

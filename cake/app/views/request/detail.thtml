@@ -15,20 +15,16 @@
   font-weight: bold;
   font-size: 18px;
 }
+.style4 {font-size: 16px}
 -->
 </style>
 
 <table width="310" border="0" bgcolor="#000000">
   <tr>
-    <td>&nbsp;</td>
+    <td><a href="/cake/request/top/<?php echo $mail_no ?>/" class="style4">メール一覧に戻る</a></td>
   </tr>
   <tr>
     <td bgcolor="#000000">
-    <?php if($datas['MemberRequest']['limit_time']>= date("Y-m-d g:i:s")){ ?><img src="/jpg/timeover.png" alt="時間切れ" width="30" height="30">
-    <?php }else if($datas['MemberRequest']['process_status']==0){ ?><img src="/jpg/mikai.png" alt="依頼待ち" width="30" height="30">
-    <?php }else if($datas['MemberRequest']['process_status']==2){ ?><img src="/jpg/sumi.png" alt="解決済" width="30" height="30">
-    <?php }else if($datas['MemberRequest']['process_status']==3){ ?><img src="/jpg/taiho_icon.png" alt="逮捕(失敗)" width="30" height="30">
-    <?php }else{ ?><?php } ?>
     <span class="style1"><?php echo $datas['MemberRequest']['title'];?></span></td>
   </tr>
   <tr>
@@ -44,7 +40,7 @@
   </tr>
 </table>
 <span class="style2"><br>
-        <?php echo $datas['MemberRequest']['treasure_name'];?></span><br>
+        <?php echo $datas['MemberRequest']['treasure_name'];?></span><a href="/cake/manage/detail/<?php echo $series_id;?>">[これを含むシリーズの所持品を見る]</a><br>
       -------------    </td>
   </tr>
   <tr>

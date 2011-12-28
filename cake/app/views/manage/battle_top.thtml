@@ -16,11 +16,12 @@
             </table></td>
   </tr>
   <tr>
-    <td height="82"><img src="/accordion.png" width="63" height="64"><span class="style1"><?php echo $enemy_member_name;?> から<?php echo $treasure_name;?>を強奪します。</span></td>
+    <td height="82"><img src="<?php echo $enemy_thumnail_url;?>" width="63" height="64"><span class="style1"><br>
+      <?php echo $enemy_member_name;?> から<?php echo $treasure_name;?>を強奪します。</span></td>
   </tr>
   <tr>
     <td height="15">
-      <input type="submit" name="Submit" value="実行する">
+      <input type="submit" name="Submit" value="強奪する">
     </td>
   </tr>
   <tr>

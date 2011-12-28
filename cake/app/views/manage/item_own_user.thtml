@@ -4,6 +4,10 @@
   color: #CCCCCC;
   font-size: 14px;
 }
+.style12 {
+  color: #FF0000;
+  font-weight: bold;
+}
 -->
 </style>
 <table width="320" border="0" class="treasure">
@@ -29,11 +33,16 @@
         </tr>
       <?php endforeach; ?>
     </table>
-      <?php if(count($data)<=0){?><table width="320" border="0">
-  <tr>
-    <td height="52">対象のアイテムを持っているユーザーがいません。</td>
-  </tr>
-</table><?php } ?></td>
+      <?php if(count($data)<=0){?>
+      <br>
+      <table width="315" height="150" border="0" bordercolor="#CCCCCC" bgcolor="#CCCCCC" class="message">
+        <tr>
+          <td><span class="style12">【対象なし】<br>
+            対象のアイテムを持っているユーザーがいません。</span> <br>
+
+      </td>
+        </tr>
+      </table>      <?php } ?></td>
   </tr>
 </table>
 

@@ -3,7 +3,7 @@
 
 class RequestController extends AppController{
 
-  var $uses = array('MemberTreasure','StructureSql','Member','Item','MemberItem','MemberRequest','MemberSpell','Request','Spell');
+  var $uses = array('Treasure','MemberTreasure','StructureSql','Member','Item','MemberItem','MemberRequest','MemberSpell','Request','Spell');
   var $session_data;
 
   function top($mail_no){
@@ -31,6 +31,7 @@ class RequestController extends AppController{
       //echo '2です';
       $datas = $this->MemberRequest->findAll(array('member_id'=>$member_id,'information_flag'=>1), null, 'insert_time desc',100,1);
     }
+    $this->Session->write('MailNo',$mail_no);
     $this->set('datas',$datas);
   }
 
@@ -39,11 +40,11 @@ class RequestController extends AppController{
     //セッションから会員番号を取得
     $member_id = $this->session_data['id'];
     //未読件数を取得
-    $r_c = $this->StructureSql->count_no_read($member_id,0);
-    $i_c = $this->StructureSql->count_no_read($member_id,9);
-    $this->set('all_count',$r_c[0][0]['count']+$i_c[0][0]['count']);
-    $this->set('request_count',$r_c[0][0]['count']);
-    $this->set('info_count',$i_c[0][0]['count']);
+    //$r_c = $this->StructureSql->count_no_read($member_id,0);
+    //$i_c = $this->StructureSql->count_no_read($member_id,9);
+    //$this->set('all_count',$r_c[0][0]['count']+$i_c[0][0]['count']);
+    //$this->set('request_count',$r_c[0][0]['count']);
+    //$this->set('info_count',$i_c[0][0]['count']);
 
     $datas = $this->MemberRequest->findById($member_request_id);
     $request_id = $datas['MemberRequest']['request_id'];
@@ -53,6 +54,8 @@ class RequestController extends AppController{
     $detail_data =  $this->Request->findById($request_id);
     $this->set('lv',$detail_data['Request']['lv']);
     $this->set('txt',$detail_data['Request']['txt']);
+    $tdata = $this->Treasure->findById($treasure_id);
+    $series_id = $tdata['Treasure']['series_id'];
 
     //既に持っているか確認する
     $treasure_count = $this->MemberTreasure->find('count', array('conditions' => array('treasure_id' => $treasure_id,'member_id'=>$member_id)));
@@ -71,6 +74,12 @@ class RequestController extends AppController{
       )
     );
     $this->MemberRequest->save($mreqdata);
+
+    //戻る時のリストナンバー保管
+    $mail_no = $this->Session->read('MailNo');
+    $this->set('mail_no',$mail_no);
+
+    $this->set('series_id',$series_id);
     $this->set('datas',$datas);
   }
 

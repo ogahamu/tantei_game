@@ -40,7 +40,6 @@ class ManageController extends AppController{
     $cdata = $this->StructureSql->select_count_compleate_treasure($member_id);
     $compleate_count = $cdata[0][0]['count'];
     $this->set('compleate_count',$compleate_count);
-
     $this->set('data',$data);
   }
 
@@ -74,6 +73,7 @@ class ManageController extends AppController{
     $last_rob_date = $mdata['Member']['last_rob_date'];
     $emdata = $this->Member->findById($enemy_member_id);
     $enemy_member_name = $emdata['Member']['name'];
+    $enemy_thumnail_url = $emdata['Member']['thumnail_url'];
     $treasure_id = $data['MemberTreasure']['treasure_id'];
     $treasure_name = $data['MemberTreasure']['treasure_name'];
     $series_id = $data['MemberTreasure']['series_id'];
@@ -84,6 +84,7 @@ class ManageController extends AppController{
     $this->set('treasure_id',$treasure_id);
     $this->set('treasure_name',$treasure_name);
     $this->set('enemy_member_name',$enemy_member_name);
+    $this->set('enemy_thumnail_url',$enemy_thumnail_url);
   }
 
   function battle_execute(){
@@ -103,10 +104,14 @@ class ManageController extends AppController{
     $this->session_manage();
     //セッションから会員番号を取得
     $member_id = $this->session_data['id'];
-
     //セッションから相手の情報などを取り出す
     $enemy_data = $this->Session->read('EnemyData');
     $enemy_member_id = $enemy_data['MemberTreasure']['member_id'];
+    //セッションデータが消えていた場合は戻る
+    if(strlen($enemy_member_id)==0){
+      $this->redirect('/manage/top/');
+    }
+    //セッションから値を取得
     $treasure_id = $enemy_data['MemberTreasure']['treasure_id'];
     $treasure_name = $enemy_data['MemberTreasure']['treasure_name'];
     $series_id = $enemy_data['MemberTreasure']['series_id'];
@@ -184,6 +189,8 @@ class ManageController extends AppController{
     $this->MemberRequest->create();
     $this->MemberRequest->save($data);
     //$this->StructureSql->call_check_compleate_series($enemy_member_id);
+    //リセット
+    $this->Session->write('EnemyData','');
   }
 
   function lose(){

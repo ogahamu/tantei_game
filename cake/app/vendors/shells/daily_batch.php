@@ -87,7 +87,7 @@ class DailyBatchShell extends Shell {
     for($i=0;$i<$bank_lv;$i++){
       $star_txt.='★';
     }
-    $request_txt = '長年探していた「'.$treasure_name.'」の在処を発見したので連絡する。<br><br>場所:'.$bank_name.'の金庫。<br>保管期限：'.$limit_hour.'時間後['.$limit_time.']<br>セキュリティレベル:'.$star_txt.'(Lv'.$bank_lv.')<br>[開錠コード:'.$bank_max_spell.'桁/回数:'.$bank_max_count.']<br>最大報酬：＄'.$reward_price.'/'.$reward_exp.'Exp<br> By mr.jornson ';
+    $request_txt = '長年探していた「'.$treasure_name.'」の在処を発見したので連絡する。<br><br>場所:'.$bank_name.'の遺跡。<br>期限：'.$limit_hour.'時間後['.$limit_time.']<br>難易度:'.$star_txt.'(Lv'.$bank_lv.')<br>[開錠コード:'.$bank_max_spell.'桁/回数:'.$bank_max_count.']<br>報酬：＄'.$reward_price.'/'.$reward_exp.'Exp<br> By 情報屋のMr.jornson ';
     //キーワードを生成
     $rand_number = $this->keyword_maker($bank_max_spell);
     $first_spell_id = $rand_number[0];

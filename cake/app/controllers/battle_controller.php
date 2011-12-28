@@ -37,9 +37,18 @@ class BattleController extends AppController{
   }
 
   function no_battle(){
-
+    $this->session_manage();
+    //セッションから会員番号を取得
 
   }
+
+  function log_list($member_request_id){
+    $this->session_manage();
+    //セッションから会員番号を取得
+    $sp_data = $this->SpellLog->findAllByMemberRequestId($member_request_id);
+    $this->set('sp_data',$sp_data);
+  }
+
 
   function next_enemy(){
     $this->session_manage();
