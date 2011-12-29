@@ -3,6 +3,133 @@ class StructureSql extends AppModel
 {
 public $useTable = 'members';
 
+  function select_map_banks($limit_count){
+    $strSql = "select * from banks order by id limit ".$limit_count."  \n";
+    return $this->query($strSql);
+  }
+
+  function select_map_max_id($member_id){
+    $strSql   = "select  \n";
+    $strSql  .= "    ifnull(max(map_id),'0')+1 as map_max_id  \n";
+    $strSql  .= "from  \n";
+    $strSql  .= "    (  \n";
+    $strSql  .= "    select    \n";
+    $strSql  .= "        target_1.map_id as map_id,    \n";
+    $strSql  .= "        truncate(count(*)/target_2.count*100,0) as rate  \n";
+    $strSql  .= "    from    \n";
+    $strSql  .= "        (    \n";
+    $strSql  .= "        select    \n";
+    $strSql  .= "            member_treasures.treasure_id,    \n";
+    $strSql  .= "            treasures.map_id,    \n";
+    $strSql  .= "            count(*) as count    \n";
+    $strSql  .= "        from    \n";
+    $strSql  .= "            member_treasures,  \n";
+    $strSql  .= "            treasures    \n";
+    $strSql  .= "        where    \n";
+    $strSql  .= "            member_treasures.treasure_id = treasures.id   \n";
+    $strSql  .= "            and member_treasures.member_id = ".$member_id."   \n";
+    $strSql  .= "        group by    \n";
+    $strSql  .= "            member_treasures.treasure_id,    \n";
+    $strSql  .= "            treasures.map_id    \n";
+    $strSql  .= "        ) target_1,    \n";
+    $strSql  .= "        (    \n";
+    $strSql  .= "        select     \n";
+    $strSql  .= "            map_id,    \n";
+    $strSql  .= "            count(*) as count     \n";
+    $strSql  .= "        from     \n";
+    $strSql  .= "            treasures     \n";
+    $strSql  .= "        group by     \n";
+    $strSql  .= "            map_id    \n";
+    $strSql  .= "        ) target_2    \n";
+    $strSql  .= "    where    \n";
+    $strSql  .= "        target_1.map_id = target_2.map_id    \n";
+    $strSql  .= "    group by    \n";
+    $strSql  .= "        target_1.map_id,target_2.count  \n";
+    $strSql  .= "    ) target_3  \n";
+    $strSql  .= "where  \n";
+    $strSql  .= "    target_3.rate >= 80  \n";
+    return $this->query($strSql);
+  }
+
+  function select_map_own_compleate_rate($member_id){
+    $strSql   = "select  \n";
+    $strSql  .= "    target_1.map_id,  \n";
+    $strSql  .= "    count(*) as count,  \n";
+    $strSql  .= "    target_2.count  \n";
+    $strSql  .= "from  \n";
+    $strSql  .= "    (  \n";
+    $strSql  .= "    select  \n";
+    $strSql  .= "        member_treasures.treasure_id,  \n";
+    $strSql  .= "        treasures.map_id,  \n";
+    $strSql  .= "        count(*) as count  \n";
+    $strSql  .= "    from  \n";
+    $strSql  .= "        member_treasures,  \n";
+    $strSql  .= "        treasures  \n";
+    $strSql  .= "    where  \n";
+    $strSql  .= "        member_treasures.treasure_id = treasures.id  \n";
+    $strSql  .= "        and member_treasures.member_id = ".$member_id."  \n";
+    $strSql  .= "    group by  \n";
+    $strSql  .= "        member_treasures.treasure_id,  \n";
+    $strSql  .= "        treasures.map_id  \n";
+    $strSql  .= "    ) target_1,  \n";
+    $strSql  .= "    (  \n";
+    $strSql  .= "    select   \n";
+    $strSql  .= "        map_id,  \n";
+    $strSql  .= "        count(*) as count   \n";
+    $strSql  .= "    from   \n";
+    $strSql  .= "        treasures   \n";
+    $strSql  .= "    group by   \n";
+    $strSql  .= "        map_id  \n";
+    $strSql  .= "    ) target_2  \n";
+    $strSql  .= "where  \n";
+    $strSql  .= "    target_1.map_id = target_2.map_id  \n";
+    $strSql  .= "group by  \n";
+    $strSql  .= "    target_1.map_id,target_2.count  \n";
+    return $this->query($strSql);
+  }
+
+  function select_map_all_compleate_rate($member_id,$bank_limit){
+    $strSql   = "select  \n";
+    $strSql  .= "    target_2.map_id,  \n";
+    $strSql  .= "    count(*) as count,  \n";
+    $strSql  .= "    target_2.count,  \n";
+    $strSql  .= "    banks.name,  \n";
+    $strSql  .= "    banks.lv,  \n";
+    $strSql  .= "    banks.country_name  \n";
+    $strSql  .= "from  \n";
+    $strSql  .= "    (  \n";
+    $strSql  .= "    select  \n";
+    $strSql  .= "        member_treasures.treasure_id,  \n";
+    $strSql  .= "        treasures.map_id,  \n";
+    $strSql  .= "        count(*) as count  \n";
+    $strSql  .= "    from  \n";
+    $strSql  .= "        member_treasures,  \n";
+    $strSql  .= "        treasures  \n";
+    $strSql  .= "    where  \n";
+    $strSql  .= "        member_treasures.treasure_id = treasures.id  \n";
+    $strSql  .= "        and member_treasures.member_id = ".$member_id."  \n";
+    $strSql  .= "    group by  \n";
+    $strSql  .= "        member_treasures.treasure_id,  \n";
+    $strSql  .= "        treasures.map_id  \n";
+    $strSql  .= "    ) target_1  \n";
+    $strSql  .= "    right join (  \n";
+    $strSql  .= "    select   \n";
+    $strSql  .= "        map_id,  \n";
+    $strSql  .= "        count(*) as count   \n";
+    $strSql  .= "    from   \n";
+    $strSql  .= "        treasures   \n";
+    $strSql  .= "    group by   \n";
+    $strSql  .= "        map_id  \n";
+    $strSql  .= "    order by  \n";
+    $strSql  .= "        map_id  \n";
+    $strSql  .= "    limit ".$bank_limit."  \n";
+    $strSql  .= "    ) target_2 on (target_1.map_id = target_2.map_id)  \n";
+    $strSql  .= "    left join banks on banks.id = target_2.map_id  \n";
+    $strSql  .= "group by  \n";
+    $strSql  .= "    target_2.map_id,target_2.count,banks.name,banks.lv,banks.country_name  \n";
+    return $this->query($strSql);
+  }
+
   function select_list_treasure_own_user($treasure_id){
     $strSql   = "select  \n";
     $strSql  .= "members.id,  \n";
@@ -186,6 +313,11 @@ public $useTable = 'members';
 
   function select_rand_treasures($lv){
     $strSql  = "select * from treasures where lv <= ".$lv." order by rand() limit 1 \n";
+    return $this->query($strSql);
+  }
+
+  function select_rand_treasures_by_map_id($map_id){
+    $strSql  = "select * from treasures where map_id = ".$map_id." order by rand() limit 1 \n";
     return $this->query($strSql);
   }
 

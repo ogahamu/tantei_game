@@ -15,23 +15,31 @@
 <form action="/cake/product/number_suggest_execute/" name="form" method="post">
 <table width="320" border="0">
   <tr>
+    <td height="15"><hr></td>
+  </tr>
+  <tr>
+    <td height="15"><div align="right"><img src="/jpg/icon_money.png" width="29" height="30">$<?php echo $money;?></div></td>
+  </tr>
+  <tr>
+    <td height="15"><hr></td>
+  </tr>
+  <tr>
     <td height="106"><img src="/jpg/test.gif" width="311" height="147"></td>
   </tr>
   <tr>
     <td><table width="307" border="0" class="message">
       <tr>
-        <td width="36" height="16">解読</td>
-        <td width="188"><table width="188" height="66" border="0">
-          <tr>
-            <td width="54"><input name="data[open_place_id]" type="radio" value="1" checked></td>
-            <td width="59"><input name="data[open_place_id]" type="radio" value="2"></td>
-            <td width="57"><input name="data[open_place_id]" type="radio" value="3"></td>
-          </tr>
-          <tr>
-            <td class="style1"><?php echo $first_spell_id; ?></td>
-            <td class="style1"><?php echo $second_spell_id; ?></td>
-            <td class="style1"><?php echo $third_spell_id; ?></td>
-          </tr>
+        <td height="16"><table width="250" height="66" border="0">
+            <tr>
+              <td width="54"><input name="data[open_place_id]" type="radio" value="1" checked></td>
+              <td width="59"><input name="data[open_place_id]" type="radio" value="2"></td>
+              <td width="57"><input name="data[open_place_id]" type="radio" value="3"></td>
+            </tr>
+            <tr>
+              <td class="style1"><?php echo $first_spell_id; ?></td>
+              <td class="style1"><?php echo $second_spell_id; ?></td>
+              <td class="style1"><?php echo $third_spell_id; ?></td>
+            </tr>
         </table></td>
         </tr>
     </table></td>

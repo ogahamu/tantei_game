@@ -22,10 +22,6 @@ class LoginController extends AppController{
     $this->Session->write("mixi_account_id",$mixi_account_id);
     $this->Session->write("mixi_thumbnail",$user_data['thumbnailUrl']);
     $count = $this->Member->findCount(array('mixi_account_id'=>$mixi_account_id));
-    echo $mixi_name;
-    echo $mixi_thumbnail;
-    echo $count;
-
     if($count == 0){
       $data = array(
         'Member' => array(
@@ -150,8 +146,8 @@ class LoginController extends AppController{
     $bank_country = $bank_data[0]['banks']['country_name'];
     $bank_max_spell = $bank_data[0]['banks']['max_spell'];
     $bank_max_count = $bank_data[0]['banks']['max_count'];
-    //自分のlv以上のtreasureを選択
-    $treasure_data = $this->StructureSql->select_rand_treasures($lv);
+    //自分が選択した地図のマップIDからアイテムをランダムで選択する
+    $treasure_data = $this->StructureSql->select_rand_treasures_by_map_id(1);
     $treasure_id = $treasure_data[0]['treasures']['id'];
     $treasure_name = $treasure_data[0]['treasures']['name'];
     $treasure_lv = $treasure_data[0]['treasures']['lv'];
@@ -167,12 +163,12 @@ class LoginController extends AppController{
     $limit_second = $limit_hour * 3600;
     $limit_time = date("Y-m-d H:i:s", strtotime($now_time." +$limit_second sec"));
     //メール内容を生成
-    $request_title = '【Mission】'.$treasure_name.'['.$series_name.']の在処がわかった..';
+    $request_title = '【所在情報】'.$treasure_name.'['.$series_name.']の在処がわかった..';
     $star_txt = '';
     for($i=0;$i<$bank_lv;$i++){
       $star_txt.='★';
     }
-    $request_txt = '長年探していた「'.$treasure_name.'」の在処を発見したので連絡する。<br><br>場所:'.$bank_name.'の金庫。<br>保管期限：'.$limit_hour.'時間後['.$limit_time.']<br>セキュリティレベル:'.$star_txt.'(Lv'.$bank_lv.')<br>[開錠コード:'.$bank_max_spell.'桁/回数:'.$bank_max_count.']<br>最大報酬：＄'.$reward_price.'/'.$reward_price.'Exp<br> By mr.jornson ';
+    $request_txt = '長年探していた「'.$treasure_name.'」の在処を発見したので連絡する。<br><br>場所:'.$bank_name.'の遺跡。<br>期限：'.$limit_hour.'時間後['.$limit_time.']<br>難易度:'.$star_txt.'(Lv'.$bank_lv.')<br>[開錠コード:'.$bank_max_spell.'桁/回数:'.$bank_max_count.']<br>報酬：＄'.$reward_price.'/'.$reward_exp.'Exp<br> By 情報屋のMr.jornson ';
     //キーワードを生成
     $rand_number = $this->keyword_maker($bank_max_spell);
     $first_spell_id = $rand_number[0];

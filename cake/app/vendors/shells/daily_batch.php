@@ -8,7 +8,6 @@ class DailyBatchShell extends Shell {
 
   function main(){
     echo "start";
-
     //全会員を取得
     $all_member_data = $this->Member->findAll();
     foreach($all_member_data as $mdata){
@@ -19,9 +18,7 @@ class DailyBatchShell extends Shell {
     foreach($member_data as $mdata){
       $this->insert_request($mdata['target']['id']);
     }
-
     $this->StructureSql->already_read_flag();
-
     echo "end";
   }
 
@@ -53,6 +50,7 @@ class DailyBatchShell extends Shell {
     //自分のlv以下のbankを選択
     $member_data = $this->Member->findById($member_id);
     $lv = $member_data['Member']['lv'];
+    $map_id = $bank_data['Member']['map_id'];
     if (empty($lv)){
       $lv = 1;
     }
@@ -64,7 +62,10 @@ class DailyBatchShell extends Shell {
     $bank_max_spell = $bank_data[0]['banks']['max_spell'];
     $bank_max_count = $bank_data[0]['banks']['max_count'];
     //自分のlv以上のtreasureを選択
-    $treasure_data = $this->StructureSql->select_rand_treasures($lv);
+    //$treasure_data = $this->StructureSql->select_rand_treasures($lv);
+    //自分が選択した地図のマップIDからアイテムをランダムで選択する
+    $treasure_data = $this->StructureSql->select_rand_treasures_by_map_id($map_id);
+
     $treasure_id = $treasure_data[0]['treasures']['id'];
     $treasure_name = $treasure_data[0]['treasures']['name'];
     $treasure_lv = $treasure_data[0]['treasures']['lv'];
@@ -82,7 +83,7 @@ class DailyBatchShell extends Shell {
     $limit_second = $limit_hour * 3600;
     $limit_time = date("Y-m-d H:i:s", strtotime($now_time." +$limit_second sec"));
     //メール内容を生成
-    $request_title = '【情報】'.$treasure_name.'['.$series_name.']の在処がわかった..';
+    $request_title = '【所在情報】'.$treasure_name.'['.$series_name.']の在処がわかった..';
     $star_txt = '';
     for($i=0;$i<$bank_lv;$i++){
       $star_txt.='★';

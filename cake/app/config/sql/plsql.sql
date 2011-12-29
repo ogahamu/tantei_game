@@ -17,19 +17,18 @@ begin
     declare local_lv_comment varchar(250);
 
     select
-      ifnull(exp,0),
-      ifnull(sum_exp,0),
-      ifnull(lv,1)
+        ifnull(exp,0),
+        ifnull(sum_exp,0),
+        ifnull(lv,1)
     into
-      local_exp,
-      local_sum_exp,
-      local_lv
+        local_exp,
+        local_sum_exp,
+        local_lv
     from
-      members
+        members
     where
-      id = local_member_id
+        id = local_member_id
     ;
-
     set local_added_sum_exp=local_sum_exp+local_target_point;
     if local_added_sum_exp < 0 then
         set local_added_sum_exp = 0;
@@ -51,12 +50,8 @@ begin
                 sum_exp >= local_added_sum_exp
         )
     ;
-
-
-
     set local_least_next_exp = -1*(local_added_sum_exp - local_next_level_sum_exp);
     set local_now_exp = local_next_exp - local_least_next_exp;
-
     if local_lv < local_next_level then
         update
             members
@@ -65,6 +60,7 @@ begin
             least_next_exp = local_least_next_exp,
             exp = local_now_exp,
             sum_exp = local_added_sum_exp,
+            lv_up_flag = 1,
             update_date = now()
         where
             id = local_member_id

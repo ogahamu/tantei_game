@@ -6,17 +6,14 @@ location.href='http://bank.blamestitch.com/cake/top/top#header-menu/';
 }
 -->
 </SCRIPT>
-<table width="320" border="0">
+<table width="320" border="0" bgcolor="#FFCCCC">
   <tr>
     <td>&nbsp;</td>
   </tr>
   <tr>
-    <td>ありません。</td>
+    <td height="90">&nbsp;</td>
   </tr>
   <tr>
     <td>&nbsp;</td>
-  </tr>
-  <tr>
-    <td><a href="/cake/request/top/">メールを見る</a> <a href="/cake/top/top/">トップへ戻る</a></td>
   </tr>
 </table>

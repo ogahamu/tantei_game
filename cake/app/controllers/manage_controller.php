@@ -19,9 +19,10 @@ class ManageController extends AppController{
     //セッションから会員番号を取得
     $member_id = $this->session_data['id'];
     $sdata = $this->TreasureSerie->findById($series_id);
+    $data = $this->StructureSql->select_own_serease_detail($member_id,$series_id);
+    //view
     $this->set('title_name',$sdata['TreasureSerie']['name']);
     $this->set('genre_id',$sdata['TreasureSerie']['id']);
-    $data = $this->StructureSql->select_own_serease_detail($member_id,$series_id);
     $this->set('data',$data);
   }
 
@@ -43,10 +44,33 @@ class ManageController extends AppController{
     $this->set('data',$data);
   }
 
-  function bank_map(){
+  function map_manage(){
+    $this->session_manage();
+    //セッションから会員番号を取得
+    $member_id = $this->session_data['id'];
+    $this->Session->write('spell_data','');
+    //セッションから会員番号を取得
+    $mdata = $this->Member->findById($member_id);
+    //アバターがない場合は設定画面へ誘導
+    $map_max_id = $mdata['Member']['map_max_id'];
+    $mm = $this->StructureSql->select_map_max_id($member_id);
+    $bdata = $this->StructureSql->select_map_all_compleate_rate($member_id,$mm[0][0]['map_max_id']);
+    //view
+    $this->set('map_id',$map_id);
+    $this->set('bdata',$bdata);
+  }
 
-
-
+  function map_change($map_id){
+    $this->session_manage();
+    //セッションから会員番号を取得
+    $member_id = $this->session_data['id'];
+    $data = array(
+      'id' => $member_id,
+      'map_id' => $map_id,
+      'update_date' => date("Y-m-d H:i:s")
+    );
+    $this->Member->save($data);
+    $this->redirect('/manage/map_manage/');
   }
 
   function treasure_list(){
@@ -79,8 +103,8 @@ class ManageController extends AppController{
     $series_id = $data['MemberTreasure']['series_id'];
     $data['enemy_member_name'] = $enemy_member_name;
     $data['member_treasure_id'] = $member_treasure_id;
+    //view
     $this->Session->write('EnemyData',$data);
-    //View
     $this->set('treasure_id',$treasure_id);
     $this->set('treasure_name',$treasure_name);
     $this->set('enemy_member_name',$enemy_member_name);
@@ -188,7 +212,6 @@ class ManageController extends AppController{
     );
     $this->MemberRequest->create();
     $this->MemberRequest->save($data);
-    //$this->StructureSql->call_check_compleate_series($enemy_member_id);
     //リセット
     $this->Session->write('EnemyData','');
   }
@@ -197,10 +220,13 @@ class ManageController extends AppController{
     $this->session_manage();
     //セッションから会員番号を取得
     $member_id = $this->session_data['id'];
-
     //セッションから相手の情報などを取り出す
     $enemy_data = $this->Session->read('EnemyData');
     $enemy_member_id = $enemy_data['MemberTreasure']['member_id'];
+    //セッションデータが消えていた場合は戻る
+    if(strlen($enemy_member_id)==0){
+      $this->redirect('/manage/top/');
+    }
     $treasure_id = $enemy_data['MemberTreasure']['treasure_id'];
     $treasure_name = $enemy_data['MemberTreasure']['treasure_name'];
     $series_id = $enemy_data['MemberTreasure']['series_id'];
@@ -237,14 +263,13 @@ class ManageController extends AppController{
     );
     $this->MemberRequest->create();
     $this->MemberRequest->save($data);
-
-    //相手に奪われたことを伝える
+    //相手に警告メールを送る
     $this->MemberTreasure->save($tdata);
     $data = array(
       'MemberRequest' => array(
         'member_id' => $enemy_member_id,
         'title' => '【警告】'.$treasure_name.'を'.$enemy_member_name.'から狙われている。',
-        'message_body' => '警告、'.$treasure_name.'を'.$enemy_member_name.'から狙われている。<br>危険なので罠をかけることを薦める！',
+        'message_body' => '警告、'.$treasure_name.'を'.$enemy_member_name.'から狙われている。<br>注意せよ！',
         'bank_id' => 0,
         'all_distance' => 0,
         'process_status' => 9,
@@ -268,11 +293,6 @@ class ManageController extends AppController{
   //奪い返す
   function retry(){
     //まだ該当の宝がコンプリートされていないか確認する
-
-
-
-
-
   }
 
   function session_manage(){

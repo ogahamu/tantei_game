@@ -7,7 +7,6 @@ begin
     declare local_series_name varchar(250);
     declare local_message_title varchar(250);
     declare local_message_body varchar(250);
-
     select
       id,
       compleate_count,
@@ -36,9 +35,7 @@ begin
     where
       target.compleate_count <= target.count
     ;
-
     if local_compleate_count > 0 then
-
     update
       member_treasures
     set
@@ -47,19 +44,17 @@ begin
       series_id = local_series_id
       and member_id = local_member_id
     ;
-
     select
-        concat('【Compleate!】',local_series_name,')をコンプリートしました！')
+        concat('【コンプリート】',local_series_name,'をコンプリートしました！1000Expを受け取りました。')
     into
         local_message_title
     ;
     select
-        concat('おめでとうございます。',local_series_name,'をコンプリートしました！<br>もっと多くのシリーズをコンプリートできるように頑張って下さい。')
+        concat('おめでとうございます。',local_series_name,'をコンプリートしました！1000Expを受け取りました。<br>もっと多くのシリーズをコンプリートできるように頑張って下さい。')
     into
         local_message_body
     ;
-
-
+    call get_bank_exp(local_member_id,1000);
     insert into member_requests(
       member_id,
       title,
@@ -77,12 +72,8 @@ begin
       1,
       now()
     );
-
     end if;
-
 end
 //
 delimiter ;
-
-
 call check_compleate_series(1);

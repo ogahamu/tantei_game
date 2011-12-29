@@ -16,17 +16,21 @@
 <form action="/cake/product/give_bribery_execute/" name="form" method="post">
 <table width="320" border="0">
   <tr>
+    <td height="15"><hr></td>
+  </tr>
+  <tr>
+    <td height="6"><div align="right"><img src="/jpg/icon_money.png" width="29" height="30">$<?php echo $money;?></div></td>
+  </tr>
+  <tr>
+    <td height="7"><hr></td>
+  </tr>
+  <tr>
     <td height="106"><img src="/jpg/test.gif" width="311" height="147"></td>
   </tr>
   <tr>
     <td><table width="310" border="0" class="message">
       <tr>
-        <td width="109" height="16">現在ミッション<br>
-          通報までの回数</td>
-        <td width="191" class="style1">残り<?php echo $nokori_challenge_count;?>回</td>
-        </tr>
-      <tr>
-        <td height="16" colspan="2"><img src="/jpg/icon_money.png" width="29" height="30">$<?php echo $money; ?>-&gt;$<?php echo $money-50; ?></td>
+        <td class="style1">通報まであと<?php echo $nokori_challenge_count;?>回</td>
         </tr>
     </table></td>
   </tr>

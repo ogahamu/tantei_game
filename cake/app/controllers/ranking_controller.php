@@ -3,9 +3,6 @@
 class RankingController extends AppController{
 
   var $uses = array('Member');
-  var $decision_date;
-  var $dealer_code;
-  var $member_code;
   var $session_data;
 
   function top(){

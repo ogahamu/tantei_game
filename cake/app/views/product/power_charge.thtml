@@ -16,7 +16,7 @@
 <script type="text/javascript" src="/js/progress/jquery-1.5.1.min.js"></script>
 <script type="text/javascript" src="/js/progress/jquery-ui-1.8.11.custom.min.js"></script>
 <style type="text/css">
-#progressbar {width: 120px; height: 10px;}
+#progressbar {width: 250px; height: 10px;}
 #progressbar .ui-progressbar-value { background-color: #0033CC;}
 </style>
 
@@ -44,21 +44,28 @@ $(function(){
 <form name="form" method="post" action="/cake/product/power_charge_execute/">
 <table width="320" border="0">
   <tr>
+    <td height="15"><hr></td>
+  </tr>
+  <tr>
+    <td height="25"><div align="right"><img src="/jpg/icon_money.png" width="29" height="30">$<?php echo $money;?></div></td>
+  </tr>
+  <tr>
+    <td height="17"><hr></td>
+  </tr>
+  <tr>
     <td height="106"><img src="/jpg/test.gif" width="311" height="147"></td>
   </tr>
   <tr>
     <td><table class="message" width="320" border="0">
       <tr>
-        <td><table width="293" border="0">
+        <td><table width="310" border="0">
           <tr>
-            <td width="86" rowspan="2">現在の体力</td>
             <td height="16"><div id="progressbar"></div></td>
-          </tr>
+            </tr>
           <tr>
             <td height="16"><?php echo $power; ?>/<?php echo $max_power; ?></td>
-          </tr>
-        </table>
-          <img src="/jpg/icon_money.png" width="29" height="30">$<?php echo $money; ?>-&gt;$<?php echo $money; ?></td>
+            </tr>
+        </table>          </td>
       </tr>
     </table>
     </td>

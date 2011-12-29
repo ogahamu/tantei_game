@@ -1,6 +1,4 @@
 <?php
-//facebook
-//http://test4.blamestitch.com/cake/top/top/
 class BattleController extends AppController{
 
   var $uses = array('SpellLog','StructureSql','Bank','Member','Item','MemberItem','MemberRequest','MemberSpell','Request','Spell','Treasure','MemberTreasure');
@@ -38,8 +36,6 @@ class BattleController extends AppController{
 
   function no_battle(){
     $this->session_manage();
-    //セッションから会員番号を取得
-
   }
 
   function log_list($member_request_id){
@@ -48,7 +44,6 @@ class BattleController extends AppController{
     $sp_data = $this->SpellLog->findAllByMemberRequestId($member_request_id);
     $this->set('sp_data',$sp_data);
   }
-
 
   function next_enemy(){
     $this->session_manage();
@@ -71,7 +66,6 @@ class BattleController extends AppController{
       )
     );
     $this->Result->save($data);
-    $this->render($layout='next_enemy',$file='no_menu_default');
   }
 
   function load(){
@@ -81,12 +75,8 @@ class BattleController extends AppController{
     $mdata = $this->Member->findById($member_id);
     $member_request_id = $mdata['Member']['member_request_id'];
     $MRequest = $this->MemberRequest->findById($member_request_id);
-    $distance = $MRequest['MemberRequest']['distance'];
-    $all_distance = $MRequest['MemberRequest']['all_distance'];
-    $process = $distance.'/'.$all_distance;
     $bank_id = $MRequest['MemberRequest']['bank_id'];
     $this->set('bank_id',$bank_id);
-    $this->render($layout='load',$file='no_menu_default');
   }
 
   function goto(){
@@ -211,6 +201,7 @@ class BattleController extends AppController{
     }
     $this->set('power',$power);
     $this->set('max_power',$max_power);
+    $this->set('bank_id',$bank_id);
     $this->set('challenge_count',$result_data['MemberRequest']['challenge_count']);
     $this->set('max_challenge_count',$result_data['MemberRequest']['max_challenge_count']);
     $this->set('hit_count',$spell_data['hit_count']);
@@ -218,7 +209,6 @@ class BattleController extends AppController{
     $this->set('target_first_spell',$spell_data['first_spell']);
     $this->set('target_second_spell',$spell_data['second_spell']);
     $this->set('target_third_spell',$spell_data['third_spell']);
-    $this->render($layout='make_spell',$file='no_menu_default');
   }
 
   function broken(){
@@ -283,15 +273,20 @@ class BattleController extends AppController{
   function no_power(){
     $this->render($layout='no_power',$file='no_menu_default');
   }
+
   //0:未発見 1:未解決 2:解決 3:不可能
   function success(){
     $this->session_manage();
     //セッションから会員番号を取得
     $member_id = $this->session_data['id'];
     $mdata = $this->Member->findById($member_id);
+    //会員情報をばらす
     $member_request_id = $mdata['Member']['member_request_id'];
     $power = $mdata['Member']['power'];
-    $this->set('power',$power);
+    $max_power = $mdata['Member']['max_power'];
+    $money = $mdata['Member']['money'];
+    $mission_count = $mdata['Member']['mission_count'];
+    $success_count = $mdata['Member']['success_count'];
     //挑戦回数及び、目標挑戦回数の取得
     $rdata = $this->MemberRequest->findById($member_request_id);
     $challenge_count = $rdata['MemberRequest']['challenge_count'];
@@ -299,51 +294,23 @@ class BattleController extends AppController{
     $treasure_id = $rdata['MemberRequest']['treasure_id'];
     $reward_price = $rdata['MemberRequest']['reward_price'];
     $reward_exp = $rdata['MemberRequest']['reward_exp'];
-    $this->set('treasure_id',$treasure_id);
     $treasure_name = $rdata['MemberRequest']['treasure_name'];
-    $this->set('challenge_count',$rdata['MemberRequest']['challenge_count']);
-    $this->set('max_challenge_count',$rdata['MemberRequest']['max_challenge_count']);
     $tdata = $this->Treasure->findById($treasure_id);
     $series_id = $tdata['Treasure']['series_id'];
     //解決率を計算
     $resolve_rate = ceil($challenge_count/$max_challenge_count*100);
-    if($resolve_rate > 90){
-      $rank = 'E';
-      $money_rate = 0.1;
-    }else if($resolve_rate > 70){
-      $rank = 'D';
-      $money_rate = 0.3;
-    }else if($resolve_rate > 50){
-      $rank = 'C';
-      $money_rate = 0.5;
-    }else if($resolve_rate > 40){
-      $rank = 'B';
-      $money_rate = 0.7;
-    }else if($resolve_rate < 30){
-      $rank = 'A';
-      $money_rate = 0.9;
-    }else{
-      $rank = 'S';
-      $money_rate = 1;
-    }
-    $this->set('rank',$rank);
+    $resolve_data = $this->return_resolve_rate($resolve_rate);
+    $rank = $resolve_data['rank'];
+    $rate = $resolve_data['rate'];
     //報酬などの計算
-    $power = $mdata['Member']['power'];
-    $max_power = $mdata['Member']['max_power'];
-    $money = $mdata['Member']['money'];
-    $mission_count = $mdata['Member']['mission_count'];
-    $success_count = $mdata['Member']['success_count'];
-    $add_money = $reward_price*$money_rate;
-    $add_exp = $reward_exp * $money_rate;
+    $add_money = ceil($reward_price*$rate);
+    $add_exp = ceil($reward_exp*$rate);
     $added_money = $money + $add_money;
-    //exp
-    $add_exp = $reward_price*$money_rate;
     $this->StructureSql->call_get_bank_exp($member_id,$add_exp);
-    $gain_txt  = '開錠ランク：'.$rank.'<br>';
-    $gain_txt .= '報酬額'.$reward_price.'×ランク='.$rank.'=>'.$add_money.'を得た。<br>';
-    $gain_txt .= '経験値'.$reward_exp.'×ランク='.$rank.'=>'.$add_exp.'Expが加算。<br>';
-    $this->set('gain_txt',$gain_txt);
-    $this->set('treasure_name',$treasure_name);
+    //表示項目の整形
+    $gain_txt  = '[解読ランク]：'.$rank.'<br>';
+    $gain_txt .= '[報酬額]'.$reward_price.'×ランク='.$rank.'=>'.$add_money.'を得た。<br>';
+    $gain_txt .= '[経験値]'.$reward_exp.'×ランク='.$rank.'=>'.$add_exp.'Expが加算。<br>';
     //ステータスを変更
     $data = array(
       'MemberRequest' => array(
@@ -405,15 +372,40 @@ class BattleController extends AppController{
     $this->MemberRequest->create();
     $this->MemberRequest->save($data);
     $this->StructureSql->call_check_compleate_series($member_id);
-    $this->render($layout='success',$file='no_menu_default');
+    //view
+    $this->set('power',$power);
+    $this->set('max_power',$max_power);
+    $this->set('gain_txt',$gain_txt);
+    $this->set('treasure_name',$treasure_name);
+    $this->set('treasure_id',$treasure_id);
+    $this->set('challenge_count',$rdata['MemberRequest']['challenge_count']);
+    $this->set('max_challenge_count',$rdata['MemberRequest']['max_challenge_count']);
   }
 
-  function get_item(){
-
-
-
-
+  //解決結果を返す
+  private function return_resolve_rate($resolve_rate){
+    if($resolve_rate > 90){
+      $data['rank'] = 'E';
+      $data['rate'] = 0.1;
+    }else if($resolve_rate > 70){
+      $data['rank'] = 'D';
+      $data['rate'] = 0.3;
+    }else if($resolve_rate > 50){
+      $data['rank'] = 'C';
+      $data['rate'] = 0.5;
+    }else if($resolve_rate > 40){
+      $data['rank'] = 'B';
+      $data['rate'] = 0.7;
+    }else if($resolve_rate < 30){
+      $data['rank'] = 'A';
+      $data['rate'] = 0.9;
+    }else{
+      $data['rank'] = 'S';
+      $data['rate'] = 1;
+    }
+    return $data;
   }
+
   /*解答処理*/
   function battle_start(){
     $this->session_manage();
@@ -422,13 +414,10 @@ class BattleController extends AppController{
     $mdata = $this->Member->findById($member_id);
     $member_request_id = $mdata['Member']['member_request_id'];
     $power = $mdata['Member']['power'];
-
     //作成したデッキを取得する
     $first_spell = $this->params['data']['first_spell'];
     $second_spell = $this->params['data']['second_spell'];
     $third_spell = $this->params['data']['third_spell'];
-    //echo 'input=>'.$first_spell.$second_spell.$third_spell.'<br>';
-
     //全てのスペルが違う場合はエラー
     if(($first_spell == $second_spell)or($first_spell == $third_spell)or($second_spell == $third_spell)){
       $this->Session->write('error_txt','開錠キーは３つとも違う数字です。');
@@ -437,7 +426,6 @@ class BattleController extends AppController{
     $spell_data['first_spell']=$first_spell;
     $spell_data['second_spell']=$second_spell;
     $spell_data['third_spell']=$third_spell;
-
     //当たりのスペルを取得する
     $result_data = $this->MemberRequest->findById($member_request_id);
     $challenge_count = $result_data['MemberRequest']['challenge_count'];
@@ -485,7 +473,6 @@ class BattleController extends AppController{
     $spell_data['hit_count']=$hit_count;
     $spell_data['critical_count']=$critical_count;
     $this->Session->write('spell_data',$spell_data);
-
     //スペルの履歴を入れる
     $data = array(
       'SpellLog' => array(
@@ -497,7 +484,6 @@ class BattleController extends AppController{
       )
     );
     $this->SpellLog->save($data);
-
     if($critical_count==3){
       $this->redirect('/battle/success/');
     }else{
