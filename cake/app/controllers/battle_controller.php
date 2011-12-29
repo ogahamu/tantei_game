@@ -274,6 +274,11 @@ class BattleController extends AppController{
     $this->render($layout='no_power',$file='no_menu_default');
   }
 
+  function success_svg(){
+    $this->session_manage();
+  }
+
+
   //0:未発見 1:未解決 2:解決 3:不可能
   function success(){
     $this->session_manage();
@@ -485,7 +490,7 @@ class BattleController extends AppController{
     );
     $this->SpellLog->save($data);
     if($critical_count==3){
-      $this->redirect('/battle/success/');
+      $this->redirect('/battle/success_svg/');
     }else{
       $this->redirect('/battle/make_spell/');
     }

