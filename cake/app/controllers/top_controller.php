@@ -34,15 +34,15 @@ class TopController extends AppController{
     //各種メッセージの表示
     $message_txt = '';
     if($power<=50){
-      $message_txt .= '体力がなくなりました。<a href="/cake/product/power_charge/">お酒を飲む</a>か１５分程度待って下さい。<br>';
+      $message_txt .= '●体力がなくなりました。<a href="/cake/product/power_charge/">お酒を飲む</a>か１５分程度待って下さい。<br>';
     }
     if($member_request_id ==0){
-      $message_txt .= '開始できるミッションがありません。<a href="/cake/request/top/">メール</a>を読んで目的を決定して下さい。<br>';
+      $message_txt .= '●開始できるミッションがありません。<a href="/cake/request/top/">メール</a>を読んで目的を決定して下さい。<br>';
     }
     //読んでないリクエストの件数を表示
     $no_read_count = $this->MemberRequest->findCount(array("member_id"=>$member_id,"read_flag"=>0));
     if($no_read_count>0){
-      $message_txt .= '<a href="/cake/request/top/">'.$no_read_count.'件の未読メールがあります。</a><br>';
+      $message_txt .= '<a href="/cake/request/top/">●'.$no_read_count.'件の未読メールがあります。</a><br>';
     }
     //view
     $this->set('message_txt',$message_txt);

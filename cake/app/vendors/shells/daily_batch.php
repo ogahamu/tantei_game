@@ -50,22 +50,17 @@ class DailyBatchShell extends Shell {
     //自分のlv以下のbankを選択
     $member_data = $this->Member->findById($member_id);
     $lv = $member_data['Member']['lv'];
-    $map_id = $bank_data['Member']['map_id'];
-    if (empty($lv)){
-      $lv = 1;
-    }
-    $bank_data = $this->StructureSql->select_rand_banks(ceil($lv/10+1));
-    $bank_id = $bank_data[0]['banks']['id'];
-    $bank_name = $bank_data[0]['banks']['name'];
-    $bank_lv = $bank_data[0]['banks']['lv'];
-    $bank_country = $bank_data[0]['banks']['country_name'];
-    $bank_max_spell = $bank_data[0]['banks']['max_spell'];
-    $bank_max_count = $bank_data[0]['banks']['max_count'];
-    //自分のlv以上のtreasureを選択
-    //$treasure_data = $this->StructureSql->select_rand_treasures($lv);
+    $map_id = $member_data['Member']['map_id'];
+    $bank_data = $this->Bank->findById($map_id);
+    $bank_id = $bank_data['Bank']['id'];
+    $bank_name = $bank_data['Bank']['name'];
+    $bank_lv = $bank_data['Bank']['lv'];
+    $bank_country = $bank_data['Bank']['country_name'];
+    $bank_max_spell = $bank_data['Bank']['max_spell'];
+    $bank_max_count = $bank_data['Bank']['max_count'];
+
     //自分が選択した地図のマップIDからアイテムをランダムで選択する
     $treasure_data = $this->StructureSql->select_rand_treasures_by_map_id($map_id);
-
     $treasure_id = $treasure_data[0]['treasures']['id'];
     $treasure_name = $treasure_data[0]['treasures']['name'];
     $treasure_lv = $treasure_data[0]['treasures']['lv'];
@@ -121,6 +116,7 @@ class DailyBatchShell extends Shell {
         'reward_exp' => $reward_exp
       )
     );
+    $this->MemberRequest->create();
     $this->MemberRequest->save($data);
   }
 

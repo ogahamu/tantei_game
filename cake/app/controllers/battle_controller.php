@@ -313,9 +313,9 @@ class BattleController extends AppController{
     $added_money = $money + $add_money;
     $this->StructureSql->call_get_bank_exp($member_id,$add_exp);
     //表示項目の整形
-    $gain_txt  = '[解読ランク]：'.$rank.'<br>';
-    $gain_txt .= '[報酬額]'.$reward_price.'×ランク='.$rank.'=>'.$add_money.'を得た。<br>';
-    $gain_txt .= '[経験値]'.$reward_exp.'×ランク='.$rank.'=>'.$add_exp.'Expが加算。<br>';
+    $gain_txt  = ''.$rank.'ランクでクリアした......<br>';
+    $gain_txt .= '報酬 $'.$add_money.'を得た......<br>';
+    $gain_txt .= '経験値 '.$add_exp.'Expが加算された......<br>';
     //ステータスを変更
     $data = array(
       'MemberRequest' => array(

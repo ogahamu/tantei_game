@@ -30,7 +30,7 @@ function return_wordwrap($line){
       <?php foreach($data as $datas): ?>
       <tr bgcolor="#000000">
         <td><span class="style4"><img src="<?php echo $datas['Member']['thumnail_url'] ?>" width="27" height="34"><?php echo $datas['Member']['name'] ?>(Lv.<?php echo $datas['Member']['lv'] ?>)</span></td>
-        <td><span class="style4"><?php echo $datas['Member']['success_count'] ?>個</span></td>
+        <td><span class="style4"><?php echo $datas['Member']['treasure_count'] ?>個</span></td>
         <td><span class="style4"><?php echo $datas['Member']['compleate_treasure_count'] ?>個</span></td>
       </tr>
       <tr>

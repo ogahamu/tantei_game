@@ -5,6 +5,11 @@
   font-weight: bold;
   color: #FFFFFF;
 }
+.style4 {
+  font-size: 18px;
+  color: #FFFF00;
+  font-weight: bold;
+}
 .style3 {
   color: #FF0000;
   font-weight: bold;
@@ -47,7 +52,7 @@ $(function(){
     <td height="15"><hr></td>
   </tr>
   <tr>
-    <td height="25"><div align="right"><img src="/jpg/icon_money.png" width="29" height="30">$<?php echo $money;?></div></td>
+    <td height="25"><div align="right"><img src="/jpg/icon_money.png" width="29" height="30"><span class="style4">$<?php echo $money;?></span></div></td>
   </tr>
   <tr>
     <td height="17"><hr></td>

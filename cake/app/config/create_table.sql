@@ -8,7 +8,7 @@ http://test4.blamestitch.com/cake/top/top/
 update members set member_request_id = 0,power=10000;
 update member_requests set process_status = 4;
 delete from member_requests;
-
+delete from member_treasures;
 
 
 

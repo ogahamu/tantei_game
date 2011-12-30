@@ -1,5 +1,13 @@
+create table test_names(
+id int NOT NULL auto_increment,
+name varchar(250),
+PRIMARY KEY(`id`)
+)TYPE=InnoDB AUTO_INCREMENT=1;
 
 
+
+
+insert into test_names (name)values('');
 
 
 
