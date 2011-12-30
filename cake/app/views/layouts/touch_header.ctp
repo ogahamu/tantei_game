@@ -3,13 +3,12 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html" charset="utf-8">
-<meta name="keywords" content="BANKER　BRAKER">
-<meta name="description" content="BANKER　BRAKER">
-<title>BANKER　BRAKER</title>
+<meta name="keywords" content="アインシュタインの暗号">
+<meta name="description" content="アインシュタインの暗号">
+<title>アインシュタインの暗号</title>
 <meta http-equiv="Content-Type" content="text/html"; charset="utf-8">
 <link rel="stylesheet" type="text/css" href="/cake/css/all_default.css" />
 <link rel="stylesheet" type="text/css" href="/cake/css/touch_mixi_table.css" />
-
 <style type="text/css">
 <!--
 body{
@@ -19,9 +18,6 @@ body{
 }
 -->
 </style>
-
-
-
 <style type="text/css"><!--
 img {border: 0; }
 --></style>
