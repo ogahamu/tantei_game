@@ -115,14 +115,21 @@ class ManageController extends AppController{
     $this->session_manage();
     //セッションから会員番号を取得
     $member_id = $this->session_data['id'];
+  }
+
+  function battle_start(){
+    $this->session_manage();
+    //セッションから会員番号を取得
+    $member_id = $this->session_data['id'];
     $random = rand(1,3);
-    $random = 1;
-    if($random == 1){
+    //$random = 1;
+    if($random == 2){
       $this->redirect('/manage/win/');
     }else{
       $this->redirect('/manage/lose/');
     }
   }
+
 
   function win(){
     $this->session_manage();

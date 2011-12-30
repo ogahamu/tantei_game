@@ -1,0 +1,16 @@
+<SCRIPT type="text/javascript">
+<!--
+setTimeout("link()", 3000);
+function link(){
+location.href='http://bank.blamestitch.com/cake/manage/battle_start#header-menu/';
+}
+-->
+</SCRIPT>
+<table width="320" border="0">
+  <tr>
+    <td height="114"><img src="/accordion.png" alt="win" width="310" height="200"></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+</table>

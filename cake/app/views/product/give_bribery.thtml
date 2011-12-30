@@ -106,7 +106,7 @@ $(function(){
     <td height="17"><hr></td>
   </tr>
   <tr>
-    <td height="106"><img src="/jpg/test.gif" width="311" height="147"></td>
+    <td height="106"><a href="/cake/product/top/"><img src="/jpg/test.gif" width="311" height="147" border="0"></a></td>
   </tr>
   <tr>
     <td><table class="message" width="320" border="0">
