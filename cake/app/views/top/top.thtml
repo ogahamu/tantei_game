@@ -104,7 +104,7 @@ $(function(){
      <tr>
        <td width="81"><a href="/cake/top/top/"><img src="/jpg/ajitobotan.png" alt="アジトへ" width="70" border="0"></a></td>
        <td width="17">&nbsp;</td>
-       <td width="70"><a href="/cake/manage/map_manage/"><img src="/jpg/status.png" alt="地図" width="70" border="0"></a></td>
+       <td width="70"><a href="/cake/manage/map_manage/"><img src="/jpg/map.png" alt="地図" width="70" border="0"></a></td>
        <td width="17">&nbsp;</td>
        <td width="103"><a href="/cake/manage/series/"><img src="/jpg/treasure.png" alt="お宝" width="70" border="0"></a></td>
        <td width="103">&nbsp;</td>
@@ -120,13 +120,13 @@ $(function(){
        <td>&nbsp;</td>
      </tr>
      <tr>
-       <td><a href="/cake/battle/top/"><img src="/jpg/mission.png" alt="金庫" width="70" border="0"></a></td>
+       <td><a href="/cake/battle/top/"><img src="/jpg/mission.png" alt="ミッション" width="70" border="0"></a></td>
        <td>&nbsp;</td>
        <td><a href="/cake/ranking/top/"><img src="/jpg/raking.png" alt="ランキング" width="70" border="0"></a></td>
        <td>&nbsp;</td>
-       <td><a href="/cake/product/top/"><img src="/jpg/drink.png" alt="お店" width="70" border="0"></a></td>
+       <td><a href="/cake/product/top/"><img src="/jpg/shop.png" alt="お店" width="70" border="0"></a></td>
        <td>&nbsp;</td>
-       <td><a href="/cake/top/help"><img src="/jpg/number.png" alt="ヘルプ" width="70" border="0"></a></td>
+       <td><a href="/cake/top/help"><img src="/jpg/help.png" alt="ヘルプ" width="70" border="0"></a></td>
      </tr>
      <tr>
        <td>&nbsp;</td>

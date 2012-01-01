@@ -17,7 +17,7 @@
     <td colspan="6"><hr></td>
   </tr>
   <tr>
-    <td height="65" colspan="6"><img src="/jpg/collection/<?php echo $datas[0]['treasure_id'];?>.png" width="312" height="97"></td>
+    <td height="65" colspan="6"><img src="/jpg/shop_img.png" width="312" height="200"></td>
   </tr>
   <tr>
     <td colspan="2">&nbsp;</td>
