@@ -53,6 +53,7 @@ class ManageController extends AppController{
     $mdata = $this->Member->findById($member_id);
     //アバターがない場合は設定画面へ誘導
     $map_max_id = $mdata['Member']['map_max_id'];
+    $map_id = $mdata['Member']['map_id'];
     $mm = $this->StructureSql->select_map_max_id($member_id);
     $bdata = $this->StructureSql->select_map_all_compleate_rate($member_id,$mm[0][0]['map_max_id']);
     //view
