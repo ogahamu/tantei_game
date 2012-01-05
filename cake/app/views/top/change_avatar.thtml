@@ -1,31 +1,42 @@
 <form name="form" method="post" action="/cake/top/change_avatar_execute/">
-<table width="320" border="0">
+<body bgcolor="#000000">
+<table border="0" cellpadding="0" cellspacing="0" width="320">
+<!-- fwtable fwsrc="/jpg/login_top.png" fwbase="login_top.png" fwstyle="Dreamweaver" fwdocid = "271889581" fwnested="0" -->
   <tr>
-    <td colspan="3">&nbsp;</td>
+   <td><img src="/jpg/spacer.gif" width="104" height="1" border="0" alt=""></td>
+   <td><img src="/jpg/spacer.gif" width="4" height="1" border="0" alt=""></td>
+   <td><img src="/jpg/spacer.gif" width="104" height="1" border="0" alt=""></td>
+   <td><img src="/jpg/spacer.gif" width="3" height="1" border="0" alt=""></td>
+   <td><img src="/jpg/spacer.gif" width="104" height="1" border="0" alt=""></td>
+   <td><img src="/jpg/spacer.gif" width="1" height="1" border="0" alt=""></td>
+   <td><img src="/jpg/spacer.gif" width="1" height="1" border="0" alt=""></td>
+  </tr>
+
+  <tr>
+   <td colspan="6"><img name="login_top_r1_c1" src="/jpg/login_top_r1_c1.png" width="320" height="346" border="0" alt=""></td>
+   <td><img src="/jpg/spacer.gif" width="1" height="346" border="0" alt=""></td>
   </tr>
   <tr>
-    <td width="95" height="43"><img src="/accordion.png" width="100" height="150"></td>
-    <td width="104"><img src="/accordion.png" width="100" height="150"></td>
-    <td width="107"><img src="/accordion.png" width="100" height="150"></td>
+   <td><input type="radio" name="data[avater_id]" value="2"></td>
+   <td><img name="login_top_r2_c2" src="/jpg/login_top_r2_c2.png" width="4" height="12" border="0" alt=""></td>
+   <td><input type="radio" name="data[avater_id]" value="1" checked></td>
+   <td><img name="login_top_r2_c4" src="/jpg/login_top_r2_c4.png" width="3" height="12" border="0" alt=""></td>
+   <td><input type="radio" name="data[avater_id]" value="3"></td>
+   <td><img name="login_top_r2_c6" src="/jpg/login_top_r2_c6.png" width="1" height="12" border="0" alt=""></td>
+   <td><img src="/jpg/spacer.gif" width="1" height="12" border="0" alt=""></td>
   </tr>
   <tr>
-    <td height="43">&nbsp;</td>
-    <td width="104">&nbsp;</td>
-    <td width="107">&nbsp;</td>
+   <td colspan="6"><input type="image" src="/jpg/login_top_r3_c1.png" name="button1" alt="実行ボタン"></td>
+   <td><img src="/jpg/spacer.gif" width="1" height="37" border="0" alt=""></td>
   </tr>
   <tr>
-    <td height="16">    <input type="checkbox" name="data[avater_id]" value="1"></td>
-    <td><input type="checkbox" name="data[avater_id]" value="2"></td>
-    <td><input type="checkbox" name="data[avater_id]" value="3"></td>
+   <td colspan="5"><img name="login_top_r4_c1" src="/jpg/login_top_r4_c1.png" width="319" height="103" border="0" alt=""></td>
+   <td rowspan="2"><img name="login_top_r4_c6" src="/jpg/login_top_r4_c6.png" width="1" height="205" border="0" alt=""></td>
+   <td><img src="/jpg/spacer.gif" width="1" height="103" border="0" alt=""></td>
   </tr>
   <tr>
-    <td height="57" colspan="3">&nbsp;</td>
-  </tr>
-  <tr>
-    <td height="15" colspan="3"><input type="submit" name="Submit" value="送信"></td>
-  </tr>
-  <tr>
-    <td height="117" colspan="3">&nbsp;</td>
+   <td colspan="5"><img name="login_top_r5_c1" src="/jpg/login_top_r5_c1.png" width="319" height="102" border="0" alt=""></td>
+   <td><img src="/jpg/spacer.gif" width="1" height="102" border="0" alt=""></td>
   </tr>
 </table>
 </form>

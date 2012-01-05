@@ -1,22 +1,16 @@
-<SCRIPT type="text/javascript">
-<!--
-setTimeout("link()", 3000);
-function link(){
-location.href='http://bank.blamestitch.com/cake/top/top#header-menu/';
-}
--->
-</SCRIPT>
 <table width="320" border="0">
   <tr>
     <td>&nbsp;</td>
   </tr>
   <tr>
-    <td>ありません。</td>
+    <td><img src="/jpg/no_battle.png" width="314" height="180"></td>
   </tr>
   <tr>
     <td>&nbsp;</td>
   </tr>
   <tr>
-    <td><a href="/cake/request/top/">メールを見る</a> <a href="/cake/top/top/">トップへ戻る</a></td>
+    <td><div align="center"><a href="/cake/request/top/"><img src="/jpg/check_mail.png" width="174" height="32" border="0"><br>
+        <br>
+    </a><a href="/cake/manage/map_manage/"><img src="/jpg/check_map.png" width="174" height="32" border="0"></a></div></td>
   </tr>
 </table>

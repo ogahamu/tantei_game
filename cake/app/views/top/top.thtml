@@ -91,7 +91,7 @@ $(function(){
         </tr>
         <tr class="style1">
           <td><span class="style4">順位</span></td>
-          <td><span class="style4"><?php echo $ranking_txt; ?></span>          </td>
+          <td><span class="style4"><?php echo $ranking_txt; ?></span>  <a href="/cake/ranking/top/">ランキングを見る        </a></td>
         </tr>
         <tr class="style1">
           <td colspan="2"><hr>
@@ -100,44 +100,6 @@ $(function(){
         </tr>
       </table>
    <?php endforeach; ?>
-   <table width="300" border="0">
-     <tr>
-       <td width="81"><a href="/cake/top/top/"><img src="/jpg/ajitobotan.png" alt="アジトへ" width="70" border="0"></a></td>
-       <td width="17">&nbsp;</td>
-       <td width="70"><a href="/cake/manage/map_manage/"><img src="/jpg/map.png" alt="地図" width="70" border="0"></a></td>
-       <td width="17">&nbsp;</td>
-       <td width="103"><a href="/cake/manage/series/"><img src="/jpg/treasure.png" alt="お宝" width="70" border="0"></a></td>
-       <td width="103">&nbsp;</td>
-       <td width="103"><a href="/cake/request/top/"><img src="/jpg/mail.png" alt="メール" width="70" border="0"></a></td>
-     </tr>
-     <tr>
-       <td>&nbsp;</td>
-       <td>&nbsp;</td>
-       <td>&nbsp;</td>
-       <td>&nbsp;</td>
-       <td>&nbsp;</td>
-       <td>&nbsp;</td>
-       <td>&nbsp;</td>
-     </tr>
-     <tr>
-       <td><a href="/cake/battle/top/"><img src="/jpg/mission.png" alt="ミッション" width="70" border="0"></a></td>
-       <td>&nbsp;</td>
-       <td><a href="/cake/ranking/top/"><img src="/jpg/raking.png" alt="ランキング" width="70" border="0"></a></td>
-       <td>&nbsp;</td>
-       <td><a href="/cake/product/top/"><img src="/jpg/shop.png" alt="お店" width="70" border="0"></a></td>
-       <td>&nbsp;</td>
-       <td><a href="/cake/top/help"><img src="/jpg/help.png" alt="ヘルプ" width="70" border="0"></a></td>
-     </tr>
-     <tr>
-       <td>&nbsp;</td>
-       <td>&nbsp;</td>
-       <td>&nbsp;</td>
-       <td>&nbsp;</td>
-       <td>&nbsp;</td>
-       <td>&nbsp;</td>
-       <td>&nbsp;</td>
-     </tr>
-   </table>
-    </td>
+   <a href="/cake/manage/series/"><img src="/jpg/own_item_list_banner.png" width="320" height="50" border="0"></a>    </td>
   </tr>
 </table>

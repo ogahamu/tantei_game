@@ -14,7 +14,7 @@
   <tr>
     <td height="10"><table class="message" width="315" border="0" bordercolor="#CCCCCC" bgcolor="#CCCCCC">
       <tr>
-        <td><span class="style11">金庫を発見しました！<br>
+        <td><span class="style11">暗号の書かれた祭壇を発見しました！<br>
           これから解錠に取り掛かります。
         </span></td>
       </tr>
@@ -24,7 +24,7 @@
     <td height="10">&nbsp;</td>
   </tr>
   <tr>
-    <td><div align="center"><a href="/cake/battle/make_spell/"><img src="/jpg/openbank.png" width="200" height="50" border="0"></a></div></td>
+    <td><div align="center"><a href="/cake/battle/make_spell/"><img src="/jpg/kaidoku_bottan.png" width="174" height="32"></a></div></td>
   </tr>
   <tr>
     <td height="93">&nbsp;</td>

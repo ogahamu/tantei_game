@@ -10,13 +10,13 @@
   <tr>
     <td height="34"><table class="message" width="315" border="0" bordercolor="#CCCCCC" bgcolor="#CCCCCC">
       <tr>
-        <td><span class="style11">銀行を発見しました..</span> <br>
-          これから侵入します。</td>
+        <td><span class="style11">場所を発見しました..</span> <br>
+          これから現場へ入ります。</td>
       </tr>
     </table></td>
   </tr>
   <tr>
-    <td height="64"><div align="center"><a href="/cake/battle/goto/"><img src="/jpg/inbank.png" width="200" height="50" border="0"></a>
+    <td height="38"><div align="center"><a href="/cake/battle/goto/"><img src="/jpg/genba_bottanl.png" width="174" height="32"></a>
     </div></td>
   </tr>
 </table>
