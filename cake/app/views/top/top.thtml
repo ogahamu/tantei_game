@@ -100,6 +100,7 @@ $(function(){
         </tr>
       </table>
    <?php endforeach; ?>
-   <a href="/cake/manage/series/"><img src="/jpg/own_item_list_banner.png" width="320" height="50" border="0"></a>    </td>
+   <p><a href="/cake/manage/series/"><img src="/jpg/own_item_list_banner.png" width="320" height="50" border="0"></a></p>
+   <a href="/cake/help/top/">HELP </a> </td>
   </tr>
 </table>

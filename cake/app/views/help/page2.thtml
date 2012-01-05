@@ -1,15 +1,17 @@
-<table width="310" height="172" border="0" bgcolor="#CCCCCC">
+<table width="320" height="439" border="0">
   <tr>
-    <td>
-    <a href="ddd">page2へ</a>
-<form>
-<input type="button" name="link" value="次へ" onclick="getSAPserverDATA('http://shinrei.blamestitch.com/cake/help/page3')">
-</form>
-
-
-<form>
-<input type="button" name="link" value="フォト" onclick="upload_photo()">
-</form>
-    </td>
+    <td height="15"><img src="/jpg/help/help2.png" width="320" height="200"></td>
+  </tr>
+  <tr>
+    <td height="90"><p>例えば正解が456という数字だったとしよう。<br>
+      入力欄に456と入力してみよう。</p>
+      <p>そう、これで正解だ！<br>
+    </p></td>
+  </tr>
+  <tr>
+    <td height="15"><div align="center"><a href="/cake/help/page3/"><img src="/jpg/next_bottan.png" width="120" border="0"></a></div></td>
+  </tr>
+  <tr>
+    <td height="15">&nbsp;</td>
   </tr>
 </table>
