@@ -8,6 +8,18 @@ public $useTable = 'members';
     return $this->query($strSql);
   }
 
+  function select_own_serease_count($member_id,$series_id){
+    $strSql   = "select  \n";
+    $strSql  .= "count(*) as count  \n";
+    $strSql  .= "from  \n";
+    $strSql  .= "member_treasures  \n";
+    $strSql  .= "where  \n";
+    $strSql  .= "series_id = ".$series_id." and  \n";
+    $strSql  .= "member_id = ".$member_id."  \n";
+    $strSql  .= "group by series_id  \n";
+    return $this->query($strSql);
+  }
+
   function select_map_max_id($member_id){
     $strSql   = "select  \n";
     $strSql  .= "    ifnull(max(map_id),'0')+1 as map_max_id  \n";

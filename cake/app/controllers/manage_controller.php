@@ -20,7 +20,15 @@ class ManageController extends AppController{
     $member_id = $this->session_data['id'];
     $sdata = $this->TreasureSerie->findById($series_id);
     $data = $this->StructureSql->select_own_serease_detail($member_id,$series_id);
+
+    $cdata = $this->StructureSql->select_own_serease_count($member_id,$series_id);
+    $compleate_count = $cdata[0][0]['count'];
+    $comp_flag =0;
+    if($compleate_count == 5){
+      $comp_flag =1;
+    }
     //view
+    $this->set('comp_flag',$comp_flag);
     $this->set('title_name',$sdata['TreasureSerie']['name']);
     $this->set('genre_id',$sdata['TreasureSerie']['id']);
     $this->set('data',$data);
