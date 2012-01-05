@@ -222,6 +222,15 @@ class ManageController extends AppController{
     $this->MemberRequest->save($data);
     //リセット
     $this->Session->write('EnemyData','');
+    //ユーザーエージェント判定
+    $useragent_code = $this->return_useragent_code();
+    if($useragent_code=='1'){
+      //ios
+      $this->render($layout='win_svg',$file='default');
+    }else{
+      //android,それ以外
+      $this->render($layout='win_flash',$file='default');
+    }
   }
 
   function lose(){
@@ -297,10 +306,27 @@ class ManageController extends AppController{
     );
     $this->MemberRequest->create();
     $this->MemberRequest->save($data);
+    //ユーザーエージェント判定
+    $useragent_code = $this->return_useragent_code();
+    if($useragent_code=='1'){
+      //ios
+      $this->render($layout='lose_svg',$file='default');
+    }else{
+      //android,それ以外
+      $this->render($layout='lose_flash',$file='default');
+    }
   }
-  //奪い返す
-  function retry(){
-    //まだ該当の宝がコンプリートされていないか確認する
+
+  function return_useragent_code(){
+    $isiPhone = (bool) strpos($_SERVER['HTTP_USER_AGENT'],'iPhone');
+    $isiPod = (bool) strpos($_SERVER['HTTP_USER_AGENT'],'iPod');
+    $isiPad = (bool) strpos($_SERVER['HTTP_USER_AGENT'],'iPad');
+    $isAndroid = (bool) strpos($_SERVER['HTTP_USER_AGENT'],'Android');
+    if($isiPad){return 1;}
+    else if($isiPod){return 1;}
+    else if($isiPhone){return 1;}
+    else if($isAndroid){return 2;}
+    else{return 2;}
   }
 
   function session_manage(){

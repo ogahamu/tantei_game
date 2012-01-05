@@ -247,8 +247,8 @@ class BattleController extends AppController{
     $data = array(
       'MemberRequest' => array(
         'member_id' => $member_id,
-        'title' => '【逮捕】君は逮捕された..保釈金＄'.$add_money.'',
-        'message_body' => '非常に残念だ。保釈金＄'.$add_money.'を支払った。<br>また次回頑張ってくれることを期待している。',
+        'title' => '【失敗】ミッション失敗..発掘費用負担など＄'.$add_money.'',
+        'message_body' => '非常に残念だ。発掘費用負担など＄'.$add_money.'を支払った。<br>また次回頑張ってくれることを期待している。',
         'bank_id' => 0,
         'all_distance' => 0,
         'process_status' => 9,
@@ -267,15 +267,23 @@ class BattleController extends AppController{
       )
     );
     $this->MemberRequest->save($data);
-    $this->render($layout='broken',$file='no_menu_default');
+    //$this->render($layout='broken',$file='no_menu_default');
   }
 
   function no_power(){
-    $this->render($layout='no_power',$file='no_menu_default');
+    //this->render($layout='no_power',$file='no_menu_default');
   }
 
   function success_svg(){
     $this->session_manage();
+    $useragent_code = $this->return_useragent_code();
+    if($useragent_code=='1'){
+      //ios
+      $this->render($layout='success_svg',$file='default');
+    }else{
+      //android,それ以外
+      $this->render($layout='success_flash',$file='default');
+    }
   }
 
 
@@ -494,6 +502,18 @@ class BattleController extends AppController{
     }else{
       $this->redirect('/battle/make_spell/');
     }
+  }
+
+  function return_useragent_code(){
+    $isiPhone = (bool) strpos($_SERVER['HTTP_USER_AGENT'],'iPhone');
+    $isiPod = (bool) strpos($_SERVER['HTTP_USER_AGENT'],'iPod');
+    $isiPad = (bool) strpos($_SERVER['HTTP_USER_AGENT'],'iPad');
+    $isAndroid = (bool) strpos($_SERVER['HTTP_USER_AGENT'],'Android');
+    if($isiPad){return 1;}
+    else if($isiPod){return 1;}
+    else if($isiPhone){return 1;}
+    else if($isAndroid){return 2;}
+    else{return 2;}
   }
 
   function session_manage(){

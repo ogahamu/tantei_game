@@ -34,7 +34,7 @@ class TopController extends AppController{
     //各種メッセージの表示
     $message_txt = '';
     if($power<=50){
-      $message_txt .= '●体力がなくなりました。<a href="/cake/product/power_charge/">お酒を飲む</a>か１５分程度待って下さい。<br>';
+      $message_txt .= '●バッテリーがなくなりました。<a href="/cake/product/power_charge/">充電する</a>か１５分程度待って下さい。<br>';
     }
     if($member_request_id ==0){
       $message_txt .= '●開始できるミッションがありません。<a href="/cake/request/top/">メール</a>を読んで目的を決定して下さい。<br>';
@@ -91,6 +91,16 @@ class TopController extends AppController{
       'update_date' => date("Y-m-d H:i:s")
     );
     $this->Member->save($data);
+
+    //ユーザーエージェント判定
+    $useragent_code = $this->return_useragent_code();
+    if($useragent_code=='1'){
+      //ios
+      $this->render($layout='lv_up_svg',$file='default');
+    }else{
+      //android,それ以外
+      $this->render($layout='lv_up_flash',$file='default');
+    }
   }
 
   function change_avatar(){
@@ -115,6 +125,18 @@ class TopController extends AppController{
   }
 
   function help2(){
+  }
+
+  function return_useragent_code(){
+    $isiPhone = (bool) strpos($_SERVER['HTTP_USER_AGENT'],'iPhone');
+    $isiPod = (bool) strpos($_SERVER['HTTP_USER_AGENT'],'iPod');
+    $isiPad = (bool) strpos($_SERVER['HTTP_USER_AGENT'],'iPad');
+    $isAndroid = (bool) strpos($_SERVER['HTTP_USER_AGENT'],'Android');
+    if($isiPad){return 1;}
+    else if($isiPod){return 1;}
+    else if($isiPhone){return 1;}
+    else if($isAndroid){return 2;}
+    else{return 2;}
   }
 
   function session_manage(){
