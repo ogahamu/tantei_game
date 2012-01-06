@@ -376,5 +376,33 @@ public $useTable = 'members';
     return $this->query($strSql);
   }
 
+  function select_average_point($member_id){
+    $strSql    = "select  \n";
+    $strSql   .= "sum(target.c1)/10 as average_point  \n";
+    $strSql   .= "from  \n";
+    $strSql   .= "(  \n";
+    $strSql   .= "select   \n";
+    $strSql   .= "result_rank,   \n";
+    $strSql   .= "  case result_rank  \n";
+    $strSql   .= "    when 'S' then 10  \n";
+    $strSql   .= "    when 'A' then 9  \n";
+    $strSql   .= "    when 'B' then 8  \n";
+    $strSql   .= "    when 'C' then 7  \n";
+    $strSql   .= "    when 'D' then 6  \n";
+    $strSql   .= "    when 'E' then 5  \n";
+    $strSql   .= "    when 'Z' then 0  \n";
+    $strSql   .= "    else 0  \n";
+    $strSql   .= "  end c1  \n";
+    $strSql   .= "from   \n";
+    $strSql   .= "member_requests  \n";
+    $strSql   .= "where  \n";
+    $strSql   .= "information_flag = 0 and  \n";
+    $strSql   .= "member_id = ".$member_id." and  \n";
+    $strSql   .= "result_rank is not null  \n";
+    $strSql   .= "order by id desc limit 10  \n";
+    $strSql   .= ")target;  \n";
+    return $this->query($strSql);
+  }
+
 }
 ?>

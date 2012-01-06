@@ -34,10 +34,10 @@ class TopController extends AppController{
     //各種メッセージの表示
     $message_txt = '';
     if($power<=50){
-      $message_txt .= '●バッテリーがなくなりました。<a href="/cake/product/power_charge/">充電する</a>か１５分程度待って下さい。<br>';
+      $message_txt .= '●体力がなくなりました。<a href="/cake/product/power_charge/">お酒を飲む</a>か１５分程待って下さい。<br>';
     }
     if($member_request_id ==0){
-      $message_txt .= '●開始できるミッションがありません。<a href="/cake/request/top/">メール</a>を読んで目的を決定して下さい。<br>';
+      $message_txt .= '●<a href="/cake/request/top/">メール</a>を読んでミッションを決定しましょう。<br>';
     }
     //読んでないリクエストの件数を表示
     $no_read_count = $this->MemberRequest->findCount(array("member_id"=>$member_id,"read_flag"=>0));
@@ -72,8 +72,12 @@ class TopController extends AppController{
     $treasure_count = $this->MemberTreasure->find('count', array('conditions' => array('member_id' => $member_id)));
     $ranking_data = $this->StructureSql->select_member_ranking_count($member_id);
     $all_member_count = $this->Member->findCount();
+    //アベレージ
+    $ave_data = $this->StructureSql->select_average_point($member_id);
+    $average_point = $ave_data[0][0]['average_point'];
     //view
     $this->set('srrdata',$srrdata);
+    $this->set('average_point',$average_point);
     $this->set('compleate_count',$compleate_count);
     $this->set('treasure_count',$treasure_count);
     $this->set('ranking_txt',$ranking_data[0][0]['count'].'/'.$all_member_count);

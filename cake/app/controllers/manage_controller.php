@@ -138,15 +138,29 @@ class ManageController extends AppController{
     $this->session_manage();
     //セッションから会員番号を取得
     $member_id = $this->session_data['id'];
-    $random = rand(1,3);
-    //$random = 1;
-    if($random == 2){
+    //セッションから相手の情報などを取り出す
+    $enemy_data = $this->Session->read('EnemyData');
+    $enemy_member_id = $enemy_data['MemberTreasure']['member_id'];
+    //セッションデータが消えていた場合は戻る
+    if(strlen($enemy_member_id)==0){
+      $this->redirect('/manage/top/');
+    }
+    $m_ave_data = $this->StructureSql->select_average_point($member_id);
+    $e_ave_data = $this->StructureSql->select_average_point($enemy_member_id);
+    $m_ave_point = $m_ave_data[0][0]['average_point'];
+    $e_ave_point = $e_ave_data[0][0]['average_point'];
+    if($m_ave_point>$e_ave_point){
+      $battle_code = 2;
+    }else{
+      $battle_code = 1;
+    }
+    //$battle_code = rand(1,3);
+    if($battle_code == 2){
       $this->redirect('/manage/win/');
     }else{
       $this->redirect('/manage/lose/');
     }
   }
-
 
   function win(){
     $this->session_manage();

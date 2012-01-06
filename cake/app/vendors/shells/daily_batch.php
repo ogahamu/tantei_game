@@ -69,8 +69,9 @@ class DailyBatchShell extends Shell {
     $series_data = $this->TreasureSerie->findById($series_id);
     $series_name = $series_data['TreasureSerie']['name'];
     //報酬を設定する
-    $reward_exp = ceil(38.7755102*$treasure_lv+61.224489)+$bank_lv*10;
-    $reward_price = ceil($reward_exp/4.5);
+    //$reward_exp = ceil(38.7755102*$treasure_lv+61.224489)+$bank_lv*10;
+    $reward_exp = ceil(200*$bank_lv+400);
+    $reward_price = ceil($reward_exp/7.5);
 
     //期限を決める
     $now_time = date("Y-m-d H:i:s");
@@ -83,7 +84,7 @@ class DailyBatchShell extends Shell {
     for($i=0;$i<$bank_lv;$i++){
       $star_txt.='★';
     }
-    $request_txt = '長年探していた「'.$treasure_name.'」の在処を発見したので連絡する。<br><br>場所:'.$bank_name.'の遺跡。<br>期限：'.$limit_hour.'時間後['.$limit_time.']<br>難易度:'.$star_txt.'(Lv'.$bank_lv.')<br>[開錠コード:'.$bank_max_spell.'桁/回数:'.$bank_max_count.']<br>報酬：＄'.$reward_price.'/'.$reward_exp.'Exp<br> By 情報屋のMr.jornson ';
+    $request_txt = '探していた「'.$treasure_name.'」の在処を発見したので連絡する。<br><br>場所:'.$bank_name.'。<br>期限：'.$limit_hour.'時間後['.$limit_time.']<br>難易度:'.$star_txt.'(Lv'.$bank_lv.')<br>[開錠コード:'.$bank_max_spell.'桁/回数:'.$bank_max_count.']<br>報酬：＄'.$reward_price.'/'.$reward_exp.'Exp<br> By 情報屋のMr.jornson ';
     //キーワードを生成
     $rand_number = $this->keyword_maker($bank_max_spell);
     $first_spell_id = $rand_number[0];

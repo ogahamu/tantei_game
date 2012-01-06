@@ -228,6 +228,7 @@ class BattleController extends AppController{
       'MemberRequest' => array(
         'id' => $member_request_id,
         'process_status' => 3,
+        'result_rank' => 'Z',
         'update_time' => date("Y-m-d H:i:s")
       )
     );
@@ -247,8 +248,8 @@ class BattleController extends AppController{
     $data = array(
       'MemberRequest' => array(
         'member_id' => $member_id,
-        'title' => '【失敗】ミッション失敗..発掘費用負担など＄'.$add_money.'',
-        'message_body' => '非常に残念だ。発掘費用負担など＄'.$add_money.'を支払った。<br>また次回頑張ってくれることを期待している。',
+        'title' => '【失敗】ミッション失敗..＄'.$add_money.'を失った。',
+        'message_body' => '非常に残念だ。＄'.$add_money.'を支払った。<br>また次回頑張ってくれることを期待している。',
         'bank_id' => 0,
         'all_distance' => 0,
         'process_status' => 9,
