@@ -42,6 +42,8 @@ class LoginController extends AppController{
           'mission_count' => 0,
           'success_count' => 0,
           'mistake_count' => 0,
+          'rob_success_count' => 0,
+          'rob_mistake_count' => 0,
           'insert_date' => date("Y-m-d H:i:s")
         )
       );

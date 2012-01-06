@@ -34,7 +34,7 @@ class TopController extends AppController{
     //各種メッセージの表示
     $message_txt = '';
     if($power<=50){
-      $message_txt .= '●体力がなくなりました。<a href="/cake/product/power_charge/">お酒を飲む</a>か１５分程待って下さい。<br>';
+      $message_txt .= '●体力がなくなりました。<a href="/cake/product/power_charge/">栄養ドリンクを飲む</a>か１５分程待って下さい。<br>';
     }
     if($member_request_id ==0){
       $message_txt .= '●<a href="/cake/request/top/">メール</a>を読んでミッションを決定しましょう。<br>';

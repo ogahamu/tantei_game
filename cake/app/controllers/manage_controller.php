@@ -147,29 +147,38 @@ class ManageController extends AppController{
     if(strlen($enemy_member_id)==0){
       $this->redirect('/manage/top/');
     }
-    //パワー増減
+    //パワー増減+実績の登録
     $mdata = $this->Member->findById($member_id);
-    $last_rob_date = $mdata['Member']['power'];
-    //power減らす
-    $power -= 50;
-    $data = array(
-      'Member' => array(
-        'id' => $member_id,
-        'power' => $power,
-        'update_time' => date("Y-m-d H:i:s")
-      )
-    );
-    $this->Member->save($data);
+    $power = $mdata['Member']['power'];
+    $rob_success_count = $mdata['Member']['rob_success_count'];
+    $rob_mistake_count = $mdata['Member']['rob_mistake_count'];
+    if(strlen($rob_success_count)==0){$rob_success_count=0;}
+    if(strlen($rob_mistake_count)==0){$rob_mistake_count=0;}
     $m_ave_data = $this->StructureSql->select_average_point($member_id);
     $e_ave_data = $this->StructureSql->select_average_point($enemy_member_id);
     $m_ave_point = $m_ave_data[0][0]['average_point'];
     $e_ave_point = $e_ave_data[0][0]['average_point'];
     if($m_ave_point>$e_ave_point){
       $battle_code = 2;
+      $rob_success_count +=1;
     }else{
       $battle_code = 1;
+      $rob_mistake_count +=1;
     }
     //$battle_code = rand(1,3);
+    //power減らす
+    $power -= 50;
+    $data = array(
+      'Member' => array(
+        'id' => $member_id,
+        'power' => $power,
+        'rob_success_count'=>$rob_success_count,
+        'rob_mistake_count'=>$rob_mistake_count,
+        'update_time' => date("Y-m-d H:i:s")
+      )
+    );
+    $this->Member->save($data);
+
     if($battle_code == 2){
       $this->redirect('/manage/win/');
     }else{

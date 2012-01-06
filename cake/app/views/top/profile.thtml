@@ -130,8 +130,21 @@ $(function(){
           <hr></td>
         </tr>
         <tr>
-          <td><span class="style1"></span></td>
-          <td><span class="style1"></span></td>
+          <td colspan="2">
+          <span class="style1">バトル
+          </span>          <hr></td>
+        </tr>
+        <tr>
+          <td class="style1">勝利</td>
+          <td><span class="style1"><?php echo $mdatas['rob_success_count'];?></span></td>
+        </tr>
+        <tr>
+          <td class="style1">敗北</td>
+          <td><span class="style1"><?php echo $mdatas['rob_mistake_count'];?></span></td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
         </tr>
       </table>
    <?php endforeach; ?>
