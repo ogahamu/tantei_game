@@ -475,7 +475,7 @@ class BattleController extends AppController{
     );
     $this->MemberRequest->save($data);
     //power減らす
-    $power -= 30;
+    $power -= 50;
     $data = array(
       'Member' => array(
         'id' => $member_id,

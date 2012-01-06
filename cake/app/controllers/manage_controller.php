@@ -103,6 +103,7 @@ class ManageController extends AppController{
     $enemy_member_id = $data['MemberTreasure']['member_id'];
     //最終奪取時間
     $mdata = $this->Member->findById($member_id);
+    $power = $mdata['Member']['power'];
     $last_rob_date = $mdata['Member']['last_rob_date'];
     $emdata = $this->Member->findById($enemy_member_id);
     $enemy_member_name = $emdata['Member']['name'];
@@ -116,6 +117,7 @@ class ManageController extends AppController{
     $this->Session->write('EnemyData',$data);
     $this->set('treasure_id',$treasure_id);
     $this->set('treasure_name',$treasure_name);
+    $this->set('power',$power);
     $this->set('enemy_member_name',$enemy_member_name);
     $this->set('enemy_thumnail_url',$enemy_thumnail_url);
   }
@@ -145,6 +147,19 @@ class ManageController extends AppController{
     if(strlen($enemy_member_id)==0){
       $this->redirect('/manage/top/');
     }
+    //パワー増減
+    $mdata = $this->Member->findById($member_id);
+    $last_rob_date = $mdata['Member']['power'];
+    //power減らす
+    $power -= 50;
+    $data = array(
+      'Member' => array(
+        'id' => $member_id,
+        'power' => $power,
+        'update_time' => date("Y-m-d H:i:s")
+      )
+    );
+    $this->Member->save($data);
     $m_ave_data = $this->StructureSql->select_average_point($member_id);
     $e_ave_data = $this->StructureSql->select_average_point($enemy_member_id);
     $m_ave_point = $m_ave_data[0][0]['average_point'];
