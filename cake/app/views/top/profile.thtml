@@ -89,8 +89,8 @@ $(function(){
         </tr>
         <tr>
           <td><span class="style1">成功率</span></td>
-          <td><span class="style1"><?php echo ceil($mdatas['success_count']/$mdatas['mission_count']*100);?>%</span>
-          <hr></td>
+          <td><span class="style1"><?php echo ceil($mdatas['success_count']/$mdatas['mission_count']*100);?>%</span> (<?php echo ceil($average_point);?>)
+            <hr></td>
         </tr>
         <tr>
           <td><span class="style1">成功数</span></td>

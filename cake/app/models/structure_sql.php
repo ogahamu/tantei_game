@@ -378,7 +378,7 @@ public $useTable = 'members';
 
   function select_average_point($member_id){
     $strSql    = "select  \n";
-    $strSql   .= "sum(target.c1)/10 as average_point  \n";
+    $strSql   .= "ifnull(sum(target.c1)/10,0) as average_point  \n";
     $strSql   .= "from  \n";
     $strSql   .= "(  \n";
     $strSql   .= "select   \n";
