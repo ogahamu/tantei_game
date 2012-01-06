@@ -124,6 +124,14 @@ class ManageController extends AppController{
     $this->session_manage();
     //セッションから会員番号を取得
     $member_id = $this->session_data['id'];
+    $useragent_code = $this->return_useragent_code();
+    if($useragent_code=='1'){
+      //ios
+      $this->render($layout='battle_execute_svg',$file='default');
+    }else{
+      //android,それ以外
+      $this->render($layout='battle_execute_flash',$file='default');
+    }
   }
 
   function battle_start(){
@@ -179,7 +187,7 @@ class ManageController extends AppController{
     $data = array(
       'MemberRequest' => array(
         'member_id' => $member_id,
-        'title' => '【奪取成功】'.$treasure_name.'を'.$enemy_member_name.'から奪った。',
+        'title' => '【バトル-成功-】'.$treasure_name.'を'.$enemy_member_name.'から奪った。',
         'message_body' => 'おめでとう、遂に'.$treasure_name.'を手にいれることができたな。<br>まだこのシリーズの宝が残っているから、コンプリート目指していこう。<br>引き続き情報を提供する。本当におめでとう！',
         'bank_id' => 0,
         'all_distance' => 0,
@@ -207,7 +215,7 @@ class ManageController extends AppController{
     $data = array(
       'MemberRequest' => array(
         'member_id' => $enemy_member_id,
-        'title' => '【奪取された】'.$treasure_name.'を'.$enemy_member_name.'から奪われた。',
+        'title' => '【バトル-奪われた-】'.$treasure_name.'を'.$enemy_member_name.'から奪われた。',
         'message_body' => '残念だ、'.$treasure_name.'を'.$enemy_member_name.'から奪われてしまった。<br>まだ相手がコンプリートしていない場合は奪い返せ！',
         'bank_id' => 0,
         'all_distance' => 0,
@@ -267,8 +275,8 @@ class ManageController extends AppController{
     $data = array(
       'MemberRequest' => array(
         'member_id' => $member_id,
-        'title' => '【奪取失敗】'.$treasure_name.'を'.$enemy_member_name.'から奪うつもりだったが失敗した。',
-        'message_body' => '残念だ、'.$treasure_name.'を'.$enemy_member_name.'から奪うつもりだったが失敗した。<br>一定時間「奪取」はできなくなった。',
+        'title' => '【バトル-失敗-】'.$enemy_member_name.'にバトルを仕掛けて'.$treasure_name.'を奪うつもりだったが失敗した。',
+        'message_body' => '残念だ、'.$enemy_member_name.'にバトルを仕掛けて'.$treasure_name.'を奪うつもりだったが失敗した。<br>',
         'bank_id' => 0,
         'all_distance' => 0,
         'process_status' => 9,
@@ -293,8 +301,8 @@ class ManageController extends AppController{
     $data = array(
       'MemberRequest' => array(
         'member_id' => $enemy_member_id,
-        'title' => '【警告】'.$treasure_name.'を'.$enemy_member_name.'から狙われている。',
-        'message_body' => '警告、'.$treasure_name.'を'.$enemy_member_name.'から狙われている。<br>注意せよ！',
+        'title' => '【バトル-防御した-】'.$treasure_name.'を'.$enemy_member_name.'から狙われたが防御に成功した。',
+        'message_body' => '注意！、'.$treasure_name.'を'.$enemy_member_name.'から狙われたが防御に成功した。',
         'bank_id' => 0,
         'all_distance' => 0,
         'process_status' => 9,
