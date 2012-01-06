@@ -11,7 +11,7 @@
     <td bgcolor="#999999"><span class="style12"><a href="/cake/manage/series/">一覧に戻る</a></span></td>
   </tr>
   <tr>
-    <td bgcolor="#999999"><?php if($comp_flag==1){ ?><img src="/8e7b50fb-s.jpg" width="320" height="53"><?php } ?></td>
+    <td bgcolor="#999999"><?php if($comp_flag==1){ ?><img src="/jpg/compleate.png" width="320" height="53"><?php } ?></td>
   </tr>
   <tr>
     <td><table width="320" border="0">

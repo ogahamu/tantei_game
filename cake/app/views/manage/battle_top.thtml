@@ -9,11 +9,12 @@
 <form name="form1" method="post" action="/cake/manage/battle_execute/">
 <table width="320" border="0" bgcolor="#000000">
   <tr>
-    <td height="17"><table class="treasure" border="0">
+    <td height="17"><div align="center"><table class="treasure" border="0">
               <tr>
                 <td><img src="/jpg/collection/<?php echo $treasure_id;?>.png" width="120"> </td>
               </tr>
-            </table></td>
+            </table>
+      </div></td>
   </tr>
   <tr>
     <td height="82"><img src="<?php echo $enemy_thumnail_url;?>" width="63" height="64"><span class="style1"><br>
@@ -21,8 +22,9 @@
   </tr>
   <tr>
     <td height="15">
-      <input type="submit" name="Submit" value="強奪する">
-    </td>
+      <div align="center">
+        <input type="submit" name="Submit" value="強奪する">
+      </div></td>
   </tr>
   <tr>
     <td height="165">&nbsp;</td>
