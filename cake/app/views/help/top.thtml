@@ -1,10 +1,23 @@
-<table width="320" height="439" border="0">
+<style type="text/css">
+<!--
+.style1 {
+  color: #FFFFFF;
+  font-size: 14px;
+}
+-->
+</style>
+<table width="320" height="415" border="0" bgcolor="#000000">
   <tr>
-    <td height="15"><img src="/jpg/help/help0.png" width="320" height="200"></td>
+    <td height="15">&nbsp;</td>
   </tr>
   <tr>
-    <td height="90"><p>aaa</p>
-      <p></p></td>
+    <td height="66"><p class="style1"><img src="/jpg/help/help0.png" width="320" height="200"><br>
+        「暗号解読器」
+      の使い方をまず覚えよう。</p>
+      <p class="style1">３桁の数字暗号を解くにあたって、</p>
+      <p class="style1">この機械は最小限のヒントを与えてくれるだろう。
+      </p>
+      </td>
   </tr>
   <tr>
     <td height="15"><div align="center"><a href="/cake/help/page1/"><img src="/jpg/next_bottan.png" width="120" border="0"></a></div></td>

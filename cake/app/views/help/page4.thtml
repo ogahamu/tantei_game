@@ -1,12 +1,20 @@
-<table width="320" height="439" border="0">
+<style type="text/css">
+<!--
+.style1 {
+  color: #FFFFFF;
+  font-size: 14px;
+}
+-->
+</style>
+<table width="320" height="439" border="0" bgcolor="#000000">
   <tr>
     <td height="15"><img src="/jpg/help/help4.png" width="320" height="200"></td>
   </tr>
   <tr>
-    <td height="90"><p>正解が456だったとして、564と入力してみよう。</p>
-      <p>場所も数字も合致しているものはないので0Critical</p>
-      <p>３つの数字[5,6,4]自体は合っていて、場所が違うので、3Hitと表示される</p>
-    <p></p></td>
+    <td height="90"><p class="style1">正解が456だったとして、「564」と入力してみよう。</p>
+      <p class="style1">場所も数字も合致しているものはないので0Criticalと表示される。</p>
+      <p class="style1">３つの数字[5,6,4]自体は合っていて、場所が違うので、3Hitと表示される。</p>
+      </td>
   </tr>
   <tr>
     <td height="15"><div align="center"><a href="/cake/help/page5/"><img src="/jpg/next_bottan.png" width="120" border="0"></a></div></td>

@@ -1,11 +1,19 @@
-<table width="320" height="439" border="0">
+<style type="text/css">
+<!--
+.style1 {
+  color: #FFFFFF;
+  font-size: 14px;
+}
+-->
+</style>
+<table width="320" height="415" border="0" bgcolor="#000000">
   <tr>
     <td height="15"><img src="/jpg/help/help2.png" width="320" height="200"></td>
   </tr>
   <tr>
-    <td height="90"><p>例えば正解が456という数字だったとしよう。<br>
-      入力欄に456と入力してみよう。</p>
-      <p>そう、これで正解だ！<br>
+    <td height="66"><p class="style1">例えば正解が456という数字だったとしよう。<br>
+      入力欄に「456」と入力してみよう。</p>
+      <p><span class="style1">そう、これで正解だ！</span><br>
     </p></td>
   </tr>
   <tr>

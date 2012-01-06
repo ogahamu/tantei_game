@@ -1,15 +1,22 @@
-<table width="320" height="362" border="0">
+<style type="text/css">
+<!--
+.style1 {
+  color: #FFFFFF;
+  font-size: 14px;
+}
+-->
+</style>
+<table width="320" height="362" border="0" bgcolor="#000000">
   <tr>
     <td height="15"><img src="/jpg/help/help1.png" width="320" height="200"></td>
   </tr>
   <tr>
-    <td height="137"><p>暗号の解読は、      <br>
+    <td height="137"><p class="style1">暗号の解読は、      <br>
       3桁の数字と場所を正解に合致させることが目的である。<br>
       <br>
       ただし、数字は１回ずつ使うとして、重複はしない。<br>
-      <br>
     少し例題を見てみよう。</p>
-      </td>
+    </td>
   </tr>
   <tr>
     <td height="15"><div align="center"><a href="/cake/help/page2/"><img src="/jpg/next_bottan.png" width="120" border="0"></a></div></td>

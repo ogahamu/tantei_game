@@ -1,16 +1,24 @@
-<table width="320" height="439" border="0">
+<style type="text/css">
+<!--
+.style1 {
+  color: #FFFFFF;
+  font-size: 14px;
+}
+-->
+</style>
+<table width="320" height="439" border="0" bgcolor="#000000">
   <tr>
     <td height="15"><img src="/jpg/help/help6.png" width="320" height="200"></td>
   </tr>
   <tr>
-    <td height="90"><p>すこしは分ったかな？ 後は実践あるのみ。</p>
-      <p>お宝の情報はメールで届けられるので、</p>
-      <p>メールを定期的にチェックしよう。</p>
-      <p>メールにはそれぞれ解答期限があるので要注意だ。</p>
+    <td height="90"><p class="style1">これらのヒントを使って、
+      正解の数字３桁を導きだそう。</p>
+      <p class="style1">お宝の情報はメールで届けられるので、メールを定期的にチェックしておこう。</p>
+      <p class="style1">それではメールをチェックしてさっそくミッション開始だ！</p>
     <p></p></td>
   </tr>
   <tr>
-    <td height="15"><div align="center"><a href="/cake/help/page7/"><img src="/jpg/next_bottan.png" width="120" border="0"></a></div></td>
+    <td height="15"><div align="center"><a href="/cake/request/top/"><img src="/jpg/next_bottan.png" width="120" border="0"></a></div></td>
   </tr>
   <tr>
     <td height="15">&nbsp;</td>
