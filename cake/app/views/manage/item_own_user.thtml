@@ -13,7 +13,7 @@
 <table width="320" border="0" class="treasure">
   <tr>
     <td height="47"><span class="style1">アイテムを所持しているユーザー一覧。<br>
-    下記ユーザーからは奪取可能です。</span></td>
+    バトルをすることでお宝を奪うことができます。</span></td>
   </tr>
 </table><br>
 <table width="310" height="127" border="0" cellpadding="0" cellspacing="0" bgcolor="#000000">
@@ -26,7 +26,7 @@
       <?php foreach($data as $datas): ?>
       <tr bgcolor="#CCCCCC">
         <td height="33" bgcolor="#000000"><img src="<?php echo $datas['members']['thumnail_url'] ?>" width="48" height="55"><span class="style1"><?php echo $datas['members']['name'] ?>さん</span></td>
-        <td bgcolor="#000000"><a href="/cake/manage/battle_top/<?php echo $datas['member_treasures']['id'] ?>">強奪する</a></td>
+        <td bgcolor="#000000"><a href="/cake/manage/battle_top/<?php echo $datas['member_treasures']['id'] ?>">バトル開始</a></td>
       </tr>
       <tr>
         <td colspan="4"><hr></td>

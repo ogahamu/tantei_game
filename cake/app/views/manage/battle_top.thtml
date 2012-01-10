@@ -22,9 +22,16 @@
   </tr>
   <tr>
     <td height="15">
+    <?php if($power>=200){ ?>
       <div align="center">
         <input type="submit" name="Submit" value="強奪する">
-      </div></td>
+      </div>
+    <?php }else{ ?>
+      <div align="center">
+                パワーが足りない為、バトル開始できません。
+      </div>
+    <?php } ?>
+      </td>
   </tr>
   <tr>
     <td height="165">&nbsp;</td>

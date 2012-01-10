@@ -3,8 +3,93 @@ class StructureSql extends AppModel
 {
 public $useTable = 'members';
 
+  function select_member_quest_details_by_quest_id($quest_id){
+    $strSql   = "select * from member_quest_details where quest_id = ".$quest_id."  \n";
+    return $this->query($strSql);
+  }
+
+  function select_evidence_by_rand($quest_id){
+    $strSql   = "select * from evidences where quest_id = ".$quest_id." order by rand() limit 1 \n";
+    return $this->query($strSql);
+  }
+
+  function select_quest_max_order_no($quest_id){
+    $strSql   = "select max(order_no) as max_order_no from quest_details where quest_id = ".$quest_id." \n";
+    return $this->query($strSql);
+  }
+
+  function select_member_quest_details($member_id,$order_no){
+    $strSql   = "select  \n";
+    $strSql  .= "*  \n";
+    $strSql  .= "from  \n";
+    $strSql  .= "member_quest_details,quest_details  \n";
+    $strSql  .= "where  \n";
+    $strSql  .= "member_quest_details.quest_detail_id = quest_details.id  \n";
+    $strSql  .= "and member_quest_details.member_id = ".$member_id."  \n";
+    $strSql  .= "and quest_details.order_no = ".$order_no."  \n";
+    return $this->query($strSql);
+  }
+
+  function select_member_quests_list($member_id){
+    $strSql   = "select  \n";
+    $strSql  .= "*  \n";
+    $strSql  .= "from  \n";
+    $strSql  .= "quests,member_quests  \n";
+    $strSql  .= "where  \n";
+    $strSql  .= "quests.id = member_quests.quest_id  \n";
+    $strSql  .= "and member_quests.member_id = ".$member_id."  \n";
+    return $this->query($strSql);
+  }
+
+  function select_member_quest_list($quest_id,$member_id){
+    $strSql   = "select \n";
+    $strSql  .= "* \n";
+    $strSql  .= "from \n";
+    $strSql  .= "quests, \n";
+    $strSql  .= "quest_details, \n";
+    $strSql  .= "member_quests, \n";
+    $strSql  .= "member_quest_details \n";
+    $strSql  .= "where \n";
+    $strSql  .= "quests.id = quest_details.quest_id \n";
+    $strSql  .= "and quests.id = member_quests.quest_id \n";
+    $strSql  .= "and quest_details.id = member_quest_details.quest_detail_id \n";
+    $strSql  .= "and member_quests.id = member_quest_details.member_quest_id \n";
+    $strSql  .= "and quests.id = ".$quest_id." \n";
+    $strSql  .= "and member_quests.member_id = ".$member_id." \n";
+    return $this->query($strSql);
+  }
+
+  function select_member_detail($member_quest_detail_id){
+    $strSql   = "select \n";
+    $strSql  .= "* \n";
+    $strSql  .= "from \n";
+    $strSql  .= "quests, \n";
+    $strSql  .= "quest_details, \n";
+    $strSql  .= "member_quests, \n";
+    $strSql  .= "member_quest_details \n";
+    $strSql  .= "where \n";
+    $strSql  .= "quests.id = quest_details.quest_id \n";
+    $strSql  .= "and quests.id = member_quests.quest_id \n";
+    $strSql  .= "and quest_details.id = member_quest_details.quest_detail_id \n";
+    $strSql  .= "and member_quests.id = member_quest_details.member_quest_id \n";
+    $strSql  .= "and member_quest_details.id = ".$member_quest_detail_id." \n";
+    return $this->query($strSql);
+  }
+
   function select_map_banks($limit_count){
     $strSql = "select * from banks order by id limit ".$limit_count."  \n";
+    return $this->query($strSql);
+  }
+
+  function select_own_evidence_count($member_id,$quest_id){
+    $strSql   = "select  \n";
+    $strSql  .= "count(*) as count  \n";
+    $strSql  .= "from  \n";
+    $strSql  .= "member_evidences  \n";
+    $strSql  .= "where  \n";
+    $strSql  .= "quest_id = ".$quest_id." and  \n";
+    $strSql  .= "member_id = ".$member_id."  \n";
+    $strSql  .= "group by quest_id  \n";
     return $this->query($strSql);
   }
 
@@ -202,6 +287,17 @@ public $useTable = 'members';
     return $this->query($strSql);
   }
 
+  function select_own_evidence_list($member_id){
+    $strSql   = "select  \n";
+    $strSql  .= "evidences.id,ifnull(member_evidences.id,'0') as evidence_id,ifnull(member_evidences.treasure_name,'秘') as treasure_name  \n";
+    $strSql  .= "from  \n";
+    $strSql  .= "evidences  \n";
+    $strSql  .= "left join member_evidences on evidences.id = member_evidences.evidence_id  \n";
+    $strSql  .= "and member_evidences.member_id = ".$member_id." \n";
+    return $this->query($strSql);
+  }
+
+
   function select_own_treasure_list($member_id){
     $strSql   = "select  \n";
     $strSql  .= "treasures.id,ifnull(member_treasures.id,'0') as treasure_id,ifnull(member_treasures.treasure_name,'秘') as treasure_name  \n";
@@ -209,6 +305,28 @@ public $useTable = 'members';
     $strSql  .= "treasures  \n";
     $strSql  .= "left join member_treasures on treasures.id = member_treasures.treasure_id  \n";
     $strSql  .= "and member_treasures.member_id = ".$member_id." \n";
+    return $this->query($strSql);
+  }
+
+  function select_own_quest_list($member_id){
+    $strSql   = "select    \n";
+    $strSql  .= "quest_id,quests.quest_name,count(*) as count,1    \n";
+    $strSql  .= "from    \n";
+    $strSql  .= "(    \n";
+    $strSql  .= "select    \n";
+    $strSql  .= "evidence_id,quest_id,max(insert_time) as insert_time   \n";
+    $strSql  .= "from    \n";
+    $strSql  .= "member_evidences    \n";
+    $strSql  .= "where    \n";
+    $strSql  .= "member_id = ".$member_id."  \n";
+    $strSql  .= "group by evidence_id,quest_id    \n";
+    $strSql  .= ") target,    \n";
+    $strSql  .= "quests    \n";
+    $strSql  .= "where    \n";
+    $strSql  .= "target.quest_id = quests.id    \n";
+    $strSql  .= "group by     \n";
+    $strSql  .= "target.quest_id  \n";
+    $strSql  .= "order by target.quest_id desc  \n";
     return $this->query($strSql);
   }
 
@@ -253,6 +371,21 @@ public $useTable = 'members';
     $strSql  .= "group by     \n";
     $strSql  .= "target.series_id  \n";
     $strSql  .= "order by target.insert_time desc  \n";
+    return $this->query($strSql);
+  }
+
+
+  function select_own_evidence_detail($member_id,$quest_id){
+    $strSql   = "select  \n";
+    $strSql  .= "evidences.id,ifnull(member_evidences.evidence_id,'0') as evidence_id,ifnull(evidences.name,'秘') as evidence_name  \n";
+    $strSql  .= "from  \n";
+    $strSql  .= "evidences  \n";
+    $strSql  .= "left join member_evidences on evidences.id = member_evidences.evidence_id  \n";
+    $strSql  .= "and member_evidences.member_id = ".$member_id." and member_evidences.quest_id = ".$quest_id."\n";
+    $strSql  .= "where  \n";
+    $strSql  .= "evidences.quest_id = ".$quest_id." \n";
+    $strSql  .= "group by  \n";
+    $strSql  .= "id,evidence_id,treasure_name \n";
     return $this->query($strSql);
   }
 

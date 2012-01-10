@@ -15,9 +15,9 @@
   </tr>
   <tr>
    <td><a href="/cake/top/top/"><img name="header_img_r2_c1" src="header_img_r2_c1.gif" width="80" height="25" border="0" alt=""></a></td>
-   <td><a href="/cake/battle/top/"><img name="header_img_r2_c2" src="header_img_r2_c2.gif" width="80" height="25" border="0" alt=""></a></td>
-   <td><a href="/cake/request/top/"><img name="header_img_r2_c3" src="header_img_r2_c3.gif" width="79" height="25" border="0" alt=""></a></td>
-   <td><a href="/cake/product/top/"><img name="header_img_r2_c4" src="header_img_r2_c4.gif" width="81" height="25" border="0" alt=""></a></td>
+   <td><a href="/cake/quest/top/"><img name="header_img_r2_c2" src="header_img_r2_c2.gif" width="80" height="25" border="0" alt=""></a></td>
+   <td><a href="/cake/evidence/top/"><img name="header_img_r2_c3" src="header_img_r2_c3.gif" width="79" height="25" border="0" alt=""></a></td>
+   <td><a href="/cake/item/top/"><img name="header_img_r2_c4" src="header_img_r2_c4.gif" width="81" height="25" border="0" alt=""></a></td>
    <td><img src="spacer.gif" width="1" height="25" border="0" alt=""></td>
   </tr>
 </table>

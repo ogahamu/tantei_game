@@ -6,7 +6,7 @@ var $default = array('driver' => 'mysql',
                      'host' => '49.212.2.106',
                      'login' => 'ogata_c1',
                      'password' => 'ogtfu2ec',
-                     'database' => 'kyozou',
+                     'database' => 'tantei',
                      'prefix' => ''
                      );
 

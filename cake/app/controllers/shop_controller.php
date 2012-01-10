@@ -24,9 +24,6 @@ class ShopController extends AppController{
     $item_id = $this->params['data']['submit'];
     $this->Session->write('ItemId',$item_id);
     $data = $this->Item->findById($item_id);
-
-    var_dump($data);
-
     $this->set('item_id',$item_id);
     $this->set('data',$data);
 

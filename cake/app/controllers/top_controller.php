@@ -3,7 +3,7 @@
 
 class TopController extends AppController{
 
-  var $uses = array('MemberTreasure','StructureSql','Member','Item','MemberItem','MemberRequest','MemberSpell','Request','Spell');
+  var $uses = array('StructureSql','Member','Message');
   var $session_data;
 
   function top(){
@@ -29,18 +29,14 @@ class TopController extends AppController{
     $ranking_data = $this->StructureSql->select_member_ranking_count($member_id);
     $all_member_count = $this->Member->findCount();
     $max_power = $mdata['Member']['power'];
-    $member_request_id = $mdata['Member']['member_request_id'];
     $gage_power = ceil($power/$max_power*100);
     //各種メッセージの表示
     $message_txt = '';
     if($power<=50){
       $message_txt .= '●体力がなくなりました。<a href="/cake/product/power_charge/">栄養ドリンクを飲む</a>か１５分程待って下さい。<br>';
     }
-    if($member_request_id ==0){
-      $message_txt .= '●<a href="/cake/request/top/">メール</a>を読んでミッションを決定しましょう。<br>';
-    }
     //読んでないリクエストの件数を表示
-    $no_read_count = $this->MemberRequest->findCount(array("member_id"=>$member_id,"read_flag"=>0));
+    $no_read_count = $this->Message->findCount(array("member_id"=>$member_id,"read_flag"=>0));
     if($no_read_count>0){
       $message_txt .= '<a href="/cake/request/top/">●'.$no_read_count.'件の未読メールがあります。</a><br>';
     }
@@ -144,6 +140,8 @@ class TopController extends AppController{
   }
 
   function session_manage(){
+    $data['id']=1;
+    $this->Session->write("member_info",$data);
     $session_data = $this->Session->read("member_info");
     $this->session_data = $session_data;
     if(strlen($session_data['id'])==0){

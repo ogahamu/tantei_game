@@ -1,4 +1,44 @@
+delete from members;
+delete from member_quests;
+delete from member_quest_details;
+insert into members (mixi_account_id,name,power,max_power,member_request_id)values(1,'TestUser',1000,1000,0);
+insert into member_quests
+(id,quest_id,resoluved_flag,member_id,challenge_count)values(100,1,0,1,4);
+insert into member_quest_details
+(distance,resoluved_flag,quest_id,quest_detail_id,member_quest_id,member_id,quest_detail_no,last_quest_detail_flag
+)values(
+0,0,1,1,100,1,1,0);
+select * from member_quest_details\G;
 
+create table evidences(
+id int NOT NULL auto_increment,
+name varchar(250),
+img_id varchar(250),
+quest_id int,
+quest_detail_id int,
+PRIMARY KEY (`id`)
+)TYPE=InnoDB AUTO_INCREMENT=1;
+
+
+create table member_evidences(
+id int NOT NULL auto_increment,
+evidence_id int,
+member_id varchar(250),
+PRIMARY KEY (`id`)
+)TYPE=InnoDB AUTO_INCREMENT=1;
+
+
+
+create table messages(
+id int NOT NULL auto_increment,
+member_id int,
+title varchar(250),
+comment varchar(250),
+genre_id int default 0 ,
+read_flag int default 0 ,
+insert_time datetime,
+PRIMARY KEY (`id`)
+)TYPE=InnoDB AUTO_INCREMENT=1;
 
 
 

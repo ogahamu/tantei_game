@@ -51,8 +51,6 @@ class LoginController extends AppController{
       $member_id = $this->Member->getLastInsertID();
       //最初の依頼を生成その１
       $this->insert_request($member_id);
-      //最初の依頼を生成その２
-      $this->insert_request($member_id);
       self::login_f_mixi();
     }else{
       if(strlen($mixi_name)>0){
@@ -135,90 +133,29 @@ class LoginController extends AppController{
   }
 
   function insert_request($member_id){
-    //自分のlv以下のbankを選択
     $member_data = $this->Member->findById($member_id);
-    $lv = $member_data['Member']['lv'];
-    if (empty($lv)){
-      $lv = 1;
-    }
-    $bank_data = $this->StructureSql->select_rand_banks(1);
-    $bank_id = $bank_data[0]['banks']['id'];
-    $bank_name = $bank_data[0]['banks']['name'];
-    $bank_lv = $bank_data[0]['banks']['lv'];
-    $bank_country = $bank_data[0]['banks']['country_name'];
-    $bank_max_spell = $bank_data[0]['banks']['max_spell'];
-    $bank_max_count = $bank_data[0]['banks']['max_count'];
-    //自分が選択した地図のマップIDからアイテムをランダムで選択する
-    $treasure_data = $this->StructureSql->select_rand_treasures_by_map_id(1);
-    $treasure_id = $treasure_data[0]['treasures']['id'];
-    $treasure_name = $treasure_data[0]['treasures']['name'];
-    $treasure_lv = $treasure_data[0]['treasures']['lv'];
-    $series_id = $treasure_data[0]['treasures']['series_id'];
-    //シリーズを取得
-    $series_data = $this->TreasureSerie->findById($series_id);
-    $series_name = $series_data['TreasureSerie']['name'];
-    //報酬を設定する
-    $reward_price = (($bank_lv * 8)+($treasure_lv*100));
-    //期限を決める
-    $now_time = date("Y-m-d H:i:s");
-    $limit_hour = rand(1,20);
-    $limit_second = $limit_hour * 3600;
-    $limit_time = date("Y-m-d H:i:s", strtotime($now_time." +$limit_second sec"));
-    //メール内容を生成
-    $request_title = '【所在情報】'.$treasure_name.'['.$series_name.']の在処がわかった..';
-    $star_txt = '';
-    for($i=0;$i<$bank_lv;$i++){
-      $star_txt.='★';
-    }
-    $request_txt = '長年探していた「'.$treasure_name.'」の在処を発見したので連絡する。<br><br>場所:'.$bank_name.'の遺跡。<br>期限：'.$limit_hour.'時間後['.$limit_time.']<br>難易度:'.$star_txt.'(Lv'.$bank_lv.')<br>[開錠コード:'.$bank_max_spell.'桁/回数:'.$bank_max_count.']<br>報酬：＄'.$reward_price.'/'.$reward_exp.'Exp<br> By 情報屋のMr.jornson ';
-    //キーワードを生成
-    $rand_number = $this->keyword_maker($bank_max_spell);
-    $first_spell_id = $rand_number[0];
-    $second_spell_id = $rand_number[1];
-    $third_spell_id = $rand_number[2];
+    $q_data = $this->Quest->findById(1);
     $data = array(
-      'MemberRequest' => array(
-        'member_id' => $member_id,
-        'title' => $request_title,
-        'message_body' => $request_txt,
-        'bank_id' => $bank_id,
-        'all_distance' => 100,
-        'process_status' => 0,
-        'read_flag' => 0,
-        'challenge_count' => 0,
-        'max_challenge_count' => $bank_max_count,
-        'max_spell' => $bank_max_spell,
-        'first_spell_id' => $first_spell_id,
-        'second_spell_id' => $second_spell_id,
-        'third_spell_id' => $third_spell_id,
-        'treasure_id' => $treasure_id,
-        'treasure_name' => $treasure_name,
+      'MemberQuest' => array(
+        'quest_id' => 1,
+        'resoluved_flag' => 0,
         'insert_time' => date("Y-m-d H:i:s"),
-        'update_time' => date("Y-m-d H:i:s"),
-        'information_flag' => 0,
-        'limit_time' => "$limit_time",
-        'limit_hour' => $limit_hour,
-        'number_suggest_flag' => 0,
-        'reward_price' => $reward_price
-      )
+        'member_id' => $member_id,
+        'challenge_count' => 4
+       )
     );
-    $this->MemberRequest->save($data);
+    $this->MemberQuest->save($data);
+    $member_quest_id = $this->MemberQuest->getLastInsertID();
+    $data = array(
+      'MemberQuestDetail' => array(
+        'distance' => 0,
+        'resoluved_flag' => 0,
+        'quest_id' => 1,//(1-1から)
+        'quest_detail_id' => 1,//(1-1から)
+        'member_quest_id' => $member_quest_id,
+        'insert_time' => date("Y-m-d H:i:s")
+       )
+    );
+    $this->MemberQuestDetail->save($data);
   }
-
-  function keyword_maker($max_spell){
-    $rand_number = array();
-    for ($i=0; $i<$max_spell; $i++) $nums[$i] = $i+1;
-      for ($i=0; $i<$max_spell; $i++) {
-        $j = mt_rand(0,$max_spell-1);
-        $tmp = $nums[$j];
-        $nums[$j] = $nums[$i];
-        $nums[$i] = $tmp;
-      }
-      for ($i=0; $i<3; $i++) {
-        $num = $nums[$i];
-        $rand_number[$i] = $num-1;
-      }
-    return $rand_number;
-  }
-
 }

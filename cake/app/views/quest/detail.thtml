@@ -1,0 +1,46 @@
+
+<table width="310" height="127" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td width="310"><table width="310" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <th height="8">&nbsp;</th>
+        </tr>
+      <tr>
+        <th height="9"></th>
+      </tr>
+      <tr>
+        <th height="17">&nbsp;</th>
+      </tr>
+      <?php foreach($data as $datas): ?>
+      <tr>
+        <td><span class="style4"><?php echo $datas['quests']['quest_title'] ?></span></td>
+        </tr>
+      <tr>
+        <td><table width="320" border="1">
+          <tr>
+            <td><span class="style4"><?php echo $datas['quests']['quest_comment'] ?></span></td>
+          </tr>
+        </table></td>
+        </tr>
+      <tr>
+        <td>|=============================|<?php echo $datas['member_quest_details']['distance'] ?>/<?php echo $datas['quest_details']['all_distance'] ?></td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td><a href="/cake/quest/exe_quest/<?php echo $datas['member_quest_details']['id'];?>"><img src="/help1.png" width="320" height="43"></a></td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td><hr></td>
+        </tr>
+      <?php endforeach; ?>
+    </table></td>
+  </tr>
+</table>
+
+
+
