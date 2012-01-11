@@ -6,7 +6,6 @@ class ConfrontController extends AppController{
   var $session_data;
   var $components = array('Pager');
 
-
   function top(){
     $this->session_manage();
     //セッションから会員番号を取得
@@ -46,8 +45,18 @@ class ConfrontController extends AppController{
     //自身の攻撃力>相手の防御力
     if($own_attack_power>$enemy_defence_power){
       //勝ち
+      $this->set('result_code',1);
     }else{
       //負け
+      $this->set('result_code',2);
+    }
+  }
+
+  function rob_exe($result_code){
+    if($result_code==1){
+      $this->set('jump_url','/cake/confront/rob_success/'.$member_evidence_id);
+    }else{
+      $this->set('jump_url','/cake/confront/rob_fail/'.$member_evidence_id);
     }
   }
 
@@ -113,18 +122,21 @@ class ConfrontController extends AppController{
     $this->session_manage();
     //セッションから会員番号を取得
     $member_id = $this->session_data['id'];
+    //自分情報
     $own_data = $this->Member->findById($member_id);
     $own_name = $own_data['Member']['name'];
+    $own_money = $own_data['Member']['money'];
+    $mislead_count = $own_data['Member']['mislead_count'];
     $today_mislead_count = $own_data['Member']['today_mislead_count'];
     $today_mislead_count+=1;
-
-
+    $mislead_count+=1;
+    //敵の情報
     $me_data = $this->MemeberEvidence->findById($member_evidence_id);
     $enemy_id = $me_data['MemeberEvidence']['member_id'];
     $enemy_data = $this->Member->findById($enemy_id);
     $enemy_name = $enemy_data['Member']['name'];
     //失敗する
-    $title = $own_name.'が疑いをかけた'.$enemy_name.'は無実だった。';
+    $title = $own_name.'が疑いをかけたが'.$enemy_name.'は無実だった。';
     $comment = $enemy_name.'に対する疑いが深まった...';
     //それぞれにメッセージを入れる
     $msdata = array(
@@ -144,20 +156,39 @@ class ConfrontController extends AppController{
         'member_id' => $member_id,
         'title' => $title,
         'comment' => '',
-        'genre_id' => $member_quest_id,
+        'genre_id' => 1,
         'read_flag' => 0,
         'insert_time' => date("Y-m-d H:i:s")
        )
     );
     $this->Message->create();
     $this->Message->save($msdata);
-
     //３回超えた
     if($today_mislead_count>=3){
-
-
-
+      $msdata = array(
+        'Message' => array(
+          'member_id' => $member_id,
+          'title' => '３回超えた',
+          'comment' => '',
+          'genre_id' => 1,
+          'read_flag' => 0,
+          'insert_time' => date("Y-m-d H:i:s")
+         )
+      );
+      $this->Message->create();
+      $this->Message->save($msdata);
+      $own_money = $own_money/3;
+      $today_mislead_count = 1;
     }
+    //会員情報
+    $data = array(
+      'id' => $member_id,
+      'mislead_count' => $mislead_count,
+      'today_mislead_count' => 0,
+      'money' => $own_money,
+      'update_date' => date("Y-m-d H:i:s")
+    );
+    $this->Member->save($data);
   }
 
   function battle(){
