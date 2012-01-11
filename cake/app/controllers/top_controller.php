@@ -3,7 +3,7 @@
 
 class TopController extends AppController{
 
-  var $uses = array('StructureSql','Member','Message');
+  var $uses = array('StructureSql','Member','Message','Quest','QuestDetail','MemberQuest','MemberQuestDetail');
   var $session_data;
 
   function top(){
@@ -25,10 +25,11 @@ class TopController extends AppController{
     }
     //各条件設定
     $power = $mdata['Member']['power'];
+    $star_count = $mdata['Member']['star_count'];
     //ランク情報
     $ranking_data = $this->StructureSql->select_member_ranking_count($member_id);
     $all_member_count = $this->Member->findCount();
-    $max_power = $mdata['Member']['power'];
+    $max_power = $mdata['Member']['max_power'];
     $gage_power = ceil($power/$max_power*100);
     //各種メッセージの表示
     $message_txt = '';
@@ -40,6 +41,13 @@ class TopController extends AppController{
     if($no_read_count>0){
       $message_txt .= '<a href="/cake/request/top/">●'.$no_read_count.'件の未読メールがあります。</a><br>';
     }
+    //ステータスの更新情報を表示する
+    if($star_count>=1){
+      $message_txt .= '●ステータスを上げることができます。<a href="/cake/top/status/">ステータスアップ画面</a>へ入って下さい。<br>';
+    }
+
+
+
     //view
     $this->set('message_txt',$message_txt);
     $this->set('mdata',$mdata);
@@ -48,6 +56,56 @@ class TopController extends AppController{
     $this->set('power',$gage_power);
     $this->Session->write('ActionFlag',0);
   }
+
+  function status(){
+    $this->session_manage();
+    //セッションから会員番号を取得
+    $member_id = $this->session_data['id'];
+    $data = $this->Member->findAllById($member_id);
+    $this->set('data',$data);
+  }
+
+  function status_up($genre_id){
+    $this->session_manage();
+    //セッションから会員番号を取得
+    $member_id = $this->session_data['id'];
+    $data = $this->Member->findById($member_id);
+    $star_count = $data['Member']['star_count'];
+    if($star_count>=0){
+      $star_count-=1;
+      $max_power = $data['Member']['max_power'];
+      $attack_power = $data['Member']['attack_power'];
+      $defence_power = $data['Member']['defence_power'];
+      $fortune_power = $data['Member']['fortune_power'];
+      /*
+      power
+      attack_power
+      defence_power
+      fortune_power
+      */
+      if($genre_id==1){
+        $max_power+=5;
+      }elseif($genre_id==2){
+        $attack_power+=5;
+      }elseif($genre_id==3){
+        $defence_power+=5;
+      }elseif($genre_id==4){
+        $fortune_power+=5;
+      }
+      $data = array(
+        'id' => $member_id,
+        'max_power' => $max_power,
+        'star_count' => $star_count,
+        'attack_power' => $attack_power,
+        'defence_power' => $defence_power,
+        'fortune_power' => $fortune_power,
+        'update_date' => date("Y-m-d H:i:s")
+      );
+      $this->Member->save($data);
+    }
+    $this->redirect('/top/status/');
+  }
+
 
   function profile(){
     $this->session_manage();

@@ -3,7 +3,7 @@
 
 class ShopController extends AppController{
 
-  var $uses = array('Member','Item','MemberItem','MemberRequest','MemberSpell','Request','Spell');
+  var $uses = array('StructureSql','Member','Message','Quest','QuestDetail','MemberQuest','MemberQuestDetail');
   var $session_data;
 
   function top(){

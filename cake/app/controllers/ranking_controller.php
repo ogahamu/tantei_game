@@ -2,7 +2,7 @@
 
 class RankingController extends AppController{
 
-  var $uses = array('Member');
+  var $uses = array('StructureSql','Member','Message','Quest','QuestDetail','MemberQuest','MemberQuestDetail');
   var $session_data;
 
   function top(){

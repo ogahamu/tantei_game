@@ -31,19 +31,17 @@ class LoginController extends AppController{
           'mail' => '',
           'pass' => '',
           'money' => '100',
-          'member_request_id' => 0,
           'power' => 500,
           'max_power' => 500,
-          'member_request_id' => 0,
           'lv' => 1,
+          'lv_up_flag' => 0,
           'exp' => 0,
           'least_next_exp' => 0,
           'sum_exp' => 0,
           'mission_count' => 0,
-          'success_count' => 0,
-          'mistake_count' => 0,
-          'rob_success_count' => 0,
-          'rob_mistake_count' => 0,
+          'evidence_count' => 0,
+          'compleate_evidence_count' => 0,
+          'avater_id' => 0,
           'insert_date' => date("Y-m-d H:i:s")
         )
       );
@@ -137,23 +135,34 @@ class LoginController extends AppController{
     $q_data = $this->Quest->findById(1);
     $data = array(
       'MemberQuest' => array(
-        'quest_id' => 1,
-        'resoluved_flag' => 0,
-        'insert_time' => date("Y-m-d H:i:s"),
         'member_id' => $member_id,
+        'title' => '',
+        'comment' => '',
+        'quest_exp' => 300,
+        'quest_price' => 30,
+        'resolved_flag' => 0,
+        'evidence_appear_rate' => 5
         'challenge_count' => 4
+        'quest_id' => 1,
+        'insert_time' => date("Y-m-d H:i:s")
        )
     );
     $this->MemberQuest->save($data);
     $member_quest_id = $this->MemberQuest->getLastInsertID();
     $data = array(
       'MemberQuestDetail' => array(
-        'distance' => 0,
-        'resoluved_flag' => 0,
-        'quest_id' => 1,//(1-1から)
-        'quest_detail_id' => 1,//(1-1から)
-        'member_quest_id' => $member_quest_id,
-        'insert_time' => date("Y-m-d H:i:s")
+        'member_quest_id' =>$member_quest_id,
+        'detail_no' => 1
+        'resoluved_flag' =>0,
+        'member_id' =>$member_id
+        'title' =>'',
+        'comment' =>'',
+        'exp' =>100,
+        'distance' =>0,
+        'all_distance' =>100,
+        'last_marker_flag' =>0,
+        'quest_detail_id' =>1,
+        'insert_time' =>date("Y-m-d H:i:s")
        )
     );
     $this->MemberQuestDetail->save($data);
