@@ -1,0 +1,11 @@
+<table width="320" border="0">
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td height="223"><img src="/jpg/111.png" width="200" height="200"></td>
+  </tr>
+  <tr>
+    <td height="20"><a href="/cake/evidence/evidence_have_list/<?php echo $evidence_id; ?>">これを基にする</a></td>
+  </tr>
+</table>

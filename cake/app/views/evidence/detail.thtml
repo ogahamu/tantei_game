@@ -1,78 +1,10 @@
-<style type="text/css">
-<!--
-.style12 {font-size: 16px}
--->
-</style>
+<a href="/cake/manage/series/">リストへ</a>
 <table width="320" border="0">
   <tr>
-    <td height="79" bgcolor="#000000"><img src="/jpg/treasure_genre/<?php echo $genre_id;?>.png" width="320" height="180"></td>
-  </tr>
-  <tr>
-    <td bgcolor="#999999"><span class="style12"><a href="/cake/manage/series/">一覧に戻る</a></span></td>
-  </tr>
-  <tr>
-    <td bgcolor="#999999"><?php if($comp_flag==1){ ?><img src="/jpg/compleate.png" width="320" height="53"><?php } ?></td>
-  </tr>
-  <tr>
-    <td><table width="320" border="0">
-      <tr>
-        <td><table width="320" border="0">
-          <tr>
-            <td><div align="center"><table class="treasure" border="0">
-              <tr>
-                <td><img src="/jpg/collection/<?php echo $data[0][0]['treasure_id'];?>.png" width="120"><br>
-                  <?php if($data[0][0]['treasure_id']==0){ ?><a href="/cake/manage/item_own_user/<?php echo $data[0]['treasures']['id'];?>/">奪取</a><?php } ?></td>
-              </tr>
-            </table></div></td>
-            <td><div align="center"><table class="treasure" border="0">
-              <tr>
-                <td><img src="/jpg/collection/<?php echo $data[1][0]['treasure_id'];?>.png" width="120">
-                  <br>
-                  <?php if($data[1][0]['treasure_id']==0){ ?>
-                  <a href="/cake/manage/item_own_user/<?php echo $data[1]['treasures']['id'];?>/">奪取</a>
-                  <?php } ?></td>
-              </tr>
-            </table></div></td>
-          </tr>
-        </table></td>
-        </tr>
-      <tr>
-        <td><div align="center">         <table class="treasure" border="0">
-            <tr>
-              <td><img src="/jpg/collection/<?php echo $data[2][0]['treasure_id'];?>.png" width="120"><br>
-                <?php if($data[2][0]['treasure_id']==0){ ?>
-                <a href="/cake/manage/item_own_user/<?php echo $data[2]['treasures']['id'];?>/">奪取</a>
-                <?php } ?></td>
-            </tr>
-                </table></div> </td>
-        </tr>
-      <tr>
-        <td><table width="320" border="0">
-          <tr>
-            <td><div align="center"><table class="treasure" border="0">
-              <tr>
-                <td><img src="/jpg/collection/<?php echo $data[3][0]['treasure_id'];?>.png" width="120">
-                  <br>
-                  <?php if($data[3][0]['treasure_id']==0){ ?>
-                  <a href="/cake/manage/item_own_user/<?php echo $data[3]['treasures']['id'];?>/">奪取</a>
-                  <?php } ?></td>
-              </tr>
-            </table></div></td>
-            <td><div align="center"><table class="treasure" border="0">
-              <tr>
-                <td><img src="/jpg/collection/<?php echo $data[4][0]['treasure_id'];?>.png" width="120">
-                  <br>
-                  <?php if($data[4][0]['treasure_id']==0){ ?>
-                  <a href="/cake/manage/item_own_user/<?php echo $data[4]['treasures']['id'];?>/">奪取</a>
-                  <?php } ?></td>
-              </tr>
-            </table></div></td>
-          </tr>
-        </table></td>
-        </tr>
-    </table></td>
-  </tr>
-  <tr>
-    <td height="58">&nbsp;</td>
-  </tr>
+  <?php $i=1;?>
+  <?php foreach($data as $datas): ?>
+    <td width="30"><a href="/cake/evidence/evidence_detail/<?php echo $datas['evidences']['id'];?>"><img src="/jpg/collection/<?php echo $datas[0]['member_evidences_id'];?>.png" width="40" height="40" border="0">(<?php echo $datas[0]['count'];?>)</a></td>
+  <?php if($i%7==0){ ?></tr><tr><?php } ?>
+  <?php $i+=1;?>
+  <?php endforeach; ?>
 </table>

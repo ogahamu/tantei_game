@@ -4,6 +4,21 @@
     <td width="310">
 
 
+<?php if(quest_resolved_flag==1){?>
+<table width="320" border="0">
+  <tr>
+    <td height="51" bgcolor="#CCCC99">おわり</td>
+  </tr>
+</table>
+<?php } ?>
+
+
+
+
+
+
+
+
 <?php if($last_stage_link_flag==1){ ?>
     <table width="310" border="0" cellpadding="0" cellspacing="0">
       <tr>
@@ -15,40 +30,49 @@
             <td height="56"><img src="&#12503;/help1.png" width="320" height="81"></td>
           </tr>
           <tr>
-            <td><a href="aaaa">aaaaaa</a></td>
+            <td><a href="/cake/attack/top/<?php echo $member_quest_id;?>">ATTACK</a>   <a href="/cake/item/item_challenge_top/<?php echo $member_quest_id;?>">ITEM</a></td>
           </tr>
           <tr>
             <td>&nbsp;</td>
           </tr>
         </table>
-<?php } ?>
+          <?php } ?>
 
 
 
-        </th>
+
+</th>
       </tr>
       <tr>
-        <th height="17">&nbsp;</th>
+        <th height="17"><table width="320" border="0">
+  <tr>
+  <?php $i=1;?>
+  <?php foreach($ev_data as $ev_datas): ?>
+    <td width="30"><a href="/cake/evidence/evidence_detail/<?php echo $ev_datas['evidences']['id'];?>"><img src="/jpg/collection/<?php echo $ev_datas[0]['member_evidences_id'];?>.png" width="40" height="40" border="0">(<?php echo $ev_datas[0]['count'];?>)</a></td>
+  <?php if($i%7==0){ ?></tr><tr><?php } ?>
+  <?php $i+=1;?>
+  <?php endforeach; ?>
+</table></th>
       </tr>
 <?php foreach($data as $datas): ?>
       <tr>
-        <td><span class="style4"><?php echo $datas['quest_details']['title'] ?></span></td>
+        <td bgcolor="#C0C0C0"><span class="style4"><?php echo $datas['MemberQuestDetail']['title'] ?></span></td>
         </tr>
       <tr>
         <td><table width="320" border="1">
           <tr>
-            <td><span class="style4"><?php echo $datas['quest_details']['comment'] ?></span></td>
+            <td bgcolor="#C0C0C0"><span class="style4"><?php echo $datas['MemberQuestDetail']['comment'] ?></span></td>
           </tr>
         </table></td>
         </tr>
       <tr>
-        <td>|================================|(<?php echo $datas['member_quest_details']['distance'].'/'.$datas['quest_details']['all_distance'];?>)</td>
+        <td>|================================|(<?php echo $datas['MemberQuestDetail']['distance'].'/'.$datas['MemberQuestDetail']['all_distance'];?>)</td>
       </tr>
       <tr>
         <td>&nbsp;</td>
       </tr>
       <tr>
-        <td><a href="/cake/quest/detail/<?php echo $datas['member_quest_details']['id'];?>"><img src="/help1.png" width="320" height="43"></a></td>
+        <td><a href="/cake/quest/detail/<?php echo $datas['MemberQuestDetail']['id'];?>"><img src="/help1.png" width="320" height="43"></a></td>
       </tr>
       <tr>
         <td>&nbsp;</td>

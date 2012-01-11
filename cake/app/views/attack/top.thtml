@@ -1,20 +1,16 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-
+<style type="text/css">
+<!--
+body {
+  background-color: #FFFFFF;
+}
+-->
+</style>
 <!--[if IE]>
 <script type="text/javascript" src="./libs/excanvas_r3/excanvas.compiled.js"></script>
 <![endif]-->
-<link rel="shortcut icon" href="/_lib/icon/favicon.ico" />
-<link rel="icon" href="/_lib/icon/favicon.ico" />
-<title>canvas test</title>
-</head>
-<body>
 <div style="text-align:center;">
-<canvas id="canvas" width="320" height="480" style="border:1px solid #CCC;"></canvas>
+<canvas id="canvas" width="320" height="480" style="background-color: #FFFFFF"></canvas>
 </div>
-
 <script type="text/javascript">
 //制御
 var cW=320;
@@ -34,9 +30,11 @@ var score=0;
 var lv=1;
 var past_second=0;
 //残り回数
-var max_challenge_count=4;
+var max_challenge_count=<?php echo $max_challenge_count; ?>;
 var challenge_count=0;
 var result_char='';
+//ページ遷移
+var page_move_flag = 0;
 /*描画の準備*/
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
@@ -66,7 +64,7 @@ function score_check(){
 
 if(challenge_count >= max_challenge_count){
 result_char = 'lose';
-load_win_movie();
+load_lose_movie();
 }
 if(score >= 3){
 result_char = 'win';
@@ -99,7 +97,7 @@ function draw(){
   /*得点の表示*/
   ctx.clearRect(0,0,60,60);
   ctx.font = "12px 'ＭＳ Ｐゴシック'";
-  ctx.fillText("結果:  " + result_char,5,10);
+  ctx.fillText("集めた証拠の数:  " + max_challenge_count,5,10);
   ctx.fillText("得点:  " + score,5,20);
   ctx.fillText("挑戦数:  " + challenge_count,5,32,10);
 }
@@ -118,7 +116,7 @@ function move(initEnemy){
 /*カード_デフォルト*/
 function moveEnemy(initEnemy){
   enemy_5 = new Image();
-  enemy_5.src = "./jpg/enemy_5.png";
+  enemy_5.src = "/jpg/enemy_5.png";
   enemy_5.onload = function(){
     //movie_img = eval("enemy_" + movieCount);
     ctx.drawImage(enemy_5, initEnemy.x, initEnemy.y);
@@ -130,7 +128,7 @@ function moveEnemy(initEnemy){
 function deleteEnemy(initEnemy){
   //
   enemy_1 = new Image();
-  enemy_1.src = "./jpg/enemy_1.png";
+  enemy_1.src = "/jpg/enemy_1.png";
   enemy_1.onload = function(){
     ctx.drawImage(enemy_1,initEnemy.x,initEnemy.y);
   }
@@ -142,16 +140,37 @@ function deleteEnemy(initEnemy){
 }
 
 
-/*カード_ヒット１*/
+/*結果_成功*/
 function load_win_movie(){
   result_a_1 = new Image();
-  result_a_1.src = "./jpg/win.png";
+  result_a_1.src = "/jpg/win.png";
   result_a_1.onload = function(){
     ctx.drawImage(result_a_1,0,movie_y);
   }
   movie_y+=50;
   if(movie_y>=0){
     movie_y = 0;
+    if(page_move_flag==0){
+      page_move_flag = 1;
+      location.href='http://bank.blamestitch.com/cake/attack/win/<?php echo $quest_id; ?>/#header-menu/';
+    }
+  }
+}
+
+/*結果_失敗*/
+function load_lose_movie(){
+  result_a_1 = new Image();
+  result_a_1.src = "/jpg/win.png";
+  result_a_1.onload = function(){
+    ctx.drawImage(result_a_1,0,movie_y);
+  }
+  movie_y+=50;
+  if(movie_y>=0){
+    movie_y = 0;
+    if(page_move_flag==0){
+      page_move_flag = 1;
+      location.href='http://bank.blamestitch.com/cake/attack/lose/<?php echo $quest_id; ?>/#header-menu/';
+    }
   }
 }
 
@@ -161,15 +180,15 @@ function load_win_movie(){
 function hitEnemy(initEnemy){
   //
   enemy_a_1 = new Image();
-  enemy_a_1.src = "./jpg/enemy_a_1.png";
+  enemy_a_1.src = "/jpg/enemy_a_1.png";
   enemy_a_2 = new Image();
-  enemy_a_2.src = "./jpg/enemy_a_2.png";
+  enemy_a_2.src = "/jpg/enemy_a_2.png";
   enemy_a_3 = new Image();
-  enemy_a_3.src = "./jpg/enemy_a_3.png";
+  enemy_a_3.src = "/jpg/enemy_a_3.png";
   enemy_a_4 = new Image();
-  enemy_a_4.src = "./jpg/enemy_a_4.png";
+  enemy_a_4.src = "/jpg/enemy_a_4.png";
   enemy_a_5 = new Image();
-  enemy_a_5.src = "./jpg/enemy_a_5.png";
+  enemy_a_5.src = "/jpg/enemy_a_5.png";
   enemy_a_1.onload = function(){
     movie_img = eval("enemy_a_" + initEnemy.a_img_count);
     ctx.drawImage(movie_img,initEnemy.x,initEnemy.y);
@@ -250,8 +269,5 @@ $(document).ready(function(){
     }
   }
 });
-
-
 </script>
-</body>
-</html>
+

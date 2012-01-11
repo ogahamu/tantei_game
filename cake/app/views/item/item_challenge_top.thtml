@@ -1,0 +1,25 @@
+<table width="320" border="0">
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td><div align="center"><img src="/jpg/no_battle.png" width="156" height="144"></div></td>
+  </tr>
+  <tr>
+    <td>購買部<br>
+
+    <?php if($no_item_flag==0){ ?>
+      <a href="/cake/item/item_power_exe/">-アイテム使う-</a>
+    <?php } ?>
+    <?php if($no_item_flag==1){ ?>
+           アイテムがありません。
+      <a href="/cake/item/item_power_exe/">-購入する-</a>
+    <?php } ?>
+      </td>
+  </tr>
+  <tr>
+    <td><div align="center"><a href="/cake/request/top/"><br>
+        <br>
+    </a></div></td>
+  </tr>
+</table>

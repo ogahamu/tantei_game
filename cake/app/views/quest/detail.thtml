@@ -13,23 +13,23 @@
       </tr>
       <?php foreach($data as $datas): ?>
       <tr>
-        <td><span class="style4"><?php echo $datas['quests']['quest_title'] ?></span></td>
+        <td bgcolor="#C0C0C0"><span class="style4"><?php echo $datas['MemberQuestDetail']['title'] ?></span></td>
         </tr>
       <tr>
         <td><table width="320" border="1">
           <tr>
-            <td><span class="style4"><?php echo $datas['quests']['quest_comment'] ?></span></td>
+            <td bgcolor="#C0C0C0"><span class="style4"><?php echo $datas['MemberQuestDetail']['comment'] ?></span></td>
           </tr>
         </table></td>
         </tr>
       <tr>
-        <td>|=============================|<?php echo $datas['member_quest_details']['distance'] ?>/<?php echo $datas['quest_details']['all_distance'] ?></td>
+        <td bgcolor="#CCCCCC">|=============================|<?php echo $datas['MemberQuestDetail']['distance'] ?>/<?php echo $datas['MemberQuestDetail']['all_distance'] ?></td>
       </tr>
       <tr>
         <td>&nbsp;</td>
       </tr>
       <tr>
-        <td><a href="/cake/quest/exe_quest/<?php echo $datas['member_quest_details']['id'];?>"><img src="/help1.png" width="320" height="43"></a></td>
+        <td><a href="/cake/quest/exe_quest/<?php echo $datas['MemberQuestDetail']['id'];?>"><img src="/help1.png" width="320" height="43"></a></td>
       </tr>
       <tr>
         <td>&nbsp;</td>
@@ -37,6 +37,38 @@
       <tr>
         <td><hr></td>
         </tr>
+      <tr>
+        <td>
+
+ <?php foreach($mdata as $mdatas): ?>
+        <table width="320" border="0">
+          <tr>
+            <td width="66" rowspan="3"><img src="<?php echo $mdatas['Member']['thumnail_url'];?>" width="44" height="44"></td>
+            <td width="59">体力</td>
+            <td width="115"><?php echo $mdatas['Member']['power'];?>/<?php echo $mdatas['Member']['max_power'];?></td>
+          </tr>
+          <tr>
+            <td>LV</td>
+            <td><?php echo $mdatas['Member']['lv'];?>(あと<?php echo $mdatas['Member']['least_next_exp'];?>exp)</td>
+          </tr>
+          <tr>
+            <td>EXP</td>
+            <td><?php echo $mdatas['Member']['exp'];?>exp</td>
+          </tr>
+        </table>
+<?php endforeach; ?>
+
+
+
+
+        </td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
       <?php endforeach; ?>
     </table></td>
   </tr>
