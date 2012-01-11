@@ -141,10 +141,10 @@ class QuestController extends AppController{
       )
     );
     $this->MemberQuestDetail->save($mqd_data);
-    //ある確率で証拠を取得
+    //ある確率で証拠を取得(ただし画面遷移するため解決時は除く)
     $rand_no = mt_rand(0,5);
     $rand_no = 1;
-    if($rand_no == 1){
+    if(($first_resolved_flag==0)&&($rand_no == 1){
       $ev_data = $this->StructureSql->select_evidence_by_rand($quest_id);
       $medata = array(
         'MemberEvidence' => array(
@@ -158,6 +158,13 @@ class QuestController extends AppController{
          )
       );
       $this->MemberEvidence->save($medata);
+      $this->redirect('/quest/get_evidence/'.$member_quest_detail_id);
+    }
+    //ある確率でアイテムゲット(ただし画面遷移するため解決時は除く)
+    $rand_no_2 = mt_rand(0,15);
+    $rand_no_2 = 1;
+    if(($first_resolved_flag==0)&&($rand_no_2 == 1){
+      $this->redirect('/quest/get_item/'.$member_quest_detail_id);
     }
     //初回クリア直後
     if($first_resolved_flag==1){
@@ -168,6 +175,14 @@ class QuestController extends AppController{
 
   function quest_clear($member_quest_id){
       $this->set('member_quest_id',$member_quest_id);
+  }
+
+  function get_item($member_quest_detail_id){
+    $this-set('member_quest_detail_id',$member_quest_detail_id);
+  }
+
+  function get_evidence($member_quest_detail_id){
+    $this-set('member_quest_detail_id',$member_quest_detail_id);
   }
 
   function return_useragent_code(){
