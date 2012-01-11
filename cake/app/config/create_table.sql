@@ -1,13 +1,61 @@
 delete from members;
 delete from member_quests;
 delete from member_quest_details;
-insert into members (mixi_account_id,name,power,max_power,member_request_id)values(1,'TestUser',1000,1000,0);
-insert into member_quests
-(id,quest_id,resoluved_flag,member_id,challenge_count)values(100,1,0,1,4);
-insert into member_quest_details
-(distance,resoluved_flag,quest_id,quest_detail_id,member_quest_id,member_id,quest_detail_no,last_quest_detail_flag
+insert into members (id,mixi_account_id,name,power,max_power,money,lv,exp,least_next_exp,sum_exp,star_count
 )values(
-0,0,1,1,100,1,1,0);
+1,1,'TestUser',1000,1000,1000,1,0,1000,0,10);
+insert into member_quests (
+id,
+member_id,
+title,
+comment,
+quest_exp,
+quest_price,
+resolved_flag,
+evidence_appear_rate,
+challenge_count,
+quest_id,
+insert_time
+)values(
+100,
+1,
+'AAAA',
+'AAAA',
+300,
+30,
+0,
+5,
+4,
+1,
+NOW()
+);
+insert into member_quest_details (
+member_quest_id,
+detail_no,
+resoluved_flag,
+member_id,
+title,
+comment,
+exp,
+distance,
+all_distance,
+last_marker_flag,
+quest_detail_id,
+insert_time
+)values(
+100,
+1,
+0,
+1,
+'AAAA',
+'AAAA',
+100,
+0,
+100,
+0,
+1,
+NOW()
+);
 select * from member_quest_details\G;
 
 create table evidences(
