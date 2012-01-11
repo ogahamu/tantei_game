@@ -51,7 +51,6 @@ begin
       10
     );
     while local_counter_2 < local_max_counter_2 do
-      select id into local_treasure_member from test_names where id<=local_max_counter_1 order by rand() limit 1;
       select id,name,img_id
       into local_evidence_id,local_evidence_name,local_evidence_img_id
       from evidences order by rand() limit 1;
