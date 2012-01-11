@@ -3,6 +3,101 @@ class StructureSql extends AppModel
 {
 public $useTable = 'members';
 
+  function select_count_group_evidence_id($member_id,$member_quest_id){
+    $strSql  .= "select \n";
+    $strSql  .= "count(*) as count \n";
+    $strSql  .= "from \n";
+    $strSql  .= "( \n";
+    $strSql  .= "select  \n";
+    $strSql  .= "evidence_id \n";
+    $strSql  .= "from  \n";
+    $strSql  .= "member_evidences  \n";
+    $strSql  .= "where  \n";
+    $strSql  .= "member_id = ".$member_id."  \n";
+    $strSql  .= "and member_quest_id = ".$member_quest_id."  \n";
+    $strSql  .= "group by  \n";
+    $strSql  .= "evidence_id \n";
+    $strSql  .= ")target \n";
+    return $this->query($strSql);
+  }
+
+
+  function evidence_own_members($evidence_id){
+    $strSql   = "select \n";
+    $strSql  .= "members.id,members.name,members.thumnail_url,max(member_evidences.id) as member_evidence_id \n";
+    $strSql  .= "from \n";
+    $strSql  .= "member_evidences, \n";
+    $strSql  .= "members \n";
+    $strSql  .= "where \n";
+    $strSql  .= "member_evidences.member_id = members.id \n";
+    $strSql  .= "and member_evidences.evidence_id = ".$evidence_id." \n";
+    $strSql  .= "group by  \n";
+    $strSql  .= "members.id,members.name,members.thumnail_url \n";
+    return $this->query($strSql);
+  }
+
+  function select_result_rank($member_id){
+    $strSql   = "select \n";
+    $strSql  .= "result_ranks.name, \n";
+    $strSql  .= "(select count(*) from member_requests where result_rank = result_ranks.name and member_id =  ".$member_id.") as count \n";
+    $strSql  .= "from \n";
+    $strSql  .= "result_ranks \n";
+    $strSql  .= "order by  \n";
+    $strSql  .= "result_ranks.id \n";
+    return $this->query($strSql);
+  }
+
+  function select_member_ranking_count($member_id){
+    $strSql    = "select  \n";
+    $strSql   .= "count(*) + 1 as count  \n";
+    $strSql   .= "from  \n";
+    $strSql   .= "members  \n";
+    $strSql   .= "where  \n";
+    $strSql   .= "sum_exp > ( \n";
+    $strSql   .= "select  \n";
+    $strSql   .= "sum_exp  \n";
+    $strSql   .= "from  \n";
+    $strSql   .= "members  \n";
+    $strSql   .= "where  \n";
+    $strSql   .= "id = ".$member_id." \n";
+    $strSql   .= ") \n";
+    return $this->query($strSql);
+  }
+
+  function select_own_evidence_list($quest_id){
+    $strSql   = "select    \n";
+    $strSql  .= "evidences.id,  \n";
+    $strSql  .= "evidences.name,  \n";
+    $strSql  .= "evidences.img_id,  \n";
+    $strSql  .= "ifnull(member_evidences.evidence_id,0) as evidence_id,  \n";
+    $strSql  .= "ifnull(member_evidences.img_id,'no_img') as evidence_img_id,  \n";
+    $strSql  .= "max(member_evidences.id) as member_evidences_id,  \n";
+    $strSql  .= "count(member_evidences.id) as count  \n";
+    $strSql  .= "from    \n";
+    $strSql  .= "evidences    \n";
+    $strSql  .= "left join member_evidences on evidences.id = member_evidences.evidence_id    \n";
+    $strSql  .= "where    \n";
+    $strSql  .= "evidences.quest_id = ".$quest_id."  \n";
+    $strSql  .= "group by    \n";
+    $strSql  .= "evidences.id,  \n";
+    $strSql  .= "evidences.name,  \n";
+    $strSql  .= "evidences.img_id  \n";
+    return $this->query($strSql);
+  }
+
+  function select_own_evidence_detail($evidence_id){
+    $strSql   = "select  \n";
+    $strSql  .= "evidences.id,evidences.name,max(member_evidences.id) as member_evidences_id,count(*) as count  \n";
+    $strSql  .= "from  \n";
+    $strSql  .= "evidences  \n";
+    $strSql  .= "left join member_evidences on evidences.id = member_evidences.evidence_id  \n";
+    $strSql  .= "where  \n";
+    $strSql  .= "evidences.id = ".$evidence_id."  \n";
+    $strSql  .= "group by  \n";
+    $strSql  .= "evidences.id,evidences.name  \n";
+    return $this->query($strSql);
+  }
+
   function select_member_quest_details_by_quest_id($quest_id){
     $strSql   = "select * from member_quest_details where quest_id = ".$quest_id."  \n";
     return $this->query($strSql);
@@ -287,15 +382,7 @@ public $useTable = 'members';
     return $this->query($strSql);
   }
 
-  function select_own_evidence_list($member_id){
-    $strSql   = "select  \n";
-    $strSql  .= "evidences.id,ifnull(member_evidences.id,'0') as evidence_id,ifnull(member_evidences.treasure_name,'秘') as treasure_name  \n";
-    $strSql  .= "from  \n";
-    $strSql  .= "evidences  \n";
-    $strSql  .= "left join member_evidences on evidences.id = member_evidences.evidence_id  \n";
-    $strSql  .= "and member_evidences.member_id = ".$member_id." \n";
-    return $this->query($strSql);
-  }
+
 
 
   function select_own_treasure_list($member_id){
@@ -374,35 +461,6 @@ public $useTable = 'members';
     return $this->query($strSql);
   }
 
-
-  function select_own_evidence_detail($member_id,$quest_id){
-    $strSql   = "select  \n";
-    $strSql  .= "evidences.id,ifnull(member_evidences.evidence_id,'0') as evidence_id,ifnull(evidences.name,'秘') as evidence_name  \n";
-    $strSql  .= "from  \n";
-    $strSql  .= "evidences  \n";
-    $strSql  .= "left join member_evidences on evidences.id = member_evidences.evidence_id  \n";
-    $strSql  .= "and member_evidences.member_id = ".$member_id." and member_evidences.quest_id = ".$quest_id."\n";
-    $strSql  .= "where  \n";
-    $strSql  .= "evidences.quest_id = ".$quest_id." \n";
-    $strSql  .= "group by  \n";
-    $strSql  .= "id,evidence_id,treasure_name \n";
-    return $this->query($strSql);
-  }
-
-  function select_own_serease_detail($member_id,$series_id){
-    $strSql   = "select  \n";
-    $strSql  .= "treasures.id,ifnull(member_treasures.treasure_id,'0') as treasure_id,ifnull(member_treasures.treasure_name,'秘') as treasure_name  \n";
-    $strSql  .= "from  \n";
-    $strSql  .= "treasures  \n";
-    $strSql  .= "left join member_treasures on treasures.id = member_treasures.treasure_id  \n";
-    $strSql  .= "and member_treasures.member_id = ".$member_id." and member_treasures.series_id = ".$series_id."\n";
-    $strSql  .= "where  \n";
-    $strSql  .= "treasures.series_id = ".$series_id." \n";
-    $strSql  .= "group by  \n";
-    $strSql  .= "id,treasure_id,treasure_name \n";
-    return $this->query($strSql);
-  }
-
   function count_no_read($member_id,$process_status){
     $strSql   = "select  \n";
     $strSql  .= "count(*) as count \n";
@@ -435,16 +493,7 @@ public $useTable = 'members';
     return $this->query($strSql);
   }
 
-  function select_result_rank($member_id){
-    $strSql   = "select \n";
-    $strSql  .= "result_ranks.name, \n";
-    $strSql  .= "(select count(*) from member_requests where result_rank = result_ranks.name and member_id =  ".$member_id.") as count \n";
-    $strSql  .= "from \n";
-    $strSql  .= "result_ranks \n";
-    $strSql  .= "order by  \n";
-    $strSql  .= "result_ranks.id \n";
-    return $this->query($strSql);
-  }
+
 
   function call_get_bank_exp($member_id,$add_point){
     $strSql  = "call get_bank_exp(".$member_id.",".$add_point.") \n";
@@ -489,23 +538,6 @@ public $useTable = 'members';
 
   function already_read_flag(){
     $strSql   = "update member_requests set read_flag = 1 where limit_time <= NOW(); \n";
-    return $this->query($strSql);
-  }
-
-  function select_member_ranking_count($member_id){
-    $strSql    = "select  \n";
-    $strSql   .= "count(*) + 1 as count  \n";
-    $strSql   .= "from  \n";
-    $strSql   .= "members  \n";
-    $strSql   .= "where  \n";
-    $strSql   .= "sum_exp > ( \n";
-    $strSql   .= "select  \n";
-    $strSql   .= "sum_exp  \n";
-    $strSql   .= "from  \n";
-    $strSql   .= "members  \n";
-    $strSql   .= "where  \n";
-    $strSql   .= "id = ".$member_id." \n";
-    $strSql   .= ") \n";
     return $this->query($strSql);
   }
 
