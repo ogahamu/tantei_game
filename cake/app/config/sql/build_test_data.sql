@@ -4,9 +4,9 @@ create procedure build_test_data(in local_max_counter_1 int,in local_max_counter
 begin
   declare local_test_name varchar(250);
   declare local_thumnail_url varchar(250);
-  declare local_treasure_id int;
-  declare local_treasure_name varchar(250);
-  declare local_treasures_series_id int;
+  declare local_evidence_id int;
+  declare local_evidence_name varchar(250);
+  declare local_evidence_img_id int;
   declare local_counter_1 int;
   declare local_counter_2 int;
   declare local_treasure_member int;
@@ -23,45 +23,43 @@ begin
     into
       local_thumnail_url
     ;
-    insert into members(
+    insert into members (
       id,
       mixi_account_id,
       thumnail_url,
       name,
-      money,
-      member_request_id,
       power,
       max_power,
+      money,
       lv,
       exp,
       least_next_exp,
       sum_exp,
-      insert_date
+      star_count
     )values(
       local_counter_1,
       local_counter_1,
       local_thumnail_url,
       local_test_name,
-      100,
-      0,
-      500,
-      500,
+      1000,
+      1000,
+      1000,
       1,
       0,
       1000,
       0,
-      NOW()
+      10
     );
     while local_counter_2 < local_max_counter_2 do
       select id into local_treasure_member from test_names where id<=local_max_counter_1 order by rand() limit 1;
-      select id,name,series_id
-      into local_treasure_id,local_treasure_name,local_treasures_series_id
-      from treasures order by rand() limit 1;
-      insert into member_treasures(
-        member_id,treasure_id,treasure_name,series_id,insert_time,update_time
+      select id,name,img_id
+      into local_evidence_id,local_evidence_name,local_evidence_img_id
+      from evidences order by rand() limit 1;
+      insert into member_evidences(
+        evidence_id,member_id,name,img_id,member_quest_id,member_quest_detail_id
       )values(
-        local_treasure_member,local_treasure_id,local_treasure_name,local_treasures_series_id,NOW(),NOW()
-      );
+        local_evidence_id,local_evidence_name,local_evidence_img_id
+      )
       set local_counter_2 = local_counter_2 + 1;
     end while;
     call check_compleate_series(local_counter_1);
