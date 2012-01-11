@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<!--[if IE]>
+<script type="text/javascript" src="./libs/excanvas_r3/excanvas.compiled.js"></script>
+<![endif]-->
+<link rel="shortcut icon" href="/_lib/icon/favicon.ico" />
+<link rel="icon" href="/_lib/icon/favicon.ico" />
+<title>canvas test</title>
+</head>
+<body>
+<div style="text-align:center;">
+<canvas id="canvas" width="320" height="480" style="border:1px solid #CCC;"></canvas>
+</div>
+
+<script type="text/javascript">
+//制御
+var cW=320;
+var cH=480;
+var objX=100;
+var objY=100;
+var maxHouseNum=9;
+//画像
+var imgW=38;
+var imgH=60;
+//マウス座標
+var mouseX;
+var mouseY;
+var mouseSphere=20;
+//得点
+var score=0;
+var lv=1;
+var past_second=0;
+//残り回数
+var max_challenge_count=4;
+var challenge_count=0;
+var result_char='';
+/*描画の準備*/
+var canvas = document.getElementById("canvas");
+var ctx = canvas.getContext("2d");
+var enemies = new Array(maxHouseNum);
+var movie_y = -400;
+/*
+for(var i=0; i<=maxHouseNum; i++){
+  enemies[i] = new initEnemy((i-Math.floor(i/3)*3)*100,50+Math.floor(i/3)*120);
+}
+*/
+enemies[0] = new initEnemy(0,50,1);
+enemies[1] = new initEnemy(100,50,2);
+enemies[2] = new initEnemy(200,50,3);
+enemies[3] = new initEnemy(0,150,0);
+enemies[4] = new initEnemy(100,150,0);
+enemies[5] = new initEnemy(200,150,0);
+enemies[6] = new initEnemy(0,250,0);
+enemies[7] = new initEnemy(100,250,0);
+enemies[8] = new initEnemy(200,250,0);
+
+/*各フレームレートで実行する*/
+setInterval("draw()", 100);
+setInterval("score_check()", 100);
+
+
+function score_check(){
+
+if(challenge_count >= max_challenge_count){
+result_char = 'lose';
+load_win_movie();
+}
+if(score >= 3){
+result_char = 'win';
+load_win_movie();
+}
+}
+
+/*的１個ずつの状態を保つメソッド（配列に入れて使用する）*/
+function initEnemy(x,y,genre_id){
+    this.genre_id = genre_id;
+  this.x = x;
+  this.y = y;
+  this.img_count = 1;
+  this.a_img_count =1;
+  this.appear_flag=1;
+  this.delete_flag=1;
+  this.hit_flag=0;
+  this.dont_kill_flag=0;
+  this.section_flag=0;
+}
+
+
+/*的の同時出現数を調整する*/
+function draw(){
+  //ctx.clearRect(0,0,cW,cH);
+  //敵１人ずつの動きをシュミレート
+  for(var i=0;i<maxHouseNum;i++){
+    move(enemies[i]);
+  }
+  /*得点の表示*/
+  ctx.clearRect(0,0,60,60);
+  ctx.font = "12px 'ＭＳ Ｐゴシック'";
+  ctx.fillText("結果:  " + result_char,5,10);
+  ctx.fillText("得点:  " + score,5,20);
+  ctx.fillText("挑戦数:  " + challenge_count,5,32,10);
+}
+
+/*制御の本体*/
+function move(initEnemy){
+  if(initEnemy.delete_flag==1 && initEnemy.hit_flag==0){
+    moveEnemy(initEnemy);
+  }else if(initEnemy.hit_flag==1 && initEnemy.genre_id == 0){
+    deleteEnemy(initEnemy);
+  }else if(initEnemy.hit_flag==1 && initEnemy.genre_id > 0){
+    hitEnemy(initEnemy);
+  }
+}
+
+/*カード_デフォルト*/
+function moveEnemy(initEnemy){
+  enemy_5 = new Image();
+  enemy_5.src = "./jpg/enemy_5.png";
+  enemy_5.onload = function(){
+    //movie_img = eval("enemy_" + movieCount);
+    ctx.drawImage(enemy_5, initEnemy.x, initEnemy.y);
+  }
+}
+
+
+/*的＿敵（停止中）*/
+function deleteEnemy(initEnemy){
+  //
+  enemy_1 = new Image();
+  enemy_1.src = "./jpg/enemy_1.png";
+  enemy_1.onload = function(){
+    ctx.drawImage(enemy_1,initEnemy.x,initEnemy.y);
+  }
+  //初期化
+  initEnemy.a_img_count=1;
+  initEnemy.img_count=1;
+  initEnemy.hit_flag=0;
+  challenge_count+=1;
+}
+
+
+/*カード_ヒット１*/
+function load_win_movie(){
+  result_a_1 = new Image();
+  result_a_1.src = "./jpg/win.png";
+  result_a_1.onload = function(){
+    ctx.drawImage(result_a_1,0,movie_y);
+  }
+  movie_y+=50;
+  if(movie_y>=0){
+    movie_y = 0;
+  }
+}
+
+
+
+/*カード_ヒット１*/
+function hitEnemy(initEnemy){
+  //
+  enemy_a_1 = new Image();
+  enemy_a_1.src = "./jpg/enemy_a_1.png";
+  enemy_a_2 = new Image();
+  enemy_a_2.src = "./jpg/enemy_a_2.png";
+  enemy_a_3 = new Image();
+  enemy_a_3.src = "./jpg/enemy_a_3.png";
+  enemy_a_4 = new Image();
+  enemy_a_4.src = "./jpg/enemy_a_4.png";
+  enemy_a_5 = new Image();
+  enemy_a_5.src = "./jpg/enemy_a_5.png";
+  enemy_a_1.onload = function(){
+    movie_img = eval("enemy_a_" + initEnemy.a_img_count);
+    ctx.drawImage(movie_img,initEnemy.x,initEnemy.y);
+  }
+  initEnemy.a_img_count+=1;
+  if(initEnemy.a_img_count>5){initEnemy.a_img_count=5;}
+
+  if(initEnemy.a_img_count == 2 && initEnemy.dont_kill_flag == 1){
+    //score-=1;
+  }else if(initEnemy.a_img_count == 2 && initEnemy.dont_kill_flag == 0){
+    score+=1;
+    challenge_count+=1;
+  }
+}
+
+//マウス座標
+canvas.onmousedown = mouseDownListner;
+function mouseDownListner(e) {
+  var hit_value;
+  //マウス座標の取得
+  adjustXY(e);
+  hit_value = hitJudgement();
+}
+/*当たり判定 当たり:Trueを返す 外れ:Falseを返す*/
+function hitJudgement(){
+  for(var i=0;i<maxHouseNum;i++){
+    if(enemies[i].delete_flag==1){
+      enemy_x = enemies[i].x;
+      enemy_y = enemies[i].y;
+      var judgeValue = true;
+      if(enemy_x + imgW/2 -mouseSphere < mouseX){
+      }else{
+        judgeValue = false;
+      }
+      if(enemy_x + imgW/2 +mouseSphere > mouseX){
+      }else{
+        judgeValue = false;
+      }
+      if(enemy_y + imgH/2 -mouseSphere < mouseY){
+      }else{
+        judgeValue = false;
+      }
+      if(enemy_y+ imgH/2 +mouseSphere > mouseY){
+      }else{
+        judgeValue = false;
+      }
+      if(judgeValue == true){
+        //当たり！
+        enemies[i].hit_flag = 1;
+      }
+
+    }
+  }
+  return false;
+}
+
+//呼びだし時にマウス座標を返す関数
+function adjustXY(e) {
+  var rect = e.target.getBoundingClientRect();
+  mouseX = e.clientX - rect.left;
+  mouseY = e.clientY - rect.top;
+}
+
+
+//回転運動を検知
+$(document).ready(function(){
+  var agent = navigator.userAgent;
+    if(agent.search(/iPhone/) != -1){
+    /*iphone*/
+    window.onorientationchange = function(){
+      var iR = Math.abs(window.orientation);
+      (iR==90)? alert('90do kaiten'):null
+    }
+  }else{
+    /*android*/
+    window.onresize = function(){
+      (iR==90)?	alert('90do kaiten'):null
+    }
+  }
+});
+
+
+</script>
+</body>
+</html>
