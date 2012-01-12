@@ -86,6 +86,7 @@ class QuestController extends AppController{
     $data = $this->MemberQuestDetail->findById($member_quest_detail_id);
     $member_quest_id = $data['MemberQuestDetail']['member_quest_id'];
     $detail_no = $data['MemberQuestDetail']['detail_no'];
+    $member_quest_detail_title = $data['MemberQuestDetail']['title'];
     $last_marker_flag = $data['MemberQuestDetail']['last_marker_flag'];
     $resoluved_flag = $data['MemberQuestDetail']['resoluved_flag'];
     $all_distance = $data['MemberQuestDetail']['all_distance'];
@@ -126,6 +127,10 @@ class QuestController extends AppController{
           $this->MemberQuestDetail->create();
           $this->MemberQuestDetail->save($mqd_data);
           $first_resolved_flag =1;
+          //メールを送る
+          $title = $member_quest_detail_title.'の調査終了！';
+          $comment = '';
+          $this->send_message($member_id,$title,$comment);
         }
       }elseif($last_marker_flag == 1){
         echo '既にあります';
@@ -183,6 +188,22 @@ class QuestController extends AppController{
 
   function get_evidence($member_quest_detail_id){
     $this-set('member_quest_detail_id',$member_quest_detail_id);
+  }
+
+  function send_message($member_id,$title,$comment){
+    //メッセージを入れる
+    $msdata = array(
+      'Message' => array(
+        'member_id' => $member_id,
+        'title' => $title,
+        'comment' => $comment,
+        'genre_id' => 1,
+        'read_flag' => 0,
+        'insert_time' => date("Y-m-d H:i:s")
+       )
+    );
+    $this->Message->create();
+    $this->Message->save($msdata);
   }
 
   function return_useragent_code(){

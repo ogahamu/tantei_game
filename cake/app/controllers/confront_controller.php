@@ -14,6 +14,70 @@ class ConfrontController extends AppController{
     $this->set('data',$data);
   }
 
+  function battle_list(){
+    $this->session_manage();
+    //セッションから会員番号を取得
+    $member_id = $this->session_data['id'];
+    $mdata = $this->Member->findById($member_id);
+    $lv = $mdata['Member']['lv'];
+    $start_lv = $lv - 3;
+    $end_lv = $lv + 3;
+    //レベルの近い人を選ぶ
+    $data = $this->StructureSql->select_nealy_lv_members($start_lv,$end_lv);
+    $this->set('data',$data);
+  }
+
+  function battle_top($enemy_member_id){
+    $this->session_manage();
+    //セッションから会員番号を取得
+    $member_id = $this->session_data['id'];
+    $own_data = $this->Member->findById($member_id);
+    $own_name = $own_data['Member']['name'];
+    $own_power = $own_data['Member']['power'];
+    $own_thumnail_url = $own_data['Member']['name'];
+    $own_attack_power = $own_data['Member']['attack_power'];
+    $own_defence_power = $own_data['Member']['defence_power'];
+    $own_fortune_power = $own_data['Member']['fortune_power'];
+    $enemy_data = $this->Member->findById($enemy_member_id);
+    $enemy_name = $enemy_data['Member']['name'];
+    $enemy_thumnail_url = $enemy_data['Member']['name'];
+    $enemy_attack_power = $enemy_data['Member']['attack_power'];
+    $enemy_defence_power = $enemy_data['Member']['defence_power'];
+    $enemy_fortune_power = $enemy_data['Member']['fortune_power'];
+    //自身の攻撃力>相手の防御力
+    if($own_attack_power>$enemy_defence_power){
+      //勝ち
+      $this->set('link_url','/cake/confront/battle_exe/1/');
+    }else{
+      //負け
+      $this->set('link_url','/cake/confront/battle_exe/2/');
+    }
+    $this->set('enemy_name',$enemy_name);
+    $this->set('enemy_thumnail_url',$enemy_thumnail_url);
+    $this->set('power',$own_power);
+  }
+
+
+  function battle_exe($result_code){
+    if($result_code==1){
+      $this->set('jump_url','/cake/confront/battle_success/'.$member_evidence_id);
+    }else{
+      $this->set('jump_url','/cake/confront/battle_fail/'.$member_evidence_id);
+    }
+  }
+
+  function battle_success(){
+
+
+  }
+
+  function battle_fail(){
+
+
+  }
+
+
+
   function rob_evidence($member_evidence_id){
     $this->session_manage();
     //セッションから会員番号を取得
@@ -36,6 +100,7 @@ class ConfrontController extends AppController{
     //相手のデータを取得
     $me_data = $this->MemeberEvidence->findById($member_evidence_id);
     $enemy_id = $me_data['MemeberEvidence']['member_id'];
+    $evidence_id = $me_data['MemeberEvidence']['evidence_id'];
     $enemy_data = $this->Member->findById($enemy_id);
     $enemy_name = $enemy_data['Member']['name'];
     $enemy_thumnail_url = $enemy_data['Member']['name'];
@@ -45,11 +110,15 @@ class ConfrontController extends AppController{
     //自身の攻撃力>相手の防御力
     if($own_attack_power>$enemy_defence_power){
       //勝ち
-      $this->set('result_code',1);
+      $this->set('link_url','/cake/confront/rob_exe/1/');
     }else{
       //負け
-      $this->set('result_code',2);
+      $this->set('link_url','/cake/confront/rob_exe/2/');
     }
+    $this->set('evidence_id',$evidence_id);
+    $this->set('enemy_name',$enemy_name);
+    $this->set('enemy_thumnail_url',$enemy_thumnail_url);
+    $this->set('power',$own_power);
   }
 
   function rob_exe($result_code){

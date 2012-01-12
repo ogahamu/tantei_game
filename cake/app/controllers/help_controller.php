@@ -11,7 +11,7 @@ class HelpController extends AppController{
   }
 
   function page1(){
-    $this->session_manage();
+
   }
 
   function page2(){

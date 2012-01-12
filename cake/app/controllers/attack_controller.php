@@ -41,8 +41,6 @@ class AttackController extends AppController{
     $this->set('quest_id',$quest_id);
   }
 
-
-
   function already_end(){
     $this->session_manage();
     //セッションから会員番号を取得
@@ -58,11 +56,11 @@ class AttackController extends AppController{
     if(strlen($quest_id)==0){
       $this->redirect('/quest/no_queset/');
     }
-    //経験値を取得
-    $add_exp = 100;
-    //$this->StructureSql->call_get_bank_exp($member_id,$add_exp);
-    //新しいクエストを作成
-    //$quest_id = $this->Session->read('QuestId');
+    //今のクエスト情報を取得し、加算する経験値とお金を取得
+    $mq_data = $this->MemberQuest->find(array("quest_id"=>$quest_id,"member_id"=>$member_id));
+    $quest_exp = $mq_data['MemberQuest']['quest_exp'];
+    $quest_price = $mq_data['MemberQuest']['quest_price'];
+    $this->StructureSql->call_get_bank_exp($member_id,$add_exp);
     //今のクエストを済にする
     $data = array(
       'MemberQuest' => array(
@@ -81,7 +79,7 @@ class AttackController extends AppController{
       $this->redirect('/quest/no_queset/');
     }
     //既にこのクエストIDを持っていないか検査する
-    $mq_data = $this->MemberQuest->findCount(array("quest_id"=>$next_quest_id));
+    $mq_data = $this->MemberQuest->findCount(array("quest_id"=>$next_quest_id,"member_id"=>$member_id));
     if($mq_data==0){
       //$q_data = $this->Quest->findById($next_quest_id);
       $data = array(
@@ -120,6 +118,25 @@ class AttackController extends AppController{
       );
       $this->MemberQuestDetail->save($data);
     }
+    $title = '事件解決！'.$quest_exp.'Exp経験値が増えました。';
+    $comment = '';
+    $this->send_message($member_id,$title,$comment);
+  }
+
+  function send_message($member_id,$title,$comment){
+    //メッセージを入れる
+    $msdata = array(
+      'Message' => array(
+        'member_id' => $member_id,
+        'title' => $title,
+        'comment' => $comment,
+        'genre_id' => 1,
+        'read_flag' => 0,
+        'insert_time' => date("Y-m-d H:i:s")
+       )
+    );
+    $this->Message->create();
+    $this->Message->save($msdata);
   }
 
   function lose(){

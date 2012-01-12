@@ -45,9 +45,6 @@ class TopController extends AppController{
     if($star_count>=1){
       $message_txt .= '●ステータスを上げることができます。<a href="/cake/top/status/">ステータスアップ画面</a>へ入って下さい。<br>';
     }
-
-
-
     //view
     $this->set('message_txt',$message_txt);
     $this->set('mdata',$mdata);
@@ -149,16 +146,6 @@ class TopController extends AppController{
       'update_date' => date("Y-m-d H:i:s")
     );
     $this->Member->save($data);
-
-    //ユーザーエージェント判定
-    $useragent_code = $this->return_useragent_code();
-    if($useragent_code=='1'){
-      //ios
-      $this->render($layout='lv_up_svg',$file='default');
-    }else{
-      //android,それ以外
-      $this->render($layout='lv_up_flash',$file='default');
-    }
   }
 
   function change_avatar(){
