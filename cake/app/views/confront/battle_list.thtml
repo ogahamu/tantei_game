@@ -1,0 +1,48 @@
+<style type="text/css">
+<!--
+.style1 {
+  color: #CCCCCC;
+  font-size: 14px;
+}
+.style12 {
+  color: #FF0000;
+  font-weight: bold;
+}
+-->
+</style>
+<table width="320" border="0" class="treasure">
+  <tr>
+    <td height="47"><span class="style1">アイテムを所持しているユーザー一覧。<br>
+    バトルをすることでお宝を奪うことができます。</span></td>
+  </tr>
+</table><br>
+<table width="310" height="127" border="0" cellpadding="0" cellspacing="0" bgcolor="#000000">
+  <tr>
+    <td width="310"><table width="310" border="0" cellpadding="0" cellspacing="0">
+      <tr bgcolor="#666666">
+        <th width="212" height="19">名前</th>
+        <th width="98">選択</th>
+      </tr>
+      <?php foreach($data as $datas): ?>
+      <tr bgcolor="#CCCCCC">
+        <td height="33" bgcolor="#000000"><img src="<?php echo $datas['members']['thumnail_url'] ?>" width="48" height="55"><span class="style1"><?php echo $datas['members']['name'] ?>さん</span></td>
+        <td bgcolor="#000000"><a href="/cake/confront/battle_top/<?php echo $datas['member_treasures']['id'] ?>">バトル開始</a></td>
+      </tr>
+      <tr>
+        <td colspan="4"><hr></td>
+        </tr>
+      <?php endforeach; ?>
+    </table>
+      <?php if(count($data)<=0){?>
+      <br>
+      <table width="315" height="150" border="0" bordercolor="#CCCCCC" bgcolor="#CCCCCC" class="message">
+        <tr>
+          <td><span class="style12">【対象なし】<br>
+            近いレベルのユーザーがいません。</span> <br>
+
+      </td>
+        </tr>
+      </table>      <?php } ?></td>
+  </tr>
+</table>
+
