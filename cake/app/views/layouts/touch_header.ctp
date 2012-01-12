@@ -3,12 +3,11 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html" charset="utf-8">
-<meta name="keywords" content="アインシュタインの暗号">
-<meta name="description" content="アインシュタインの暗号">
-<title>アインシュタインの暗号</title>
+<meta name="keywords" content="||||">
+<meta name="description" content="||||">
+<title>||||</title>
 <meta http-equiv="Content-Type" content="text/html"; charset="utf-8">
 <link rel="stylesheet" type="text/css" href="/cake/css/all_default.css" />
-<link rel="stylesheet" type="text/css" href="/cake/css/touch_mixi_table.css" />
 <style type="text/css">
 <!--
 body{
