@@ -13,25 +13,19 @@ function return_wordwrap($line){
   return $rtntxt;
 }
 ?>
-<style type="text/css">
-<!--
-.style4 {color: #FFFFFF; font-weight: bold; }
--->
-</style>
-
 <table width="310" height="127" border="0" cellpadding="0" cellspacing="0">
   <tr>
     <td width="310"><table width="310" border="0" cellpadding="0" cellspacing="0">
-      <tr bgcolor="#666666">
+      <tr>
         <th width="179" height="19">名前 </th>
         <th width="75">お宝</th>
         <th width="56">コンプ数</th>
       </tr>
       <?php foreach($data as $datas): ?>
       <tr bgcolor="#000000">
-        <td><span class="style4"><img src="<?php echo $datas['Member']['thumnail_url'] ?>" width="27" height="34"><?php echo $datas['Member']['name'] ?>(Lv.<?php echo $datas['Member']['lv'] ?>)</span></td>
-        <td><span class="style4"><?php echo $datas['Member']['treasure_count'] ?>個</span></td>
-        <td><span class="style4"><?php echo $datas['Member']['compleate_treasure_count'] ?>個</span></td>
+        <td><img src="<?php echo $datas['Member']['thumnail_url'] ?>" width="27" height="34"><?php echo $datas['Member']['name'] ?>(Lv.<?php echo $datas['Member']['lv'] ?>)</td>
+        <td><?php echo $datas['Member']['treasure_count'] ?>個</td>
+        <td><?php echo $datas['Member']['compleate_treasure_count'] ?>個</td>
       </tr>
       <tr>
         <td colspan="3"><hr></td>
