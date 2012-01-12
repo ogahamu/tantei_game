@@ -1,4 +1,3 @@
-<a href="/cake/manage/series/">リストへ</a>
 <table width="320" border="0">
   <tr>
   <?php $i=1;?>
