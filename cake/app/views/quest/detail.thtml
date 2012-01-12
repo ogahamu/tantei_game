@@ -15,7 +15,7 @@
           <td><H1><?php echo $datas['MemberQuestDetail']['title'] ?></H1></td>
         </tr>
         <tr>
-          <td><table width="320" border="1">
+          <td><table width="320" border="0" class="quest_detail_comment">
               <tr>
                 <td><H2><?php echo $datas['MemberQuestDetail']['comment'] ?></H2></td>
               </tr>
@@ -38,7 +38,7 @@
         </tr>
         <tr>
           <td> <?php foreach($mdata as $mdatas): ?>
-            <table width="320" border="0">
+            <table width="320" border="0" class="profile">
               <tr>
                 <td width="66" rowspan="3"><img src="<?php echo $mdatas['Member']['thumnail_url'];?>" width="44" height="44"></td>
                 <td width="59">体力</td>

@@ -120,7 +120,7 @@ class TopController extends AppController{
     $srrdata = $this->StructureSql->select_result_rank($member_id);
     $cdata = $this->StructureSql->select_count_compleate_treasure($member_id);
     $compleate_count = $cdata[0][0]['count'];
-    $treasure_count = $this->MemberTreasure->find('count', array('conditions' => array('member_id' => $member_id)));
+    //$treasure_count = $this->MemberTreasure->find('count', array('conditions' => array('member_id' => $member_id)));
     $ranking_data = $this->StructureSql->select_member_ranking_count($member_id);
     $all_member_count = $this->Member->findCount();
     //アベレージ

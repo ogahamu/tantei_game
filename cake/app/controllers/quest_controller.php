@@ -95,7 +95,7 @@ class QuestController extends AppController{
     $mq_data = $this->MemberQuest->findById($member_quest_id);
     $quest_id = $mq_data['MemberQuest']['quest_id'];
     if(strlen($distance)==0){$distance=0;}
-    $after_distance=$distance + 50;
+    $after_distance=$distance + 20;
     $resoluved_flag = 0;
     $first_resolved_flag =0;
     if($after_distance>=$all_distance){
@@ -147,9 +147,9 @@ class QuestController extends AppController{
     );
     $this->MemberQuestDetail->save($mqd_data);
     //ある確率で証拠を取得(ただし画面遷移するため解決時は除く)
-    $rand_no = mt_rand(0,5);
-    $rand_no = 1;
-    if(($first_resolved_flag==0)&&($rand_no == 1){
+    $rand_no = mt_rand(0,6);
+    //$rand_no = 1;
+    if(($first_resolved_flag==0)&&($rand_no == 1)){
       $ev_data = $this->StructureSql->select_evidence_by_rand($quest_id);
       $medata = array(
         'MemberEvidence' => array(
@@ -167,8 +167,8 @@ class QuestController extends AppController{
     }
     //ある確率でアイテムゲット(ただし画面遷移するため解決時は除く)
     $rand_no_2 = mt_rand(0,15);
-    $rand_no_2 = 1;
-    if(($first_resolved_flag==0)&&($rand_no_2 == 1){
+    //$rand_no_2 = 1;
+    if(($first_resolved_flag==0)&&($rand_no_2 == 1)){
       $this->redirect('/quest/get_item/'.$member_quest_detail_id);
     }
     //初回クリア直後
@@ -179,15 +179,15 @@ class QuestController extends AppController{
   }
 
   function quest_clear($member_quest_id){
-      $this->set('member_quest_id',$member_quest_id);
+    $this->set('member_quest_id',$member_quest_id);
   }
 
   function get_item($member_quest_detail_id){
-    $this-set('member_quest_detail_id',$member_quest_detail_id);
+    $this->set('member_quest_detail_id',$member_quest_detail_id);
   }
 
   function get_evidence($member_quest_detail_id){
-    $this-set('member_quest_detail_id',$member_quest_detail_id);
+    $this->set('member_quest_detail_id',$member_quest_detail_id);
   }
 
   function send_message($member_id,$title,$comment){

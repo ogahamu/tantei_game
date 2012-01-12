@@ -30,7 +30,7 @@ $(function(){
     <td><p><img src="/jpg/ajito_<?php echo $avater_id; ?>.png" width="320" height="180"></p></td>
   </tr>
   <tr>
-    <td height="10"><table class="message" width="315" border="0" bordercolor="#CCCCCC" bgcolor="#CCCCCC">
+    <td height="10"><table class="message" width="315" border="0">
         <tr>
           <td>最近の動き<br>
             <?php echo $message_txt;?></td>

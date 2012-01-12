@@ -3,7 +3,7 @@
     <td width="310"> <?php if(quest_resolved_flag==1){?>
       <table width="320" border="0">
         <tr>
-          <td height="51" bgcolor="#CCCC99">おわり</td>
+          <td height="51">おわり</td>
         </tr>
       </table>
       <?php } ?>
@@ -27,7 +27,7 @@
             <?php } ?> </th>
         </tr>
         <tr>
-          <th height="17"><table width="320" border="0">
+          <th height="17"><table width="320" border="0" class="treasure">
               <tr>
                 <?php $i=1;?>
                 <?php foreach($ev_data as $ev_datas): ?>
@@ -42,12 +42,12 @@
         </tr>
         <?php foreach($data as $datas): ?>
         <tr>
-          <td bgcolor="#C0C0C0"><span class="style4"><?php echo $datas['MemberQuestDetail']['title'] ?></span></td>
+          <td><H1><?php echo $datas['MemberQuestDetail']['title'] ?></H1></td>
         </tr>
         <tr>
-          <td><table width="320" border="1">
+          <td><table width="320" border="0" class="quest_detail_comment">
               <tr>
-                <td bgcolor="#C0C0C0"><span class="style4"><?php echo $datas['MemberQuestDetail']['comment'] ?></span></td>
+                <td><?php echo $datas['MemberQuestDetail']['comment'] ?></td>
               </tr>
             </table></td>
         </tr>

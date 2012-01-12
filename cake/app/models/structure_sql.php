@@ -3,6 +3,20 @@ class StructureSql extends AppModel
 {
 public $useTable = 'members';
 
+  function select_nealy_lv_members($start_lv,$end_lv){
+    $strSql   = "select \n";
+    $strSql  .= "* \n";
+    $strSql  .= "from \n";
+    $strSql  .= "members \n";
+    $strSql  .= "where \n";
+    $strSql  .= "lv >= ".$start_lv." \n";
+    $strSql  .= "and lv <= ".$end_lv." \n";
+    $strSql  .= "order by rand() \n";
+    $strSql  .= "limit 10 \n";
+    return $this->query($strSql);
+  }
+
+
   function select_count_group_evidence_id($member_id,$member_quest_id){
     $strSql  .= "select \n";
     $strSql  .= "count(*) as count \n";

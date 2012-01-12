@@ -1,161 +1,143 @@
+body{
+  background-color:black
+  font-size:12px;
+  color:white;
+}
+h1{
+  font-size:16px;
+  font-color:white;
+  font-weight:bold;
+}
+h2{
+  font-size:14px;
+  font-color:white;
+  font-weight:bold;
+}
+h3{
+  font-size:12px;
+  font-color:white;
+  font-weight:bold;
+}
+a{
+  font-size:14px;
+  font-weight:bold;
+  color:white;
+}
+a:link{
+  font-size:14px;
+  font-weight:bold;
+  color:white;
+}
+
+.warning01{
+  color:red;
+  font-size:14px;
+}
+
+a.warning01{
+  color:red;
+  font-size:14px;
+  font-weight:bold;
+}
+
 .treasure {
-  background-color: #000000; /* �w�i�̐F */
-  border-style: dotted; /* �g�̎�� */
-  border-color: #C4C462; /* �g�̐F */
-  border-width: 4px; /* �g�̕� */
+  background-color:black;
+  border-style: dotted;
+  border-color: #333333;
+  border-width: 4px;
+}
+
+.quest_detail {
+  background-color:#CCCCCC;
+  color:black;
+  border-style: dotted;
+  border-color: #333333;
+  border-width: 2px;
+  font-size:12px;
+}
+
+.quest_detail_comment {
+  color:black;
+  background-color:#CCCCCC;
+  border-style: dotted;
+  border-color: #333333;
+  border-width: 2px;
+  font-size:12px;
+}
+
+.profile {
+  background-color:#CCCCCC;
+  color:black;
+  border-style: dotted;
+  border-color: #333333;
+  border-width: 2px;
+  font-size:12px;
 }
 
 .message {
-  background-color: #333333; /* �w�i�̐F */
-  border-style: dotted; /* �g�̎�� */
-  border-color: #999999; /* �g�̐F */
-  border-width: 4px; /* �g�̕� */
+  background-color: #333333;
+  border-style: dotted;
+  border-color: #999999;
+  border-width: 4px;
 }
 
 #headerbg {
-  background-color: #333333;
-  background-color: #000000;
+  background-color:black;
   width:100%;
   min-width:320px;
 }
 #header {
+  background-color:black;
   width: 320px;
   margin-right: auto;
   margin-left: auto;
 }
 #menubg {
   width:100%;
-  background-color: #000000;
+  background-color:black;
   min-width:320px;
 }
 #menu {
   width: 320px;
   margin-right: auto;
   margin-left: auto;
+  background-color:black;
 }
 #greenmenubg {
-  background-color: #000000;
+  background-color:black;
   width:100%;
   min-width:320px;
 }
 #greenmenu {
+  background-color:black;
   width: 320px;
   margin-right: auto;
   margin-left: auto;
 }
 #bodybg {
-  background-color: #000000;
+  background-color:black;
   width:100%;
-  background-repeat: repeat-x;
   min-width:320px;
 }
 #body {
+  background-color:black;
   width: 320px;
   margin-right: auto;
   margin-left: auto;
-  background-color: #000000;
-  font-color=: #FFFFFF;
 }
 #footerbg {
-  background-color: #000000;
+  background-color:black;
   width:100%;
-  background-repeat: repeat-x;
   min-width:320px;
 }
 #footer {
+  background-color:black;
   width: 320px;
   margin-right: auto;
   margin-left: auto;
 }
-
 hr {
 height: 1px;
 border: none;
 border-top: 1px #CCCCCC dotted;
-}
-
-body {
-  font-size: 12px;
-  font-color=: #FFFFFF;
-  border:0px;
-  margin:0px;
-  padding:0px;
-}
-
-img {
-  vertical-align:bottom;
-  border:0px;
-  margin:0px;
-  padding:0px;
-}
-
-table {
-  font-size: 12px;
-  font-color=: #FFFFFF;
-  border:0px;
-  margin-left: auto;
-  margin-right: auto;
-  cellpadding: 0px;
-  cellspacing: 0px;
-  padding:0px;
-}
-
-A:link {
-  color: #CCCCCC;
-  text-decoration: none
-}
-A:visited {
-  color: #CCCCCC;
-  text-decoration: none
-}
-A:active {
-  color: #CCCCCC;
-   text-decoration: none
-}
-A:hover {
-  color: #CCCCCC;
-  text-decoration: underline;
-}
-
-ul.pager {
-    list-style:none;
-    font-size: 16px;
-      margin: 0px;
-}
-ul.pager li {
-   list-style:none;
-      float: left;
-      margin-right: 5px;
-      border: 1px #666666 solid;
-      font-weight: bold;
-}
-ul.pager li.prev,
-ul.pager li.next {
-    list-style:none;
-      border: none;
-}
-ul.pager li a {
-    list-style:none;
-      position: relative;
-      display: block;
-      padding: 3px 8px;
-      color: #666666;
-}
-ul.pager li a:link,
-ul.pager li a:visited {
-    list-style:none;
-      text-decoration: none;
-}
-ul.pager li a:hover,
-ul.pager li a:active {
-    list-style:none;
-      background-color: #CCCCCC;
-      text-decoration: none;
-}
-ul.pager li em {
-    list-style:none;
-      display: block;
-      padding: 3px 8px;
-      background: #666666;
-      color: #FFFFFF;
 }
