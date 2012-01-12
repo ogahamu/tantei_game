@@ -5,7 +5,6 @@
 #progressbar {width: 120px; height: 10px;}
 #progressbar .ui-progressbar-value { background-color: #0033CC;}
 </style>
-
 <script type="text/javascript">
 $(function(){
     // プログレスバーを生成
@@ -26,132 +25,106 @@ $(function(){
         })
 });
 </script>
-
-
-<style type="text/css">
-<!--
-.style2 {color: #FFFFFF;font-size: 15px;}
-.style1 {color: #CCCCCC;font-size: 15px;}
--->
-</style>
 <table width="310"  border="0" cellpadding="0" cellspacing="0" >
   <tr>
     <td bgcolor="#000000"></td>
   </tr>
   <tr>
-    <td height="135">
-
-<?php foreach($mdata as $mdatas): ?>
+    <td height="135"> <?php foreach($mdata as $mdatas): ?>
       <table width="310" border="0" bgcolor="#000000">
         <tr>
           <td colspan="2"><span class="style1">自分 <a href="/cake/top/change_avatar/">アバターの変更</a><br>
-          </span>
-          <hr></td>
+            </span>
+            <hr></td>
         </tr>
         <tr>
           <td width="71"><span class="style1">レべル</span></td>
           <td width="215"><span class="style1">lv<?php echo $mdatas['lv'];?></span>
-          <hr></td>
+            <hr></td>
         </tr>
         <tr>
           <td width="71"><span class="style1">Exp</span></td>
           <td width="215"><span class="style1">Exp<?php echo $mdatas['exp'];?>[次のレベルまで<?php echo $mdatas['least_next_exp'];?>]</span>
-          <hr></td>
+            <hr></td>
         </tr>
         <tr>
           <td><span class="style1">体力</span></td>
-          <td><span class="style1"><div id="progressbar">
-            <span class="style2"></span></div>
-          </span><hr></td>
+          <td><span class="style1">
+            <div id="progressbar"> <span class="style2"></span></div>
+            </span>
+            <hr></td>
         </tr>
         <tr>
           <td><span class="style1">所持金</span></td>
           <td><span class="style1">$<?php echo $mdatas['money'];?></span>
-          <hr></td>
+            <hr></td>
+        </tr>
+        <tr>
+          <td rowspan="3"><span class="style1">能力</span></td>
+          <td><span class="style1">推理力<?php echo $mdatas['attack_power'];?></span>
+            <hr></td>
+        </tr>
+        <tr>
+          <td><span class="style1">弁護力<?php echo $mdatas['defence_power'];?></span>
+            <hr></td>
+        </tr>
+        <tr>
+          <td><span class="style1">運<?php echo $mdatas['fortune_power'];?></span>
+            <hr></td>
         </tr>
         <tr>
           <td><span class="style1">順位</span></td>
           <td><span class="style1"><?php echo $ranking_txt;?></span>
-          <hr></td>
-        </tr>
-        <tr>
-          <td><span class="style1"></span></td>
-          <td><span class="style1"></span></td>
-        </tr>
-        <tr>
-          <td colspan="2"><span class="style1">ミッション</span>
-          <hr></td>
-        </tr>
-        <tr>
-          <td><span class="style1">挑戦数</span></td>
-          <td><span class="style1"><?php echo $mdatas['mission_count'];?>回</span>
-          <hr></td>
-        </tr>
-        <tr>
-          <td><span class="style1">成功率</span></td>
-          <td><span class="style1"><?php echo ceil($mdatas['success_count']/$mdatas['mission_count']*100);?>%</span> <span class="style1">(<?php echo ceil($average_point);?>)
-          </span>            <hr></td>
-        </tr>
-        <tr>
-          <td><span class="style1">成功数</span></td>
-          <td><span class="style1"><?php echo $mdatas['success_count'];?>回 </span>
-            <table width="109" border="0">
-              <?php foreach($srrdata as $srrdatas): ?>
-              <tr>
-                <td width="50"><span class="style2"><?php echo $srrdatas['result_ranks']['name']; ?>-</span>-</td>
-                <td width="49" class="style2"><?php echo $srrdatas[0]['count']; ?>回</td>
-              </tr>
-              <?php endforeach; ?>
-            </table>
             <hr></td>
         </tr>
         <tr>
-          <td><span class="style1">失敗数</span></td>
-          <td><span class="style1"><?php echo $mdatas['mistake_count'];?>回</span>
-          <hr></td>
-        </tr>
-        <tr>
           <td><span class="style1"></span></td>
           <td><span class="style1"></span></td>
-
         </tr>
         <tr>
-          <td colspan="2"><span class="style1">お宝</span>
-          <hr></td>
+          <td colspan="2"><span class="style1">事件</span>
+            <hr></td>
         </tr>
         <tr>
-          <td><span class="style1">アイテム数</span></td>
-          <td><span class="style1"><?php echo $treasure_count;?>個</span>
-          <hr></td>
+          <td><span class="style1">クエスト数</span></td>
+          <td><span class="style1"><?php echo $mdatas['mission_count'];?>件</span>
+            <hr></td>
+        </tr>
+        <tr>
+          <td rowspan="2"><span class="style1">検挙</span></td>
+          <td><span class="style1">成功　<?php echo $mdatas['money'];?>件</span></td>
+        </tr>
+        <tr>
+          <td class="style1">失敗　<?php echo $mdatas['mislead_count'];?>件<br>
+            （今日の失敗　<?php echo $mdatas['today_mislead_count'];?>件）</td>
+        </tr>
+        <tr>
+          <td><span class="style1">逮捕</span></td>
+          <td><span class="style1"><?php echo $mdatas['today_mislead_count'];?>件</span></td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td colspan="2"><span class="style1">証拠</span>
+            <hr></td>
+        </tr>
+        <tr>
+          <td><span class="style1">集めた証拠数</span></td>
+          <td><span class="style1"><?php echo $evidence_count;?>個</span>
+            <hr></td>
         </tr>
         <tr>
           <td><span class="style1">コンプ数</span></td>
-          <td><span class="style1"><?php echo $compleate_count ?>個</span>
-          <hr></td>
-        </tr>
-        <tr>
-          <td colspan="2">
-          <span class="style1">バトル
-          </span>          <hr></td>
-        </tr>
-        <tr>
-          <td class="style1">勝利</td>
-          <td><span class="style1"><?php echo $mdatas['rob_success_count'];?></span>
-          <hr></td>
-        </tr>
-        <tr>
-          <td class="style1">敗北</td>
-          <td><span class="style1"><?php echo $mdatas['rob_mistake_count'];?></span>
-          <hr></td>
+          <td><span class="style1"><?php echo $compleate_evidence_count ?>件</span>
+            <hr></td>
         </tr>
         <tr>
           <td>&nbsp;</td>
           <td>&nbsp;</td>
         </tr>
       </table>
-   <?php endforeach; ?>
-
-
-    </td>
+      <?php endforeach; ?> </td>
   </tr>
 </table>

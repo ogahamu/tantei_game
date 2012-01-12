@@ -5,7 +5,6 @@
 #progressbar {width: 120px; height: 10px;}
 #progressbar .ui-progressbar-value { background-color: #0033CC;}
 </style>
-
 <script type="text/javascript">
 $(function(){
     // プログレスバーを生成
@@ -26,81 +25,64 @@ $(function(){
         })
 });
 </script>
-
-
-<style type="text/css">
-<!--
-.style1 {color: #CCCCCC}
-.style4 {color: #CCCCCC; font-size: 16px; }
-.style2 {
-  font-size: 14px;
-  color: #FF0000;
-  font-weight: bold;
-}
--->
-</style>
-<table width="310"  border="0" cellpadding="0" cellspacing="0" bgcolor="#000000" >
+<table width="310"  border="0" cellpadding="0" cellspacing="0" >
   <tr>
-    <td bgcolor="#000000"><p><img src="/jpg/ajito_<?php echo $avater_id; ?>.png" width="320" height="180"></p></td>
+    <td><p><img src="/jpg/ajito_<?php echo $avater_id; ?>.png" width="320" height="180"></p></td>
   </tr>
   <tr>
     <td height="10"><table class="message" width="315" border="0" bordercolor="#CCCCCC" bgcolor="#CCCCCC">
         <tr>
           <td>最近の動き<br>
-            <span class="style2"><?php echo $message_txt;?></span></td>
+            <?php echo $message_txt;?></td>
         </tr>
-      </table>            </td>
+      </table></td>
   </tr>
   <tr>
     <td height="11">&nbsp;</td>
   </tr>
   <tr>
-    <td height="135">
-
-<?php foreach($mdata as $mdatas): ?>
-      <table width="304" border="0" bgcolor="#000000">
-        <tr class="style1">
-          <td width="71"><span class="style4"><img src="<?php echo $mdatas['thumnail_url'];?>" width="44"></span></td>
-          <td width="215"><span class="style4"><?php echo $mdatas['name'];?> [Lv<?php echo $mdatas['lv'];?>]</span>          </td>
+    <td height="135"> <?php foreach($mdata as $mdatas): ?>
+      <table width="304" border="0">
+        <tr>
+          <td width="71"><img src="<?php echo $mdatas['thumnail_url'];?>" width="44"></td>
+          <td width="215"><?php echo $mdatas['name'];?> [Lv<?php echo $mdatas['lv'];?>]</td>
         </tr>
-        <tr class="style1">
+        <tr>
           <td colspan="2"><hr></td>
         </tr>
-        <tr class="style1">
-          <td width="71"><span class="style4">Exp</span></td>
-          <td width="215"><span class="style4">Exp<?php echo $mdatas['exp'];?>[次のレベルまで<?php echo $mdatas['least_next_exp'];?>]</span>          </td>
+        <tr>
+          <td width="71">Exp</td>
+          <td width="215">Exp<?php echo $mdatas['exp'];?>[次のレベルまで<?php echo $mdatas['least_next_exp'];?>] </td>
         </tr>
-        <tr class="style1">
+        <tr>
           <td colspan="2"><hr></td>
         </tr>
-        <tr class="style1">
-          <td><span class="style4">体力</span></td>
-          <td><div id="progressbar">
-
-            <span class="style1"></span></div></td>
+        <tr>
+          <td>体力</td>
+          <td><div id="progressbar"> </div></td>
         </tr>
-        <tr class="style1">
+        <tr>
           <td colspan="2"><hr></td>
         </tr>
-        <tr class="style1">
-          <td><span class="style4">所持金</span></td>
-          <td><span class="style4">$<?php echo $mdatas['money'];?></span>          </td>
+        <tr>
+          <td>所持金</td>
+          <td>$<?php echo $mdatas['money'];?> </td>
         </tr>
-        <tr class="style1">
+        <tr>
           <td colspan="2"><hr></td>
         </tr>
-        <tr class="style1">
-          <td><span class="style4">順位</span></td>
-          <td><span class="style4"><?php echo $ranking_txt; ?></span>  <a href="/cake/ranking/top/">ランキングを見る        </a></td>
+        <tr>
+          <td>順位</td>
+          <td><?php echo $ranking_txt; ?> <a href="/cake/ranking/top/">ランキングを見る </a></td>
         </tr>
-        <tr class="style1">
+        <tr>
           <td colspan="2"><hr>
-          <br>
-          <a href="/cake/top/profile/" class="style4">もっと詳しく見る</a></td>
+            <br>
+            <a href="/cake/top/profile/" class="style4">もっと詳しく見る</a></td>
         </tr>
       </table>
-   <?php endforeach; ?>
-   <p><a href="/cake/manage/series/"><img src="/jpg/own_item_list_banner.png" width="320" height="50" border="0"></a></p>
-   <a href="/cake/help/top/">HELP </a> </td>
+      <?php endforeach; ?>
+      <p><a href="/cake/manage/series/"><img src="/jpg/own_item_list_banner.png" width="320" height="50" border="0"></a></p>
+      <a href="/cake/help/top/">HELP </a> </td>
   </tr>
 </table>
