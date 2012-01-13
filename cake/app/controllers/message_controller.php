@@ -10,7 +10,8 @@ class MessageController extends AppController{
     $this->session_manage();
     //セッションから会員番号を取得
     $member_id = $this->session_data['id'];
-    $data = $this->StructureSql->select_own_treasure_list($member_id);
+    //$data = $this->StructureSql->select_own_treasure_list($member_id);
+    $this->Message->findAllByMemberId($member_id,null,'id desc');
     $this->set('data',$data);
   }
 

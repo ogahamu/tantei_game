@@ -3,6 +3,7 @@ class AttackController extends AppController{
 
   var $uses = array('MemberEvidence','StructureSql','Member','Message','Quest','QuestDetail','MemberQuest','MemberQuestDetail');
   var $session_data;
+  var $attack_cost=50;
 
   function top($member_quest_id){
     $this->session_manage();
@@ -10,14 +11,15 @@ class AttackController extends AppController{
     $member_id = $this->session_data['id'];
     $mqdata = $this->MemberQuest->findById($member_quest_id);
     $quest_id = $mqdata['MemberQuest']['quest_id'];
-
-    //最大のチャレンジ可能数を決定する
+    //犯人の残した証拠数
     $challenge_count = $mqdata['MemberQuest']['challenge_count'];
-    //集めた証拠の数
-    $me_count = $this->StructureSql->select_count_group_evidence_id($member_id,$member_quest_id);
-    $max_challenge_count = $challenge_count + $me_count[0][0]['count'];
+    //自分が集めた証拠数
+    $ev_c_data = $this->StructureSql->count_evidence_by_member_quest($member_quest_id);
+    $ev_count = $ev_c_data[0][0]['count'];
+    //最大証拠数
+    $max_challenge_count = $challenge_count + $ev_count;
     $this->set('challenge_count',$challenge_count);
-    $this->set('me_count',$me_count[0][0]['count']);
+    $this->set('me_count',$ev_count);
     $this->set('max_challenge_count',$max_challenge_count);
 
     $resolved_flag = $mqdata['MemberQuest']['resolved_flag'];
@@ -29,7 +31,7 @@ class AttackController extends AppController{
     $mdata = $this->Member->findById($member_id);
     $power = $mdata['Member']['power'];
     //power減らす
-    $power -= 50;
+    $power -= $attack_cost;
     $data = array(
       'Member' => array(
         'id' => $member_id,
@@ -45,7 +47,6 @@ class AttackController extends AppController{
     $this->session_manage();
     //セッションから会員番号を取得
     $member_id = $this->session_data['id'];
-
   }
 
   function win($quest_id){
@@ -139,10 +140,18 @@ class AttackController extends AppController{
     $this->Message->save($msdata);
   }
 
-  function lose(){
+  function lose($quest_id){
     $this->session_manage();
     //セッションから会員番号を取得
     $member_id = $this->session_data['id'];
+    //quest_idがうまく受け取れない場合はエラー
+    if(strlen($quest_id)==0){
+      $this->redirect('/quest/no_queset/');
+    }
+    //今のクエスト情報を取得し、加算する経験値とお金を取得
+    $mq_data = $this->MemberQuest->find(array("quest_id"=>$quest_id,"member_id"=>$member_id));
+    $member_quest_id = $mq_data['MemberQuest']['id'];
+    $this->set('member_quest_id',$member_quest_id);
   }
 
   function session_manage(){

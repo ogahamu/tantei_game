@@ -6,8 +6,16 @@
     <td><div align="center"><img src="/jpg/no_battle.png" width="156" height="144"></div></td>
   </tr>
   <tr>
-    <td>既におわってます<br>
-      -アイテム使う-</td>
+    <td>購買部<br>
+
+    <?php if($no_item_flag==0){ ?>
+      <a href="/cake/item/item_power_exe/">-アイテム使う[残り<?php echo $amount; ?>個]-</a>
+    <?php } ?>
+    <?php if($no_item_flag==1){ ?>
+           アイテムがありません。
+      <a href="/cake/item/item_power_exe/">-購入する-</a>
+    <?php } ?>
+      </td>
   </tr>
   <tr>
     <td><div align="center"><a href="/cake/request/top/"><br>

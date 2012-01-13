@@ -1,8 +1,23 @@
-<SCRIPT type="text/javascript">
+<script type="text/javascript">
 <!--
-setTimeout("link()", 3000);
+settimeout("link()", 5000);
 function link(){
 location.href='http://bank.blamestitch.com/cake/quest/detail/<?php echo $member_quest_detail_id;?>/#header-menu/';
 }
 -->
-</SCRIPT>
+</script>
+<table width="320" height="156" border="0">
+  <tr>
+    <td height="15">&nbsp;</td>
+  </tr>
+  <tr>
+    <td><img src="/jpg/<?php echo $evidence_id; ?>.png" width="180" height="200"></td>
+  </tr>
+  <tr>
+    <td><?php echo $evidence_name; ?>をみつけた</td>
+  </tr>
+  <tr>
+    <td><a href="/cake/quest/detail/<?php echo $member_quest_detail_id;?>/">jumpaaa</a></td>
+  </tr>
+</table>
+

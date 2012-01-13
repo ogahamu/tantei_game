@@ -1,33 +1,49 @@
 <?php
 class QuestController extends AppController{
 
-  var $uses = array('MemberEvidence','StructureSql','Member','Message','Quest','QuestDetail','MemberQuest','MemberQuestDetail');
+  var $uses = array('Evidence','MemberEvidence','StructureSql','Member','Message','Quest','QuestDetail','MemberQuest','MemberQuestDetail');
   var $session_data;
+  var $quest_cost=20;
+  var $quest_distance=20;
+  var $once_quest_exp = 10;
 
   function top(){
     $this->session_manage();
     //セッションから会員番号を取得
     $member_id = $this->session_data['id'];
-    $data = $this->MemberQuest->findAllByMemberId($member_id);
+    $data = $this->MemberQuest->findAllByMemberId($member_id,null,'id desc');
     $this->set('data',$data);
   }
 
   function datalist($member_quest_id){
     $this->session_manage();
+    if(strlen($member_quest_id)==0){
+      $this->redirect('/top/lost_way/');
+    }
     //セッションから会員番号を取得
     $member_id = $this->session_data['id'];
-    $data = $this->MemberQuestDetail->findAllByMemberQuestId($member_quest_id);
-
-    $member_quest_id = $data[0]['MemberQuestDetail']['member_quest_id'];
+    $mdata = $this->Member->findById($member_id);
+    //アイテムの個数を取得
+    $item_challenge = $mdata['Member']['item_challenge'];
+    $this->set('item_challenge',$item_challenge);
+    $data = $this->MemberQuestDetail->findAllByMemberQuestId($member_quest_id,null,'id desc');
     $mq_data = $this->MemberQuest->findById($member_quest_id);
     $quest_resolved_flag = $mq_data['MemberQuest']['resolved_flag'];
     $quest_id = $mq_data['MemberQuest']['quest_id'];
-
-    //証拠
-    $ev_data = $this->StructureSql->select_own_evidence_list($quest_id);
+    $real_fact_resolved_flag = $mq_data['MemberQuest']['real_fact_resolved_flag'];
+    //犯人が残した証拠数
+    $challenge_count = $mq_data['MemberQuest']['challenge_count'];
+    //自分が集めた証拠
+    $ev_data = $this->StructureSql->select_own_evidence_list($quest_id,$member_id);
     $this->set('ev_data',$ev_data);
-
-    //var_dump($data);
+    //自分が集めた証拠数
+    $ev_c_data = $this->StructureSql->count_evidence_by_member_quest($member_quest_id);
+    $ev_count = $ev_c_data[0][0]['count'];
+    //結果、最大の証拠数
+    $max_challenge_count = $challenge_count + $ev_count;
+    $this->set('ev_count',$ev_count);
+    $this->set('challenge_count',$challenge_count);
+    $this->set('max_challenge_count',$max_challenge_count);
     //最終面リンク表示(最後の詳細ミッションが終了になっていたら上げる)
     $last_stage = $this->MemberQuestDetail->find(array("member_quest_id"=>$member_quest_id,"last_marker_flag"=>1,"resoluved_flag"=>1,"member_id"=>$member_id));
     $last_stage_count = count($last_stage);
@@ -43,6 +59,7 @@ class QuestController extends AppController{
       $last_stage_link_flag=0;
     }
     //view
+    $this->set('real_fact_resolved_flag',$real_fact_resolved_flag);
     $this->set('quest_resolved_flag',$quest_resolved_flag);
     $this->set('last_stage_link_flag',$last_stage_link_flag);
     $this->set('member_quest_id',$member_quest_id);
@@ -51,27 +68,41 @@ class QuestController extends AppController{
 
   function detail($member_quest_detail_id){
     $this->session_manage();
+    if(strlen($member_quest_detail_id)==0){
+      $this->redirect('/top/lost_way/');
+    }
     //セッションから会員番号を取得
     $member_id = $this->session_data['id'];
     $data = $this->MemberQuestDetail->findAllById($member_quest_detail_id);
     $this->set('data',$data);
+
+    $member_quest_id= $data[0]['MemberQuestDetail']['member_quest_id'];
+    $q_data = $this->MemberQuest->findById($member_quest_id);
+    $quest_title = $q_data['MemberQuest']['title'];
+    $this->set('member_quest_id',$member_quest_id);
+    $this->set('member_quest_detail_id',$member_quest_detail_id);
+    $this->set('quest_title',$quest_title);
+
     $mdata = $this->Member->findAllById($member_id);
     $this->set('mdata',$mdata);
   }
 
   function exe_quest($member_quest_detail_id){
     $this->session_manage();
+    if(strlen($member_quest_detail_id)==0){
+      $this->redirect('/top/lost_way/');
+    }
     //セッションから会員番号を取得
     $member_id = $this->session_data['id'];
     //パワーが無ければアイテム画面へ飛ばす
     $mdata = $this->Member->findById($member_id);
     //アイテムがない場合は購入画面のリンクを出す
     $power = $mdata['Member']['power'];
-    if($power<=20){
+    if($power<$this->quest_cost){
       $this->redirect('/item/item_power_top/');
     }
     //パワーを減らす
-    $power-=20;
+    $power-=$this->quest_cost;
     $data = array(
       'id' => $member_id,
       'power' => $power,
@@ -79,9 +110,8 @@ class QuestController extends AppController{
     );
     $this->Member->save($data);
     //expを付与する
-    $add_point = 50;
+    $add_point = $this->once_quest_exp;
     $this->StructureSql->call_get_bank_exp($member_id,$add_point);
-
     //ここから本編の実行
     $data = $this->MemberQuestDetail->findById($member_quest_detail_id);
     $member_quest_id = $data['MemberQuestDetail']['member_quest_id'];
@@ -95,7 +125,7 @@ class QuestController extends AppController{
     $mq_data = $this->MemberQuest->findById($member_quest_id);
     $quest_id = $mq_data['MemberQuest']['quest_id'];
     if(strlen($distance)==0){$distance=0;}
-    $after_distance=$distance + 20;
+    $after_distance=$distance + $this->quest_distance;
     $resoluved_flag = 0;
     $first_resolved_flag =0;
     if($after_distance>=$all_distance){
@@ -128,9 +158,11 @@ class QuestController extends AppController{
           $this->MemberQuestDetail->save($mqd_data);
           $first_resolved_flag =1;
           //メールを送る
-          $title = $member_quest_detail_title.'の調査終了！';
+          $title = $member_quest_detail_title.'の走査完了！';
           $comment = '';
           $this->send_message($member_id,$title,$comment);
+
+          $this->redirect('/quest/datalist/'.$member_quest_id);
         }
       }elseif($last_marker_flag == 1){
         echo '既にあります';
@@ -147,7 +179,7 @@ class QuestController extends AppController{
     );
     $this->MemberQuestDetail->save($mqd_data);
     //ある確率で証拠を取得(ただし画面遷移するため解決時は除く)
-    $rand_no = mt_rand(0,6);
+    $rand_no = mt_rand(0,4);
     //$rand_no = 1;
     if(($first_resolved_flag==0)&&($rand_no == 1)){
       $ev_data = $this->StructureSql->select_evidence_by_rand($quest_id);
@@ -163,13 +195,15 @@ class QuestController extends AppController{
          )
       );
       $this->MemberEvidence->save($medata);
-      $this->redirect('/quest/get_evidence/'.$member_quest_detail_id);
+      //コンプリートチェック
+      $this->check_evidence_compleate($member_id,$ev_data[0]['evidences']['id']);
+      $this->redirect('/quest/get_evidence/mqd_i:'.$member_quest_detail_id.'/evi_i:'.$ev_data[0]['evidences']['id']);
     }
     //ある確率でアイテムゲット(ただし画面遷移するため解決時は除く)
     $rand_no_2 = mt_rand(0,15);
-    //$rand_no_2 = 1;
     if(($first_resolved_flag==0)&&($rand_no_2 == 1)){
-      $this->redirect('/quest/get_item/'.$member_quest_detail_id);
+      $item_id = $this->insert_item();
+      $this->redirect('/quest/get_item/mqd_i:'.$member_quest_detail_id.'/item_i:'.$item_id);
     }
     //初回クリア直後
     if($first_resolved_flag==1){
@@ -182,11 +216,24 @@ class QuestController extends AppController{
     $this->set('member_quest_id',$member_quest_id);
   }
 
-  function get_item($member_quest_detail_id){
+  function get_item(){
+    $member_quest_detail_id = $this->params['named']['mqd_i'];
+    $item_id = $this->params['named']['item_i'];
+    //$e_data = $this->Item->findById($evidence_id);
+    //$evidence_name = $e_data['Evidence']['name'];
+    $this->set('item_id',$item_id);
+    $this->set('item_name','aaaaa');
     $this->set('member_quest_detail_id',$member_quest_detail_id);
   }
 
-  function get_evidence($member_quest_detail_id){
+  function get_evidence(){
+    $member_quest_detail_id = $this->params['named']['mqd_i'];
+    $evidence_id = $this->params['named']['evi_i'];
+    $e_data = $this->Evidence->findById($evidence_id);
+    $evidence_name = $e_data['Evidence']['name'];
+
+    $this->set('evidence_id',$evidence_id);
+    $this->set('evidence_name',$evidence_name);
     $this->set('member_quest_detail_id',$member_quest_detail_id);
   }
 
@@ -204,6 +251,65 @@ class QuestController extends AppController{
     );
     $this->Message->create();
     $this->Message->save($msdata);
+  }
+
+  function check_evidence_compleate($member_id,$evidence_id){
+
+    $ev_data = $this->Evidence->findById($evidence_id);
+    $quest_id = $ev_data['Evidence']['quest_id'];
+    $compleate_count = $ev_data['Evidence']['compleate_count'];
+
+    $member_quest_id = $this->MemeberQuest->findByQuestId($quest_id);
+    //自分が集めた証拠数
+    $ev_c_data = $this->StructureSql->count_evidence_by_member_quest($member_quest_id);
+    $ev_count = $ev_c_data[0][0]['count'];
+
+    //最大数を超えていた場合には発動
+    if($ev_count>=$compleate_count){
+      //update_evidence
+      $this->StructureSql->update_evidence_compleate_flag($member_quest_id);
+      //member_quests
+      $mq_data = array(
+        'MemberQuest' => array(
+          'id' =>$member_quest_id,
+          'evidence_compleate_flag' =>1,
+          'update_time' =>date("Y-m-d H:i:s")
+        )
+      );
+      $this->MemberQuest->save($mq_data);
+      //コンプリートにリダイレクト？
+    }
+
+  }
+
+  function insert_item($item_id){
+    $this->session_manage();
+    //セッションから会員番号を取得
+    $member_id = $this->session_data['id'];
+    $mdata = $this->Member->findById($member_id);
+    if(strlen($item_id)==0){
+      $item_id = mt_rand(1,3);
+    }
+    $item_power = $mdata['Member']['item_power'];
+    $item_challenge = $mdata['Member']['item_challenge'];
+    $item_star = $mdata['Member']['item_star'];
+    if($item_id==1){
+      $item_power+=1;
+    }elseif($item_id==2){
+      $item_challenge+=1;
+    }elseif($item_id==2){
+      $item_star+=1;
+    }
+    $id = $mdata['Member']['id'];
+    $data = array(
+      'id' => $member_id,
+      'item_power' => $item_power,
+      'item_challenge' => $item_challenge,
+      'item_star' => $item_star,
+      'update_date' => date("Y-m-d H:i:s")
+    );
+    $this->Member->save($data);
+    return $item_id;
   }
 
   function return_useragent_code(){

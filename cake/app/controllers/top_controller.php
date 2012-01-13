@@ -39,7 +39,7 @@ class TopController extends AppController{
     //読んでないリクエストの件数を表示
     $no_read_count = $this->Message->findCount(array("member_id"=>$member_id,"read_flag"=>0));
     if($no_read_count>0){
-      $message_txt .= '<a href="/cake/request/top/">●'.$no_read_count.'件の未読メールがあります。</a><br>';
+      $message_txt .= '<a href="/cake/message/top/">●'.$no_read_count.'件の未読メールがあります。</a><br>';
     }
     //ステータスの更新情報を表示する
     if($star_count>=1){
@@ -60,6 +60,11 @@ class TopController extends AppController{
     $member_id = $this->session_data['id'];
     $data = $this->Member->findAllById($member_id);
     $this->set('data',$data);
+  }
+
+  function lost_way(){
+
+
   }
 
   function status_up($genre_id){

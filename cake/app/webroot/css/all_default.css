@@ -8,16 +8,34 @@ h1{
   font-color:white;
   font-weight:bold;
 }
+h1 a{
+  font-size:16px;
+  font-color:white;
+  font-weight:bold;
+}
+
 h2{
   font-size:14px;
   font-color:white;
   font-weight:bold;
 }
+h2 a{
+  font-size:14px;
+  font-color:white;
+  font-weight:bold;
+}
+
 h3{
   font-size:12px;
   font-color:white;
   font-weight:bold;
 }
+h3 a{
+  font-size:14px;
+  font-color:white;
+  font-weight:bold;
+}
+
 a{
   font-size:14px;
   font-weight:bold;
@@ -28,6 +46,7 @@ a:link{
   font-weight:bold;
   color:white;
 }
+
 
 .warning01{
   color:red;

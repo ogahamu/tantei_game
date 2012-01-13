@@ -3,6 +3,28 @@ class StructureSql extends AppModel
 {
 public $useTable = 'members';
 
+  function update_evidence_compleate_flag($member_quest_id){
+    $strSql   = "update member_evidences set compleate_flag = 1 where member_quest_id = ".$member_quest_id."  \n";
+    return $this->query($strSql);
+  }
+
+  function count_evidence_by_member_quest($member_quest_id){
+    $strSql   = "select \n";
+    $strSql  .= "  count(*) as count \n";
+    $strSql  .= "from \n";
+    $strSql  .= "  ( \n";
+    $strSql  .= "    select \n";
+    $strSql  .= "      evidence_id \n";
+    $strSql  .= "    from \n";
+    $strSql  .= "      member_evidences \n";
+    $strSql  .= "    where \n";
+    $strSql  .= "      member_quest_id = ".$member_quest_id." \n";
+    $strSql  .= "    group by \n";
+    $strSql  .= "      evidence_id \n";
+    $strSql  .= "  ) target \n";
+    return $this->query($strSql);
+  }
+
   function select_nealy_lv_members($start_lv,$end_lv){
     $strSql   = "select \n";
     $strSql  .= "* \n";
@@ -78,7 +100,7 @@ public $useTable = 'members';
     return $this->query($strSql);
   }
 
-  function select_own_evidence_list($quest_id){
+  function select_own_evidence_list($quest_id,$member_id){
     $strSql   = "select    \n";
     $strSql  .= "evidences.id,  \n";
     $strSql  .= "evidences.name,  \n";
@@ -89,7 +111,7 @@ public $useTable = 'members';
     $strSql  .= "count(member_evidences.id) as count  \n";
     $strSql  .= "from    \n";
     $strSql  .= "evidences    \n";
-    $strSql  .= "left join member_evidences on evidences.id = member_evidences.evidence_id    \n";
+    $strSql  .= "left join member_evidences on evidences.id = member_evidences.evidence_id and member_evidences.member_id = ".$member_id."    \n";
     $strSql  .= "where    \n";
     $strSql  .= "evidences.quest_id = ".$quest_id."  \n";
     $strSql  .= "group by    \n";

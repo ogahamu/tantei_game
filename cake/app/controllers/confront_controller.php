@@ -76,8 +76,6 @@ class ConfrontController extends AppController{
 
   }
 
-
-
   function rob_evidence($member_evidence_id){
     $this->session_manage();
     //セッションから会員番号を取得

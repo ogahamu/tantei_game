@@ -1,0 +1,11 @@
+<table width="320" border="0">
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td height="103"><img src="/human.png" width="320" height="131"></td>
+  </tr>
+  <tr>
+    <td height="67"><a href="/cake/attack/top/<?php echo $member_quest_id; ?>">リトライ</a>/<a href="/cake/top/top/">TOP</a> / <a href="/cake/quest/datalist/<?php echo $member_quest_id;?>">クエに戻る</a></td>
+  </tr>
+</table>

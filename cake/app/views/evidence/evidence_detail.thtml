@@ -6,6 +6,6 @@
     <td height="223"><img src="/jpg/111.png" width="200" height="200"></td>
   </tr>
   <tr>
-    <td height="20"><a href="/cake/evidence/evidence_have_list/<?php echo $evidence_id; ?>">これを基にする</a></td>
+    <td height="20"><a href="/cake/quest/datalist/<?php echo $evidence_id; ?>">戻る</a><a href="/cake/evidence/evidence_have_list/<?php echo $evidence_id; ?>">これをもとにする</a></td>
   </tr>
 </table>

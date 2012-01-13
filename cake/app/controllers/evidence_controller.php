@@ -20,15 +20,19 @@ class EvidenceController extends AppController{
     //セッションから会員番号を取得
     $member_id = $this->session_data['id'];
     $data = $this->StructureSql->select_own_evidence_list($quest_id);
+    $this->set('quest_id',quest_id);
     $this->set('data',$data);
   }
 
-  function evidence_detail($evidence_id){
+  function evidence_detail(){
     $this->session_manage();
     //セッションから会員番号を取得
     $member_id = $this->session_data['id'];
+    $evidence_id = $this->params['named']['evi_i'];
+    $member_quest_id = $this->params['named']['mq_i'];
     $data = $this->StructureSql->select_own_evidence_detail($evidence_id);
     $this->set('evidence_id',$evidence_id);
+    $this->set('member_quest_id',$member_quest_id);
     $this->set('data',$data);
   }
 

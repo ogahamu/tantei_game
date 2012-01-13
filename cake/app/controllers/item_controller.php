@@ -3,8 +3,9 @@
 
 class ItemController extends AppController{
 
-  var $uses = array('StructureSql','Member','Message','MemberItem');
+  var $uses = array('Evidence','MemberEvidence','StructureSql','Member','Message','Quest','QuestDetail','MemberQuest','MemberQuestDetail');
   var $session_data;
+  var $item_challenge_get_price=100;
 
   function top(){
     $this->session_manage();
@@ -22,23 +23,78 @@ class ItemController extends AppController{
     //現在の挑戦回数を出す
     $mqdata = $this->MemberQuest->findById($member_quest_id);
     $quest_id = $mqdata['MemberQuest']['quest_id'];
-    //最大のチャレンジ可能数を決定する
+    //犯人が残した証拠
     $challenge_count = $mqdata['MemberQuest']['challenge_count'];
-    //集めた証拠の数
-    $me_count = $this->StructureSql->select_count_group_evidence_id($member_id,$member_quest_id);
-    $max_challenge_count = $challenge_count + $me_count[0][0]['count'];
+    //自分が集めた証拠
+    $ev_c_data = $this->StructureSql->count_evidence_by_member_quest($member_quest_id);
+    $ev_count = $ev_c_data[0][0]['count'];
+    //足した証拠の数
+    $max_challenge_count = $challenge_count + $ev_count;
+    $this->set('ev_count',$ev_count);
     $this->set('challenge_count',$challenge_count);
-    $this->set('me_count',$me_count[0][0]['count']);
     $this->set('max_challenge_count',$max_challenge_count);
-
     //アイテムがない場合は購入画面のリンクを出す
     $item_challenge = $mdata['Member']['item_challenge'];
-    $no_itme_flag = 0;
-    if($item_challenge==0){
-      $no_itme_flag=1;
+    $no_item_flag = 0;
+    if($item_challenge<=0){
+      $no_item_flag=1;
     }
+    $this->set('member_quest_id',$member_quest_id);
     $this->set('member_id',$member_id);
-    $this->set('no_itme_flag',$no_itme_flag);
+    $this->set('amount',$challenge_count);
+    $this->set('no_item_flag',$no_item_flag);
+  }
+
+  function item_challenge_get(){
+    $this->session_manage();
+    //セッションから会員番号を取得
+    $member_id = $this->session_data['id'];
+    $mdata = $this->Member->findById($member_id);
+    $money = $mdata['Member']['money'];
+    $money = $money - $this->item_challenge_get_price;
+    //お金を減らす
+    $id = $mdata['Member']['id'];
+    $data = array(
+      'id' => $id,
+      'money' => $mixi_account_id,
+      'thumnail_url' => $mixi_thumbnail,
+      'name' => $mixi_name,
+      'update_date' => date("Y-m-d H:i:s")
+    );
+    $this->Member->save($data);
+    //ゲットする
+    $this->insert_item(2);
+    $this->redirect('/item/item_challenge_top/');
+  }
+
+  function insert_item($item_id){
+    $this->session_manage();
+    //セッションから会員番号を取得
+    $member_id = $this->session_data['id'];
+    $mdata = $this->Member->findById($member_id);
+    if(strlen($item_id)==0){
+      $item_id = mt_rand(1,3);
+    }
+    $item_power = $mdata['Member']['item_power'];
+    $item_challenge = $mdata['Member']['item_challenge'];
+    $item_star = $mdata['Member']['item_star'];
+    if($item_id==1){
+      $item_power+=1;
+    }elseif($item_id==2){
+      $item_challenge+=1;
+    }elseif($item_id==2){
+      $item_star+=1;
+    }
+    $id = $mdata['Member']['id'];
+    $data = array(
+      'id' => $member_id,
+      'item_power' => $item_power,
+      'item_challenge' => $item_challenge,
+      'item_star' => $item_star,
+      'update_date' => date("Y-m-d H:i:s")
+    );
+    $this->Member->save($data);
+    return $item_id;
   }
 
   function item_challenge_exe($member_quest_id){
@@ -80,10 +136,11 @@ class ItemController extends AppController{
     //アイテムがない場合は購入画面のリンクを出す
     $item_power = $mdata['Member']['item_power'];
     $no_itme_flag = 0;
-    if($item_power==0){
+    if($item_power<=0){
       $no_itme_flag=1;
     }
     $this->set('member_id',$member_id);
+    $this->set('amount',$item_power);
     $this->set('no_itme_flag',$no_itme_flag);
   }
 
