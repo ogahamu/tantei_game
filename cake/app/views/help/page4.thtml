@@ -1,25 +1,65 @@
-<style type="text/css">
-<!--
-.style1 {
-  color: #FFFFFF;
-  font-size: 14px;
+<!--[if IE]><script type="text/javascript" src="http://bank.blamestitch.com/js/excanvas_r3/excanvas.compiled.js"></script><![endif]-->
+<div style="text-align:center;">
+<canvas id="testCanvas" width="320" height="320" style="border:0px solid #CCC;"></canvas>
+</div>
+<script type="text/javascript">
+//制御
+var timerID;
+var cW=320;
+var cH=320;
+var back_X=0;
+var back_Y=0;
+var human_X=-50;
+var human_Y=0;
+window.onload = function(){
+  setTimer();
 }
--->
-</style>
-<table width="320" height="439" border="0" bgcolor="#000000">
-  <tr>
-    <td height="15"><img src="/jpg/help/help4.png" width="320" height="200"></td>
-  </tr>
-  <tr>
-    <td height="90"><p class="style1">正解が456だったとして、「564」と入力してみよう。</p>
-      <p class="style1">場所も数字も合致しているものはないので0Criticalと表示される。</p>
-      <p class="style1">３つの数字[5,6,4]自体は合っていて、場所が違うので、3Hitと表示される。</p>
-      </td>
-  </tr>
-  <tr>
-    <td height="15"><div align="center"><a href="/cake/help/page5/"><img src="/jpg/next_bottan.png" width="120" border="0"></a></div></td>
-  </tr>
-  <tr>
-    <td height="15">&nbsp;</td>
-  </tr>
-</table>
+//フレームレート
+function setTimer(){
+  clearInterval(timerID);
+  timerID = setInterval("setMove()", 100);
+}
+//制御
+function setMove(){
+  back_X-=5;
+  //if(back_X<-2000){
+  //  back_X=0;
+  //}
+  human_X+=1;
+  if(human_X>=80){
+    human_X = 100;
+  }
+  draw();
+}
+var i=0;
+//描画
+function draw(){
+  //Canvas
+  var canvas=document.getElementById('testCanvas');
+  if (!canvas||!canvas.getContext) return false;
+  var ctx = canvas.getContext('2d');
+  //refresh
+  //ctx.clearRect(0,0,cW,cH);
+  //images
+  back_img = new Image();
+  back_img.src =  "http://bank.blamestitch.com/img/movie/quest_sucsess/back.png?142";
+  pika_img = new Image();
+  pika_img.src =  "http://bank.blamestitch.com/img/movie/quest_sucsess/pika.png?1442";
+  human_img = new Image();
+  human_img.src = "http://bank.blamestitch.com/img/movie/quest_sucsess/human.png?1421";
+  char_img = new Image();
+  char_img.src =  "http://bank.blamestitch.com/img/movie/quest_sucsess/char.png?1442";
+
+  ctx.drawImage(back_img, back_X, back_Y);
+  if(i%5==0){
+  ctx.drawImage(pika_img, 0, 0);
+  }
+  ctx.drawImage(human_img, human_X, human_Y);
+  i+=1;
+  //if(i%10==0){
+    //ctx.drawImage(char_img, 0, 100);
+  //}else{
+    ctx.drawImage(char_img, 0, 0);
+  //}
+}
+</script>

@@ -4,11 +4,7 @@
   google.load("jqueryui", "1.7.1");
 </script>
 <script type="text/javascript" src="/js/jquery.easing.js"></script>
-<script type="text/javascript">
-$(document).ready(function(){
-  $(".distance_gage_1").animate({width: "320px"}, "fast");
-});
-</script>
+
 <style type="text/css">
 div .distance_gage_1{
   background: red;
@@ -27,14 +23,18 @@ div .distance_gage_1{
           <th height="8">&nbsp;</th>
         </tr>
         <tr>
-          <th height="9"><H1><a href="/cake/quest/datalist/<?php echo $member_quest_id;?>"><?php echo $quest_title;?></a></H1></th>
+          <th height="9"><H1 align="left"><img src="/img/shitai_icon.png" width="18" height="18"><?php echo $quest_title;?></H1>
+            <div align="right"><br>
+                <a href="/cake/quest/datalist/<?php echo $member_quest_id;?>"><img src="/img/evidence2_icon.png" width="18" height="18">事件簿に戻る</a>
+            </div>
+            <hr></th>
         </tr>
         <tr>
           <th height="17">&nbsp;</th>
         </tr>
         <?php foreach($data as $datas): ?>
         <tr>
-          <td><H1><?php echo $datas['MemberQuestDetail']['title'] ?></H1></td>
+          <td><H1><img src="/img/evidence3_icon.png" width="18" height="18"><?php echo $datas['MemberQuestDetail']['title'] ?></H1></td>
         </tr>
         <tr>
           <td><table width="320" border="0" class="quest_detail_comment">
@@ -44,13 +44,18 @@ div .distance_gage_1{
             </table></td>
         </tr>
         <tr>
-          <td>|<div class="distance_gage_1"></div>|<?php echo $datas['MemberQuestDetail']['distance'] ?>/<?php echo $datas['MemberQuestDetail']['all_distance'] ?></td>
+<script type="text/javascript">
+$(document).ready(function(){
+  $(".distance_gage_1").animate({width: "<?php echo ceil(320*$datas['MemberQuestDetail']['distance']/$datas['MemberQuestDetail']['all_distance']); ?>px"}, "fast");
+});
+</script>
+          <td><img src="/img/spacer.gif" width="5" height="5"><div class="distance_gage_1"></div><img src="/img/spacer.gif" width="5" height="5"><?php echo $datas['MemberQuestDetail']['distance'] ?>/<?php echo $datas['MemberQuestDetail']['all_distance'] ?></td>
         </tr>
         <tr>
           <td>&nbsp;</td>
         </tr>
         <tr>
-          <td><a href="/cake/quest/exe_quest/<?php echo $datas['MemberQuestDetail']['id'];?>"><img src="/help1.png" width="320" height="43"></a></td>
+          <td><div align="center"><a href="/cake/quest/exe_quest/<?php echo $datas['MemberQuestDetail']['id'];?>"><img src="/img/sousa_bottan.png" width="200" height="50"></a></div></td>
         </tr>
         <tr>
           <td>&nbsp;</td>

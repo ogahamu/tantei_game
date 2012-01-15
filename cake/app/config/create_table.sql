@@ -1,6 +1,8 @@
 delete from members;
 delete from member_quests;
+delete from member_evidences;
 delete from member_quest_details;
+delete from messages;
 insert into members (id,mixi_account_id,name,power,max_power,money,lv,exp,least_next_exp,sum_exp,star_count
 )values(
 1,1,'TestUser',1000,1000,1000,1,0,1000,0,10);
@@ -19,8 +21,8 @@ insert_time
 )values(
 100,
 1,
-'AAAA',
-'AAAA',
+'観覧車殺人事件',
+'遊園地の観覧車内で起きた殺人事件の犯人を追え！',
 300,
 30,
 0,
@@ -47,8 +49,8 @@ insert_time
 1,
 0,
 1,
-'AAAA',
-'AAAA',
+'現場検証をせよ',
+'現場検証を行い手掛かりを探せ',
 100,
 0,
 100,

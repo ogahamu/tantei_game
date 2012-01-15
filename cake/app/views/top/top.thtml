@@ -27,7 +27,7 @@ $(function(){
 </script>
 <table width="310"  border="0" cellpadding="0" cellspacing="0" >
   <tr>
-    <td><p><img src="/jpg/ajito_<?php echo $avater_id; ?>.png" width="320" height="180"></p></td>
+    <td><p><img src="/img/ajito_<?php echo $avater_id; ?>.png" width="320" height="180"></p></td>
   </tr>
   <tr>
     <td height="10"><table class="message" width="315" border="0">

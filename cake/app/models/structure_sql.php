@@ -106,7 +106,7 @@ public $useTable = 'members';
     $strSql  .= "evidences.name,  \n";
     $strSql  .= "evidences.img_id,  \n";
     $strSql  .= "ifnull(member_evidences.evidence_id,0) as evidence_id,  \n";
-    $strSql  .= "ifnull(member_evidences.img_id,'no_img') as evidence_img_id,  \n";
+    $strSql  .= "ifnull(member_evidences.img_id,'0') as evidence_img_id,  \n";
     $strSql  .= "max(member_evidences.id) as member_evidences_id,  \n";
     $strSql  .= "count(member_evidences.id) as count  \n";
     $strSql  .= "from    \n";
@@ -123,7 +123,7 @@ public $useTable = 'members';
 
   function select_own_evidence_detail($evidence_id){
     $strSql   = "select  \n";
-    $strSql  .= "evidences.id,evidences.name,max(member_evidences.id) as member_evidences_id,count(*) as count  \n";
+    $strSql  .= "evidences.id,evidences.name,max(member_evidences.id) as member_evidences_id,ifnull(max(member_evidences.img_id),'0') as m_e_img_id,count(*) as count  \n";
     $strSql  .= "from  \n";
     $strSql  .= "evidences  \n";
     $strSql  .= "left join member_evidences on evidences.id = member_evidences.evidence_id  \n";

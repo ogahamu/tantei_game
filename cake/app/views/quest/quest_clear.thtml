@@ -30,9 +30,12 @@ function setTimer(){
 }
 //制御
 function setMove(){
-  back_Y-=50;
-  human_X+=2;
-  if(human_X>=100){
+  back_X-=5;
+  //if(back_X<-2000){
+  //  back_X=0;
+  //}
+  human_X+=1;
+  if(human_X>=80){
     human_X = 100;
   }
   draw();
@@ -45,18 +48,20 @@ function draw(){
   if (!canvas||!canvas.getContext) return false;
   var ctx = canvas.getContext('2d');
   //refresh
-  ctx.clearRect(0,0,cW,cH);
+  //ctx.clearRect(0,0,cW,cH);
   //images
   back_img = new Image();
-  back_img.src = "http://bank.blamestitch.com/jpg/back.png";
+  back_img.src =  "http://bank.blamestitch.com/img/movie/quest_clear/back.png?12";
   human_img = new Image();
-  human_img.src = "http://bank.blamestitch.com/jpg/human.png";
+  human_img.src = "http://bank.blamestitch.com/img/movie/quest_clear/human.png?11";
   char_img = new Image();
-  char_img.src = "http://bank.blamestitch.com/jpg/char.png";
+  char_img.src =  "http://bank.blamestitch.com/img/movie/quest_clear/char.png?12";
   ctx.drawImage(back_img, back_X, back_Y);
   ctx.drawImage(human_img, human_X, human_Y);
   i+=1;
-  if(i%5==0){
+  if(i%10==0){
+    //ctx.drawImage(char_img, 0, 100);
+  }else{
     ctx.drawImage(char_img, 0, 100);
   }
 }

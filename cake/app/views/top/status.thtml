@@ -1,15 +1,20 @@
 <?php foreach($data as $datas): ?>
  <table width="320" border="0">
   <tr>
-     <td colspan="3">&nbsp;</td>
+     <td colspan="3"><H1>ステータス上昇画面</H1><br>       <table width="320" border="0" id="message">
+       <tr>
+         <td>上昇させたいステータスを選んでください。<br>
+          有利にゲームを進めることができます。</td>
+       </tr>
+     </table></td>
    </tr>
   <tr>
      <td colspan="3">ステータス</td>
    </tr>
   <tr>
-     <td width="35">体力</td>
-     <td width="134"><?php echo $datas['Member']['max_power']; ?> </td>
-     <td width="137"><a href="/cake/top/status_up/1/">残り★<?php echo $datas['Member']['star_count']; ?>つ</a></td>
+     <td width="59">体力</td>
+     <td width="153"><?php echo $datas['Member']['max_power']; ?> </td>
+     <td width="94"><a href="/cake/top/status_up/1/">残り★<?php echo $datas['Member']['star_count']; ?>つ</a></td>
    </tr>
   <tr>
      <td>推理力</td>

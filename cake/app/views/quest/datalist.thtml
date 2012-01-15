@@ -35,10 +35,14 @@ div .distance_gage_3{
  <table width="310" height="127" border="0" cellpadding="0" cellspacing="0">
   <tr>
     <td width="310">
+     <H1><img src="/img/shitai_icon.png" width="18" height="18"><?php echo $member_quest_title; ?><br>
+     </H1>
+     <hr>
+     <br>
      <?php if($real_fact_resolved_flag==1){?>
       <table width="320" border="0">
         <tr>
-          <td height="51"><a href="/cake/realfact/top/">真実----</a></td>
+          <td height="51"><a href="/cake/realfact/top/"><img src="/img/shinsou_finish_img.png" width="320" height="99" border="0"></a></td>
         </tr>
       </table>
       <?php } ?>
@@ -57,7 +61,7 @@ div .distance_gage_3{
         <tr>
           <th height="9"><table width="320" border="0">
               <tr>
-                <td height="56"><img src="&#12503;/help1.png" width="320" height="81"></td>
+                <td height="56"><img src="/img/sousa_finish_img.png" width="320" height="99"></td>
               </tr>
               <tr>
                 <td><a href="/cake/attack/top/<?php echo $member_quest_id;?>">犯人は分った！[証拠:<?php echo $max_challenge_count; ?>件(収集した証拠<?php echo $ev_count; ?>:件+犯人が残した証拠:<?php echo $challenge_count; ?>件)]</a> <a href="/cake/item/item_challenge_top/<?php echo $member_quest_id;?>">アイテムを使う[<?php echo $item_challenge;?>個]</a></td>
@@ -73,7 +77,7 @@ div .distance_gage_3{
               <tr>
                 <?php $i=1;?>
                 <?php foreach($ev_data as $ev_datas): ?>
-                <td width="30"><a href="/cake/evidence/evidence_detail/evi_i:<?php echo $ev_datas['evidences']['id'];?>/mq_i:<?php echo $member_quest_id;?>"><img src="/jpg/collection/<?php echo $ev_datas[0]['member_evidences_id'];?>.png" width="40" height="40" border="0">(<?php echo $ev_datas[0]['count'];?>)</a></td>
+                <td width="30"><a href="/cake/evidence/evidence_detail/evi_i:<?php echo $ev_datas['evidences']['id'];?>/mq_i:<?php echo $member_quest_id;?>"><img src="/img/evidence/<?php echo $ev_datas[0]['evidence_img_id'];?>.png" width="40" height="40" border="0">(<?php echo $ev_datas[0]['count'];?>)</a></td>
                 <?php if($i%7==0){ ?>
               </tr>
               <tr>
@@ -85,7 +89,7 @@ div .distance_gage_3{
         <?php $i=0;?>
         <?php foreach($data as $datas): ?>
         <tr>
-          <td><H1><?php echo $datas['MemberQuestDetail']['title'] ?></H1></td>
+          <td><H1><img src="/img/evidence3_icon.png" width="18" height="18"><?php echo $datas['MemberQuestDetail']['title'] ?></H1></td>
         </tr>
         <tr>
           <td><table width="320" border="0" class="quest_detail_comment">
@@ -101,13 +105,14 @@ $(document).ready(function(){
   $(".distance_gage_<?php echo $i;?>").animate({width: "<?php echo ceil(320*$datas['MemberQuestDetail']['distance']/$datas['MemberQuestDetail']['all_distance']); ?>px"}, "fast");
 });
 </script>
-          <td>|<div class="distance_gage_<?php echo $i;?>"></div>|(<?php echo $datas['MemberQuestDetail']['distance'].'/'.$datas['MemberQuestDetail']['all_distance'];?>)</td>
+          <td><img src="/img/spacer.gif" width="5" height="5">
+          <div class="distance_gage_<?php echo $i;?>"></div><img src="/img/spacer.gif" width="5" height="5">(<?php echo $datas['MemberQuestDetail']['distance'].'/'.$datas['MemberQuestDetail']['all_distance'];?>)</td>
         </tr>
         <tr>
           <td>&nbsp;</td>
         </tr>
         <tr>
-          <td><a href="/cake/quest/detail/<?php echo $datas['MemberQuestDetail']['id'];?>"><img src="/help1.png" width="320" height="43"></a></td>
+          <td><div align="center"><a href="/cake/quest/detail/<?php echo $datas['MemberQuestDetail']['id'];?>"><img src="/img/sousa.png" width="200" height="50"></a></div></td>
         </tr>
         <tr>
           <td>&nbsp;</td>
@@ -116,6 +121,9 @@ $(document).ready(function(){
           <td><hr></td>
         </tr>
         <?php endforeach; ?>
-      </table></td>
+    </table></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
   </tr>
 </table>
