@@ -41,6 +41,30 @@ class AttackController extends AppController{
     );
     $this->Member->save($data);
     $this->set('quest_id',$quest_id);
+
+    //答えとなるキーワードを作成する
+    $keyword_num = $this->keyword_maker(8);
+    $num_0=0;
+    $num_1=0;
+    $num_2=0;
+    $num_3=0;
+    $num_4=0;
+    $num_5=0;
+    $num_6=0;
+    $num_7=0;
+    $num_8=0;
+    ${'num_'.$keyword_num[0]}=1;
+    ${'num_'.$keyword_num[1]}=2;
+    ${'num_'.$keyword_num[2]}=3;
+    $this->set('num_0',$num_0);
+    $this->set('num_1',$num_1);
+    $this->set('num_2',$num_2);
+    $this->set('num_3',$num_3);
+    $this->set('num_4',$num_4);
+    $this->set('num_5',$num_5);
+    $this->set('num_6',$num_6);
+    $this->set('num_7',$num_7);
+    $this->set('num_8',$num_8);
   }
 
   function already_end(){
@@ -152,6 +176,22 @@ class AttackController extends AppController{
     $mq_data = $this->MemberQuest->find(array("quest_id"=>$quest_id,"member_id"=>$member_id));
     $member_quest_id = $mq_data['MemberQuest']['id'];
     $this->set('member_quest_id',$member_quest_id);
+  }
+
+  function keyword_maker($max_spell){
+    $rand_number = array();
+    for ($i=0; $i<$max_spell; $i++) $nums[$i] = $i+1;
+      for ($i=0; $i<$max_spell; $i++) {
+        $j = mt_rand(0,$max_spell-1);
+        $tmp = $nums[$j];
+        $nums[$j] = $nums[$i];
+        $nums[$i] = $tmp;
+      }
+      for ($i=0; $i<3; $i++) {
+        $num = $nums[$i];
+        $rand_number[$i] = $num-1;
+      }
+    return $rand_number;
   }
 
   function session_manage(){

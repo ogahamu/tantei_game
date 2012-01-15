@@ -33,6 +33,8 @@ class EvidenceController extends AppController{
     $data = $this->StructureSql->select_own_evidence_detail($evidence_id);
     $this->set('evidence_id',$evidence_id);
     $this->set('member_quest_id',$member_quest_id);
+    $this->set('evidence_name',$data[0]['evidences']['name']);
+    $this->set('m_e_img_id',$data[0][0]['m_e_img_id']);
     $this->set('data',$data);
   }
 

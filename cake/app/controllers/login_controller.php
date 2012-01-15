@@ -5,7 +5,8 @@ require_once(BASE_DIR.'/cake/app/controllers/components/JSON.php');
 
 class LoginController extends AppController{
 
-  var $uses = array('MemberTreasure','TreasureSerie','Bank','Treasure','Member','Item','MemberItem','MemberRequest','MemberSpell','Request','Spell','StructureSql');
+  var $uses = array('StructureSql','Member','Message','Quest','QuestDetail','MemberQuest','MemberQuestDetail');
+  var $session_data;
 
   function mixi_login(){
     $mixi_account_id = $this->params['form']['id'];
@@ -36,7 +37,7 @@ class LoginController extends AppController{
           'lv' => 1,
           'lv_up_flag' => 0,
           'exp' => 0,
-          'least_next_exp' => 0,
+          'least_next_exp' => 1000,
           'sum_exp' => 0,
           'mission_count' => 0,
           'evidence_count' => 0,
@@ -132,17 +133,17 @@ class LoginController extends AppController{
 
   function insert_request($member_id){
     $member_data = $this->Member->findById($member_id);
-    $q_data = $this->Quest->findById(1);
+    //$q_data = $this->Quest->findById(1);
     $data = array(
       'MemberQuest' => array(
         'member_id' => $member_id,
-        'title' => '',
-        'comment' => '',
+        'title' => '観覧車殺人事件',
+        'comment' => '遊園地の観覧車内で起きた殺人事件の犯人を追え！',
         'quest_exp' => 300,
         'quest_price' => 30,
         'resolved_flag' => 0,
-        'evidence_appear_rate' => 5
-        'challenge_count' => 4
+        'evidence_appear_rate' => 5,
+        'challenge_count' => 4,
         'quest_id' => 1,
         'insert_time' => date("Y-m-d H:i:s")
        )
@@ -152,11 +153,11 @@ class LoginController extends AppController{
     $data = array(
       'MemberQuestDetail' => array(
         'member_quest_id' =>$member_quest_id,
-        'detail_no' => 1
+        'detail_no' => 1,
         'resoluved_flag' =>0,
-        'member_id' =>$member_id
-        'title' =>'',
-        'comment' =>'',
+        'member_id' =>$member_id,
+        'title' =>'現場検証をせよ',
+        'comment' =>'現場検証を行い手掛かりを探せ',
         'exp' =>100,
         'distance' =>0,
         'all_distance' =>100,

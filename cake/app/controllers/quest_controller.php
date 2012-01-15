@@ -30,6 +30,7 @@ class QuestController extends AppController{
     $mq_data = $this->MemberQuest->findById($member_quest_id);
     $quest_resolved_flag = $mq_data['MemberQuest']['resolved_flag'];
     $quest_id = $mq_data['MemberQuest']['quest_id'];
+    $member_quest_title = $mq_data['MemberQuest']['title'];
     $real_fact_resolved_flag = $mq_data['MemberQuest']['real_fact_resolved_flag'];
     //犯人が残した証拠数
     $challenge_count = $mq_data['MemberQuest']['challenge_count'];
@@ -63,6 +64,7 @@ class QuestController extends AppController{
     $this->set('quest_resolved_flag',$quest_resolved_flag);
     $this->set('last_stage_link_flag',$last_stage_link_flag);
     $this->set('member_quest_id',$member_quest_id);
+    $this->set('member_quest_title',$member_quest_title);
     $this->set('data',$data);
   }
 
@@ -128,6 +130,7 @@ class QuestController extends AppController{
     $after_distance=$distance + $this->quest_distance;
     $resoluved_flag = 0;
     $first_resolved_flag =0;
+    $return_datalist_flag=0;
     if($after_distance>=$all_distance){
       $after_distance = $all_distance;
       $resoluved_flag = 1;
@@ -162,10 +165,10 @@ class QuestController extends AppController{
           $comment = '';
           $this->send_message($member_id,$title,$comment);
 
-          $this->redirect('/quest/datalist/'.$member_quest_id);
+          //$this->redirect('/quest/datalist/'.$member_quest_id);
         }
       }elseif($last_marker_flag == 1){
-        echo '既にあります';
+         $return_datalist_flag=1;
       }
     }
     //距離の更新処理は必要
@@ -196,7 +199,7 @@ class QuestController extends AppController{
       );
       $this->MemberEvidence->save($medata);
       //コンプリートチェック
-      $this->check_evidence_compleate($member_id,$ev_data[0]['evidences']['id']);
+      //$this->check_evidence_compleate($member_id,$ev_data[0]['evidences']['id']);
       $this->redirect('/quest/get_evidence/mqd_i:'.$member_quest_detail_id.'/evi_i:'.$ev_data[0]['evidences']['id']);
     }
     //ある確率でアイテムゲット(ただし画面遷移するため解決時は除く)
@@ -208,6 +211,10 @@ class QuestController extends AppController{
     //初回クリア直後
     if($first_resolved_flag==1){
       $this->redirect('/quest/quest_clear/'.$member_quest_id);
+    }
+    //最終捜査終了後
+    if($return_datalist_flag==1){
+      $this->redirect('/quest/datalist/'.$member_quest_id);
     }
     $this->redirect('/quest/detail/'.$member_quest_detail_id);
   }
@@ -231,9 +238,11 @@ class QuestController extends AppController{
     $evidence_id = $this->params['named']['evi_i'];
     $e_data = $this->Evidence->findById($evidence_id);
     $evidence_name = $e_data['Evidence']['name'];
+    $evidence_img_id = $e_data['Evidence']['img_id'];
 
     $this->set('evidence_id',$evidence_id);
     $this->set('evidence_name',$evidence_name);
+    $this->set('evidence_img_id',$evidence_img_id);
     $this->set('member_quest_detail_id',$member_quest_detail_id);
   }
 

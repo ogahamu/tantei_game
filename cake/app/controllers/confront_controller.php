@@ -2,7 +2,7 @@
 
 class ConfrontController extends AppController{
 
-  var $uses = array('MemeberEvidence','StructureSql','Member','Message','Quest','QuestDetail','MemberQuest','MemberQuestDetail');
+  var $uses = array('MemberEvidence','StructureSql','Member','Message','Quest','QuestDetail','MemberQuest','MemberQuestDetail');
   var $session_data;
   var $components = array('Pager');
 
@@ -10,7 +10,7 @@ class ConfrontController extends AppController{
     $this->session_manage();
     //セッションから会員番号を取得
     $member_id = $this->session_data['id'];
-    $data = $this->MemberQuest->findAllByMemberId($member_id);
+    //$data = $this->MemberQuest->findAllByMemberId($member_id);
     $this->set('data',$data);
   }
 

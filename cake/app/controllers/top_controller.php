@@ -34,7 +34,7 @@ class TopController extends AppController{
     //各種メッセージの表示
     $message_txt = '';
     if($power<=50){
-      $message_txt .= '●体力がなくなりました。<a href="/cake/product/power_charge/">栄養ドリンクを飲む</a>か１５分程待って下さい。<br>';
+      $message_txt .= '●体力がなくなりました。<a href="/cake/item/item_power_top/">栄養ドリンクを飲む</a>か１５分程待って下さい。<br>';
     }
     //読んでないリクエストの件数を表示
     $no_read_count = $this->Message->findCount(array("member_id"=>$member_id,"read_flag"=>0));
@@ -73,7 +73,7 @@ class TopController extends AppController{
     $member_id = $this->session_data['id'];
     $data = $this->Member->findById($member_id);
     $star_count = $data['Member']['star_count'];
-    if($star_count>=0){
+    if($star_count>0){
       $star_count-=1;
       $max_power = $data['Member']['max_power'];
       $attack_power = $data['Member']['attack_power'];
@@ -190,8 +190,8 @@ class TopController extends AppController{
   }
 
   function session_manage(){
-    $data['id']=1;
-    $this->Session->write("member_info",$data);
+    //$data['id']=1;
+    //$this->Session->write("member_info",$data);
     $session_data = $this->Session->read("member_info");
     $this->session_data = $session_data;
     if(strlen($session_data['id'])==0){
