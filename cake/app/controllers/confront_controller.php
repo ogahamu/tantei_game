@@ -59,7 +59,6 @@ class ConfrontController extends AppController{
     $this->set('power',$own_power);
   }
 
-
   function battle_exe($result_code){
     if($result_code==1){
       $this->set('jump_url','/cake/confront/battle_success/'.$member_evidence_id);
@@ -75,12 +74,7 @@ class ConfrontController extends AppController{
     $own_data = $this->Member->findById($member_id);
     $own_power = $own_data['Member']['power'];
     //体力減少
-    $data = array(
-      'id' => $member_id,
-      'power' => $own_power-$this->power_cost,
-      'update_date' => date("Y-m-d H:i:s")
-    );
-    $this->Member->save($data);
+    $this->update_member_power($member_id,$own_power-$this->power_cost);
     //経験値付与
     $this->get_money($member_id,5,$this->get_exp);
   }
@@ -101,29 +95,12 @@ class ConfrontController extends AppController{
     if($today_mislead_count>=3){
       $penalty_price = ceil($money/10);
       $money = ceil($money- $penalty_price);
-      $msdata = array(
-        'Message' => array(
-          'member_id' => $member_id,
-          'title' => '１日に３回以上の間違い捜査は罰金です。＄'.$penalty_price.'没収！',
-          'comment' => '',
-          'genre_id' => 4,
-          'read_flag' => 0,
-          'insert_time' => date("Y-m-d H:i:s")
-         )
-      );
-      $this->Message->create();
-      $this->Message->save($msdata);
+      $title = '１日に３回以上の間違い捜査は罰金です。＄'.$penalty_price.'没収！',
+      $comment = '';
+      $this->send_message($enemy_id,$title,$comment,4);
     }
     //体力減少
-    $data = array(
-      'id' => $member_id,
-      'power' => $own_power-$this->power_cost,
-      'money' => $money,
-      'mislead_count' => $mislead_count,
-      'today_mislead_count' => $today_mislead_count,
-      'update_date' => date("Y-m-d H:i:s")
-    );
-    $this->Member->save($data);
+    $this->update_member_power($member_id,$own_power-$this->power_cost);
   }
 
   function rob_evidence($member_evidence_id){
@@ -183,6 +160,11 @@ class ConfrontController extends AppController{
     $member_id = $this->session_data['id'];
     $own_data = $this->Member->findById($member_id);
     $own_name = $enemy_data['Member']['name'];
+    $own_power = $own_data['Member']['power'];
+    //体力減少
+    $this->update_member_power($member_id,$own_power-$this->power_cost);
+    //経験値付与
+    $this->get_money($member_id,5,$this->get_exp);
     //証拠のmember_idを付け替える
     $me_data = $this->MemeberEvidence->findById($member_evidence_id);
     $enemy_id = $me_data['MemeberEvidence']['member_id'];
@@ -205,34 +187,11 @@ class ConfrontController extends AppController{
        )
     );
     $this->MemberEvidence->save($medata);
-
     $title = $enemy_name.'の犯行が'.$own_name.'により暴かれた。';
     $comment = '証拠は'.$own_name.'が没収しました。';
-    //それぞれにメッセージを入れる
-    $msdata = array(
-      'Message' => array(
-        'member_id' => $enemy_id,
-        'title' => $title,
-        'comment' => $comment,
-        'genre_id' => $member_quest_id,
-        'read_flag' => 0,
-        'insert_time' => date("Y-m-d H:i:s")
-       )
-    );
-    $this->Message->create();
-    $this->Message->save($msdata);
-    $msdata = array(
-      'Message' => array(
-        'member_id' => $member_id,
-        'title' => $title,
-        'comment' => '',
-        'genre_id' => $member_quest_id,
-        'read_flag' => 0,
-        'insert_time' => date("Y-m-d H:i:s")
-       )
-    );
-    $this->Message->create();
-    $this->Message->save($msdata);
+    //それぞれにメッセージをおくる
+    $this->send_message($enemy_id,$title,$comment,4);
+    $this->send_message($member_id,$title,$comment,4);
   }
 
   function rob_fail($member_evidence_id){
@@ -247,6 +206,9 @@ class ConfrontController extends AppController{
     $today_mislead_count = $own_data['Member']['today_mislead_count'];
     $today_mislead_count+=1;
     $mislead_count+=1;
+    $own_power = $own_data['Member']['power'];
+    //体力減少
+    $this->update_member_power($member_id,$own_power-$this->power_cost);
     //敵の情報
     $me_data = $this->MemeberEvidence->findById($member_evidence_id);
     $enemy_id = $me_data['MemeberEvidence']['member_id'];
@@ -255,46 +217,15 @@ class ConfrontController extends AppController{
     //失敗する
     $title = $own_name.'が疑いをかけたが'.$enemy_name.'は無実だった。';
     $comment = $enemy_name.'に対する疑いが深まった...';
-    //それぞれにメッセージを入れる
-    $msdata = array(
-      'Message' => array(
-        'member_id' => $enemy_id,
-        'title' => $title,
-        'comment' => $comment,
-        'genre_id' => 4,
-        'read_flag' => 0,
-        'insert_time' => date("Y-m-d H:i:s")
-       )
-    );
-    $this->Message->create();
-    $this->Message->save($msdata);
-    $msdata = array(
-      'Message' => array(
-        'member_id' => $member_id,
-        'title' => $title,
-        'comment' => '',
-        'genre_id' => 4,
-        'read_flag' => 0,
-        'insert_time' => date("Y-m-d H:i:s")
-       )
-    );
-    $this->Message->create();
-    $this->Message->save($msdata);
+    $this->send_message($enemy_id,$title,$comment,4);
+    $this->send_message($member_id,$title,$comment,4);
     //３回超えた
     if($today_mislead_count>=3){
-      $msdata = array(
-        'Message' => array(
-          'member_id' => $member_id,
-          'title' => '３回超えた',
-          'comment' => '',
-          'genre_id' => 4,
-          'read_flag' => 0,
-          'insert_time' => date("Y-m-d H:i:s")
-         )
-      );
-      $this->Message->create();
-      $this->Message->save($msdata);
-      $own_money = $own_money/3;
+      $penalty_price = ceil($own_money/10);
+      $own_money = ceil($money- $penalty_price);
+      $title = '１日に３回以上の間違い捜査は罰金です。＄'.$penalty_price.'没収！',
+      $comment = '';
+      $this->send_message($enemy_id,$title,$comment,4);
       $today_mislead_count = 1;
     }
     //会員情報
@@ -315,7 +246,33 @@ class ConfrontController extends AppController{
     $data = $this->MemberQuest->findAllByMemberId($member_id);
   }
 
-  function return_useragent_code(){
+  private function update_member_power($member_id,$power){
+    //体力減少
+    $data = array(
+      'id' => $member_id,
+      'power' => $power,
+      'update_date' => date("Y-m-d H:i:s")
+    );
+    $this->Member->save($data);
+  }
+
+  private function send_message($member_id,$title,$comment,$genre_id){
+    //メッセージを入れる
+    $msdata = array(
+      'Message' => array(
+        'member_id' => $member_id,
+        'title' => $title,
+        'comment' => $comment,
+        'genre_id' => $genre_id,
+        'read_flag' => 0,
+        'insert_time' => date("Y-m-d H:i:s")
+       )
+    );
+    $this->Message->create();
+    $this->Message->save($msdata);
+  }
+
+  private function return_useragent_code(){
     $isiPhone = (bool) strpos($_SERVER['HTTP_USER_AGENT'],'iPhone');
     $isiPod = (bool) strpos($_SERVER['HTTP_USER_AGENT'],'iPod');
     $isiPad = (bool) strpos($_SERVER['HTTP_USER_AGENT'],'iPad');

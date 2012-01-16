@@ -32,8 +32,8 @@ class LoginController extends AppController{
           'mail' => '',
           'pass' => '',
           'money' => '100',
-          'power' => 500,
-          'max_power' => 500,
+          'power' => 300,
+          'max_power' => 300,
           'lv' => 1,
           'lv_up_flag' => 0,
           'exp' => 0,
@@ -134,7 +134,7 @@ class LoginController extends AppController{
     $this->member_id = 1;
   }
 
-  function send_message($member_id,$title,$comment){
+  private function send_message($member_id,$title,$comment){
     //メッセージを入れる
     $msdata = array(
       'Message' => array(
@@ -150,7 +150,7 @@ class LoginController extends AppController{
     $this->Message->save($msdata);
   }
 
-  function insert_request($member_id){
+  private function insert_request($member_id){
     $member_data = $this->Member->findById($member_id);
     //$q_data = $this->Quest->findById(1);
     $data = array(

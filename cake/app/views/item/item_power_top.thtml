@@ -18,7 +18,7 @@
     <?php } ?>
     <?php if($no_item_flag==1){ ?>
            アイテムがありません。
-      <a href="/cake/item/item_power_exe/">-購入する-</a>
+      <a href="/cake/item/item_power_exe/">-購入する[所持金<?php echo $money;?>-><?php echo $after_money;?>]-</a>
     <?php } ?>
       </td>
   </tr>

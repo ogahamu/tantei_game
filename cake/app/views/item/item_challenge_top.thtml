@@ -13,7 +13,7 @@
     <?php } ?>
     <?php if($no_item_flag==1){ ?>
            アイテムがありません。
-      <a href="/cake/item/item_challenge_get/">-購入する-</a>
+      <a href="/cake/item/item_challenge_get/">-購入する[所持金<?php echo $money;?>-><?php echo $after_money;?>]-</a>
     <?php } ?>
     <a href="/cake/quest/datalist/<?php echo $member_quest_id;?>">戻る</a> </td>
   </tr>

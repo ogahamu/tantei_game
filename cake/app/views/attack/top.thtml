@@ -8,9 +8,11 @@ body {
 <!--[if IE]>
 <script type="text/javascript" src="./libs/excanvas_r3/excanvas.compiled.js"></script>
 <![endif]-->
+<a href="/cake/help/page4/">Q.解き方</a>
 <div style="text-align:center;">
 <canvas id="canvas" width="320" height="480" style="background-color: #000000"></canvas>
 </div>
+<a href="/cake/help/page4/">Q.解き方</a>
 <script type="text/javascript">
 //制御
 var cW=320;

@@ -11,8 +11,10 @@ class ItemController extends AppController{
     $this->session_manage();
     //セッションから会員番号を取得
     $member_id = $this->session_data['id'];
-    $datas = $this->MemberItem->findByMemberId($member_id);
-    $this->set('datas',$datas);
+    $mdata = $this->Member->findById($member_id);
+    $money = $mdata['Member']['money'];
+    $this->set('money',$money);
+    //$this->set('datas',$datas);
   }
 
   function item_challenge_top($member_quest_id){
@@ -21,6 +23,7 @@ class ItemController extends AppController{
     $member_id = $this->session_data['id'];
     $mdata = $this->Member->findById($member_id);
     $money = $mdata['Member']['money'];
+    $after_money = $money - 100;
     //現在の挑戦回数を出す
     $mqdata = $this->MemberQuest->findById($member_quest_id);
     $quest_id = $mqdata['MemberQuest']['quest_id'];
@@ -41,6 +44,7 @@ class ItemController extends AppController{
       $no_item_flag=1;
     }
     $this->set('money',$money);
+    $this->set('after_money',$after_money);
     $this->set('member_quest_id',$member_quest_id);
     $this->set('member_id',$member_id);
     $this->set('amount',$challenge_count);
@@ -143,6 +147,7 @@ class ItemController extends AppController{
     $power = $mdata['Member']['power'];
     $max_power = $mdata['Member']['max_power'];
     $money = $mdata['Member']['money'];
+    $after_money = $money - 100;
     //パワーがあるかないかで表示を変える
     $no_power_flag=0;
     $least_time='';
@@ -163,6 +168,7 @@ class ItemController extends AppController{
       $no_itme_flag=1;
     }
     $this->set('money',$money);
+    $this->set('after_money',$after_money);
     $this->set('member_id',$member_id);
     $this->set('amount',$item_power);
     $this->set('no_itme_flag',$no_itme_flag);
@@ -196,8 +202,9 @@ class ItemController extends AppController{
     //アバターがない場合は設定画面へ誘導
     $avater_id = $mdata['Member']['avater_id'];
     $money = $mdata['Member']['money'];
+    $after_money = $money - 100;
     $this->set('money',$money);
-
+    $this->set('after_money',$after_money);
   }
 
   function item_star_exe(){

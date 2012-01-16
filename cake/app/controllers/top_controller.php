@@ -10,7 +10,6 @@ class TopController extends AppController{
     $this->session_manage();
     //セッションから会員番号を取得
     $member_id = $this->session_data['id'];
-    $this->Session->write('spell_data','');
     //セッションから会員番号を取得
     $mdata = $this->Member->findById($member_id);
     //アバターがない場合は設定画面へ誘導
@@ -35,7 +34,6 @@ class TopController extends AppController{
     $least_power = ($max_power-$power);
     $least_hour = ceil($least_power/60);
     $least_minits = ceil($least_power%60);
-    $this->set('least_time',$least_hour.'時間'.$least_minits.'分');
     //各種メッセージの表示
     $message_txt = '';
     if($power<=50){
@@ -51,6 +49,7 @@ class TopController extends AppController{
       $message_txt .= '●ステータスを上げることができます。<a href="/cake/top/status/">ステータスアップ画面</a>へ入って下さい。<br>';
     }
     //view
+    $this->set('least_time',$least_hour.'時間'.$least_minits.'分');
     $this->set('message_txt',$message_txt);
     $this->set('mdata',$mdata);
     $this->set('ranking_txt',$ranking_data[0][0]['count'].'/'.$all_member_count);
@@ -68,8 +67,9 @@ class TopController extends AppController{
   }
 
   function lost_way(){
-
-
+    $this->session_manage();
+    //セッションから会員番号を取得
+    $member_id = $this->session_data['id'];
   }
 
   function status_up($genre_id){

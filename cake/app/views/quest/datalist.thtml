@@ -81,7 +81,8 @@ div .distance_gage_3{
             <?php } ?> </th>
         </tr>
         <tr>
-          <th height="17"><table width="320" border="0" class="treasure">
+          <th height="17">証拠一覧   ---<a href="/cake/help/page3/">Q.証拠とは?</a>---
+            <table width="320" border="0" class="treasure">
               <tr>
                 <?php $i=1;?>
                 <?php foreach($ev_data as $ev_datas): ?>
