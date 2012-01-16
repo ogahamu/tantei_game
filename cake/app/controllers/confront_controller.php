@@ -95,7 +95,7 @@ class ConfrontController extends AppController{
     if($today_mislead_count>=3){
       $penalty_price = ceil($money/10);
       $money = ceil($money- $penalty_price);
-      $title = '１日に３回以上の間違い捜査は罰金です。＄'.$penalty_price.'没収！',
+      $title = '１日に３回以上の間違い捜査は罰金です。＄'.$penalty_price.'没収！';
       $comment = '';
       $this->send_message($enemy_id,$title,$comment,4);
     }
@@ -223,7 +223,7 @@ class ConfrontController extends AppController{
     if($today_mislead_count>=3){
       $penalty_price = ceil($own_money/10);
       $own_money = ceil($money- $penalty_price);
-      $title = '１日に３回以上の間違い捜査は罰金です。＄'.$penalty_price.'没収！',
+      $title = '１日に３回以上の間違い捜査は罰金です。＄'.$penalty_price.'没収！';
       $comment = '';
       $this->send_message($enemy_id,$title,$comment,4);
       $today_mislead_count = 1;

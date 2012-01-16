@@ -1,5 +1,5 @@
 <?php foreach($data as $datas): ?>
- <table width="320" border="0">
+ <table width="320" border="0" cellpadding="0" cellspacing="0">
   <tr>
      <td colspan="3"><H1>ステータス上昇画面</H1><br>       <table width="320" border="0" id="message">
        <tr>

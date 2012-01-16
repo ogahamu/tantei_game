@@ -11,12 +11,14 @@
       </table>
       <table width="310" border="0" cellpadding="0" cellspacing="0">
       <tr>
-        <th width="146" height="19">&nbsp;</th>
-        <th width="98">&nbsp;</th>
+        <th width="210" height="19">&nbsp;</th>
+        <th width="100">&nbsp;</th>
       </tr>
       <?php foreach($data as $datas): ?>
       <tr>
-        <td><H2><img src="/img/shitai_icon.png" width="18" height="18"><?php echo $datas['MemberQuest']['title'] ?></H2><br>証拠探索難易度：Lｖ<?php $data['MemberQuest']['evidence_appear_rate'];?>鑑識が発見した証拠：<?php for($i=0;$i<=$datas['MemberQuest']['challenge_count'];$i++){?><img src="/img/evidence2_icon.png" width="18" height="18"><?php } ?>
+        <td><H2><img src="/img/shitai_icon.png" width="18" height="18"><?php echo $datas['MemberQuest']['title'] ?></H2>証拠発見難易度：Lｖ<?php $data['MemberQuest']['evidence_appear_rate'];?>
+          <br>
+          鑑識が発見した証拠：<?php for($i=0;$i<=$datas['MemberQuest']['challenge_count'];$i++){?><img src="/img/evidence2_icon.png" width="18" height="18"><?php } ?>
         </td>
         <td><a href="/cake/quest/datalist/<?php echo $datas['MemberQuest']['id'] ?>"><img src="/img/evidence2_icon.png" width="18" height="18">事件簿を見る</a></td>
       </tr>

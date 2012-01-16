@@ -36,7 +36,7 @@ public $useTable = 'members';
     $strSql  .= "from \n";
     $strSql  .= "members \n";
     $strSql  .= "where \n";
-    $strSql  .= "member_id <> ".$member_id." \n";
+    $strSql  .= "id <> ".$member_id." \n";
     $strSql  .= "and lv >= ".$start_lv." \n";
     $strSql  .= "and lv <= ".$end_lv." \n";
     $strSql  .= "order by rand() \n";

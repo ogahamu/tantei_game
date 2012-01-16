@@ -51,10 +51,6 @@ class ItemController extends AppController{
     $this->set('no_item_flag',$no_item_flag);
   }
 
-  function item_challenge_top(){
-
-  }
-
 
   function item_challenge_get(){
     $this->session_manage();

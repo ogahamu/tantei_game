@@ -47,6 +47,10 @@ a:link{
   color:white;
 }
 
+.mini_message{
+  color:pink;
+  font-size:12px;
+}
 
 .warning01{
   color:red;
