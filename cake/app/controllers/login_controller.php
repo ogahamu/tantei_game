@@ -50,6 +50,9 @@ class LoginController extends AppController{
       $member_id = $this->Member->getLastInsertID();
       //最初の依頼を生成その１
       $this->insert_request($member_id);
+      //メッセージの追加
+      $title = '「観覧車殺人事件」が追加されました。';
+      $this->send_message($member_id,$title,'');
       self::login_f_mixi();
     }else{
       if(strlen($mixi_name)>0){
@@ -129,6 +132,22 @@ class LoginController extends AppController{
     $this->Session->write("user_genre_code","");
     $this->Session->write("member_info","");
     $this->member_id = 1;
+  }
+
+  function send_message($member_id,$title,$comment){
+    //メッセージを入れる
+    $msdata = array(
+      'Message' => array(
+        'member_id' => $member_id,
+        'title' => $title,
+        'comment' => $comment,
+        'genre_id' => 1,
+        'read_flag' => 0,
+        'insert_time' => date("Y-m-d H:i:s")
+       )
+    );
+    $this->Message->create();
+    $this->Message->save($msdata);
   }
 
   function insert_request($member_id){

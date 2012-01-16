@@ -5,6 +5,8 @@ class ConfrontController extends AppController{
   var $uses = array('MemberEvidence','StructureSql','Member','Message','Quest','QuestDetail','MemberQuest','MemberQuestDetail');
   var $session_data;
   var $components = array('Pager');
+  var $power_cost = 50;
+  var $get_exp = 100;
 
   function top(){
     $this->session_manage();
@@ -20,10 +22,10 @@ class ConfrontController extends AppController{
     $member_id = $this->session_data['id'];
     $mdata = $this->Member->findById($member_id);
     $lv = $mdata['Member']['lv'];
-    $start_lv = $lv - 3;
-    $end_lv = $lv + 3;
+    $start_lv = $lv - 5;
+    $end_lv = $lv + 5;
     //レベルの近い人を選ぶ
-    $data = $this->StructureSql->select_nealy_lv_members($start_lv,$end_lv);
+    $data = $this->StructureSql->select_nealy_lv_members($member_id,$start_lv,$end_lv);
     $this->set('data',$data);
   }
 
@@ -67,20 +69,68 @@ class ConfrontController extends AppController{
   }
 
   function battle_success(){
-
-
+    $this->session_manage();
+    //セッションから会員番号を取得
+    $member_id = $this->session_data['id'];
+    $own_data = $this->Member->findById($member_id);
+    $own_power = $own_data['Member']['power'];
+    //体力減少
+    $data = array(
+      'id' => $member_id,
+      'power' => $own_power-$this->power_cost,
+      'update_date' => date("Y-m-d H:i:s")
+    );
+    $this->Member->save($data);
+    //経験値付与
+    $this->get_money($member_id,5,$this->get_exp);
   }
 
   function battle_fail(){
-
-
+    $this->session_manage();
+    //セッションから会員番号を取得
+    $member_id = $this->session_data['id'];
+    $own_data = $this->Member->findById($member_id);
+    $own_power = $own_data['Member']['power'];
+    $money = $own_data['Member']['money'];
+    $mislead_count = $own_data['Member']['mislead_count'];
+    $today_mislead_count = $own_data['Member']['today_mislead_count'];
+    //ミス回数加算
+    $mislead_count+=1;
+    $today_mislead_count+=1;
+    //3回以上でお金没収[1/10]
+    if($today_mislead_count>=3){
+      $penalty_price = ceil($money/10);
+      $money = ceil($money- $penalty_price);
+      $msdata = array(
+        'Message' => array(
+          'member_id' => $member_id,
+          'title' => '１日に３回以上の間違い捜査は罰金です。＄'.$penalty_price.'没収！',
+          'comment' => '',
+          'genre_id' => 4,
+          'read_flag' => 0,
+          'insert_time' => date("Y-m-d H:i:s")
+         )
+      );
+      $this->Message->create();
+      $this->Message->save($msdata);
+    }
+    //体力減少
+    $data = array(
+      'id' => $member_id,
+      'power' => $own_power-$this->power_cost,
+      'money' => $money,
+      'mislead_count' => $mislead_count,
+      'today_mislead_count' => $today_mislead_count,
+      'update_date' => date("Y-m-d H:i:s")
+    );
+    $this->Member->save($data);
   }
 
   function rob_evidence($member_evidence_id){
     $this->session_manage();
     //セッションから会員番号を取得
     $member_id = $this->session_data['id'];
-    $me_data = $this->MemeberEvidence->findById($member_evidence_id);
+    $me_data = $this->MemberEvidence->find(array("id"=>$member_evidence_id,"member_id <>"=>$member_id));
     $this->set('data',$me_data);
   }
 
@@ -211,7 +261,7 @@ class ConfrontController extends AppController{
         'member_id' => $enemy_id,
         'title' => $title,
         'comment' => $comment,
-        'genre_id' => $member_quest_id,
+        'genre_id' => 4,
         'read_flag' => 0,
         'insert_time' => date("Y-m-d H:i:s")
        )
@@ -223,7 +273,7 @@ class ConfrontController extends AppController{
         'member_id' => $member_id,
         'title' => $title,
         'comment' => '',
-        'genre_id' => 1,
+        'genre_id' => 4,
         'read_flag' => 0,
         'insert_time' => date("Y-m-d H:i:s")
        )
@@ -237,7 +287,7 @@ class ConfrontController extends AppController{
           'member_id' => $member_id,
           'title' => '３回超えた',
           'comment' => '',
-          'genre_id' => 1,
+          'genre_id' => 4,
           'read_flag' => 0,
           'insert_time' => date("Y-m-d H:i:s")
          )
@@ -263,36 +313,6 @@ class ConfrontController extends AppController{
     //セッションから会員番号を取得
     $member_id = $this->session_data['id'];
     $data = $this->MemberQuest->findAllByMemberId($member_id);
-  }
-
-  function success(){
-    $data = array(
-      'Messages' => array(
-        'member_id' => $member_id,
-        'title' => '',
-        'comment' => '',
-        'genre_id' => 1,
-        'read_flag' => 0,
-        'insert_time' => date("Y-m-d H:i:s")
-       )
-    );
-    $this->MemberQuest->create();
-    $this->MemberQuest->save($data);
-  }
-
-  function miss(){
-    $data = array(
-      'Messages' => array(
-        'member_id' => $member_id,
-        'title' => '',
-        'comment' => '',
-        'genre_id' => 1,
-        'read_flag' => 0,
-        'insert_time' => date("Y-m-d H:i:s")
-       )
-    );
-    $this->MemberQuest->create();
-    $this->MemberQuest->save($data);
   }
 
   function return_useragent_code(){

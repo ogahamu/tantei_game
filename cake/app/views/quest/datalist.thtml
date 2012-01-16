@@ -39,10 +39,18 @@ div .distance_gage_3{
      </H1>
      <hr>
      <br>
+     <?php if($evidence_compleate_flag==1){?>
+     <table width="320" border="0">
+       <tr>
+         <td height="51"><a href="/cake/realfact/top/"><img src="/img/shinsou_finish_img.png" width="320" height="99" border="0"></a></td>
+       </tr>
+     </table>
+     <?php } ?>
+     <br>
      <?php if($real_fact_resolved_flag==1){?>
       <table width="320" border="0">
         <tr>
-          <td height="51"><a href="/cake/realfact/top/"><img src="/img/shinsou_finish_img.png" width="320" height="99" border="0"></a></td>
+          <td height="51"><img src="/img/shinsou_finish_img.png" width="320" height="99" border="0"></td>
         </tr>
       </table>
       <?php } ?>
@@ -84,7 +92,8 @@ div .distance_gage_3{
                 <?php } ?>
                 <?php $i+=1;?>
                 <?php endforeach; ?>
-            </table></th>
+            </table><?php if($evidence_compleate_flag==1){ ?>
+            <img src="/img_0113.png" width="320" height="50" border="0"><?php } ?></th>
         </tr>
         <?php $i=0;?>
         <?php foreach($data as $datas): ?>

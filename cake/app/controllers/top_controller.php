@@ -31,6 +31,11 @@ class TopController extends AppController{
     $all_member_count = $this->Member->findCount();
     $max_power = $mdata['Member']['max_power'];
     $gage_power = ceil($power/$max_power*100);
+    //パワー回復までの時間表示
+    $least_power = ($max_power-$power);
+    $least_hour = ceil($least_power/60);
+    $least_minits = ceil($least_power%60);
+    $this->set('least_time',$least_hour.'時間'.$least_minits.'分');
     //各種メッセージの表示
     $message_txt = '';
     if($power<=50){
@@ -190,8 +195,10 @@ class TopController extends AppController{
   }
 
   function session_manage(){
-    //$data['id']=1;
-    //$this->Session->write("member_info",$data);
+    //テスト時は下記２行を追記
+    $data['id']=1;
+    $this->Session->write("member_info",$data);
+
     $session_data = $this->Session->read("member_info");
     $this->session_data = $session_data;
     if(strlen($session_data['id'])==0){

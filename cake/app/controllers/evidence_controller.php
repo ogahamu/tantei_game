@@ -42,7 +42,7 @@ class EvidenceController extends AppController{
     $this->session_manage();
     //セッションから会員番号を取得
     $member_id = $this->session_data['id'];
-    $data = $this->StructureSql->evidence_own_members($evidence_id);
+    $data = $this->StructureSql->evidence_own_members($member_id,$evidence_id);
     $this->set('data',$data);
   }
 

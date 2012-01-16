@@ -45,6 +45,9 @@ class QuestController extends AppController{
     $this->set('ev_count',$ev_count);
     $this->set('challenge_count',$challenge_count);
     $this->set('max_challenge_count',$max_challenge_count);
+    //証拠のコンプリート状況
+    $evidence_compleate_flag = $mq_data['MemberQuest']['evidence_compleate_flag'];
+    $this->set('evidence_compleate_flag',$evidence_compleate_flag);
     //最終面リンク表示(最後の詳細ミッションが終了になっていたら上げる)
     $last_stage = $this->MemberQuestDetail->find(array("member_quest_id"=>$member_quest_id,"last_marker_flag"=>1,"resoluved_flag"=>1,"member_id"=>$member_id));
     $last_stage_count = count($last_stage);
@@ -126,6 +129,7 @@ class QuestController extends AppController{
     $detail_no = $data['MemberQuestDetail']['detail_no'];
     $mq_data = $this->MemberQuest->findById($member_quest_id);
     $quest_id = $mq_data['MemberQuest']['quest_id'];
+    $evidence_appear_rate = $data['MemberQuest']['evidence_appear_rate'];
     if(strlen($distance)==0){$distance=0;}
     $after_distance=$distance + $this->quest_distance;
     $resoluved_flag = 0;
@@ -161,10 +165,10 @@ class QuestController extends AppController{
           $this->MemberQuestDetail->save($mqd_data);
           $first_resolved_flag =1;
           //メールを送る
-          $title = $member_quest_detail_title.'の走査完了！';
+          $title = '「'.$member_quest_detail_title.'」の捜査が完了しました！';
           $comment = '';
+          //メッセージ送信
           $this->send_message($member_id,$title,$comment);
-
           //$this->redirect('/quest/datalist/'.$member_quest_id);
         }
       }elseif($last_marker_flag == 1){
@@ -181,8 +185,8 @@ class QuestController extends AppController{
       )
     );
     $this->MemberQuestDetail->save($mqd_data);
-    //ある確率で証拠を取得(ただし画面遷移するため解決時は除く)
-    $rand_no = mt_rand(0,4);
+    //ある確率で証拠を取得(ただし画面遷移するため解決時は除く)基本的には4前後が望ましい
+    $rand_no = mt_rand(0,$evidence_appear_rate);
     //$rand_no = 1;
     if(($first_resolved_flag==0)&&($rand_no == 1)){
       $ev_data = $this->StructureSql->select_evidence_by_rand($quest_id);
@@ -203,7 +207,7 @@ class QuestController extends AppController{
       $this->redirect('/quest/get_evidence/mqd_i:'.$member_quest_detail_id.'/evi_i:'.$ev_data[0]['evidences']['id']);
     }
     //ある確率でアイテムゲット(ただし画面遷移するため解決時は除く)
-    $rand_no_2 = mt_rand(0,15);
+    $rand_no_2 = mt_rand(0,20);
     if(($first_resolved_flag==0)&&($rand_no_2 == 1)){
       $item_id = $this->insert_item();
       $this->redirect('/quest/get_item/mqd_i:'.$member_quest_detail_id.'/item_i:'.$item_id);
@@ -229,7 +233,7 @@ class QuestController extends AppController{
     //$e_data = $this->Item->findById($evidence_id);
     //$evidence_name = $e_data['Evidence']['name'];
     $this->set('item_id',$item_id);
-    $this->set('item_name','aaaaa');
+    $this->set('item_name','回復剤');
     $this->set('member_quest_detail_id',$member_quest_detail_id);
   }
 
@@ -253,7 +257,7 @@ class QuestController extends AppController{
         'member_id' => $member_id,
         'title' => $title,
         'comment' => $comment,
-        'genre_id' => 1,
+        'genre_id' => 3,
         'read_flag' => 0,
         'insert_time' => date("Y-m-d H:i:s")
        )
@@ -263,16 +267,13 @@ class QuestController extends AppController{
   }
 
   function check_evidence_compleate($member_id,$evidence_id){
-
     $ev_data = $this->Evidence->findById($evidence_id);
     $quest_id = $ev_data['Evidence']['quest_id'];
     $compleate_count = $ev_data['Evidence']['compleate_count'];
-
     $member_quest_id = $this->MemeberQuest->findByQuestId($quest_id);
     //自分が集めた証拠数
     $ev_c_data = $this->StructureSql->count_evidence_by_member_quest($member_quest_id);
     $ev_count = $ev_c_data[0][0]['count'];
-
     //最大数を超えていた場合には発動
     if($ev_count>=$compleate_count){
       //update_evidence

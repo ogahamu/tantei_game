@@ -9,8 +9,13 @@ class RankingController extends AppController{
     $this->session_manage();
     //セッションから会員番号を取得
     $member_id = $this->session_data['id'];
-    $data = $this->Member->findAll(null, null, 'treasure_count desc',20,0);
+    $data = $this->Member->findAll(null, null, 'sum_exp desc',20,0);
     $this->set('data',$data);
+  }
+
+  function self_rank(){
+
+
   }
 
   function session_manage(){

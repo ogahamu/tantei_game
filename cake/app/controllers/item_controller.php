@@ -20,6 +20,7 @@ class ItemController extends AppController{
     //セッションから会員番号を取得
     $member_id = $this->session_data['id'];
     $mdata = $this->Member->findById($member_id);
+    $money = $mdata['Member']['money'];
     //現在の挑戦回数を出す
     $mqdata = $this->MemberQuest->findById($member_quest_id);
     $quest_id = $mqdata['MemberQuest']['quest_id'];
@@ -39,11 +40,17 @@ class ItemController extends AppController{
     if($item_challenge<=0){
       $no_item_flag=1;
     }
+    $this->set('money',$money);
     $this->set('member_quest_id',$member_quest_id);
     $this->set('member_id',$member_id);
     $this->set('amount',$challenge_count);
     $this->set('no_item_flag',$no_item_flag);
   }
+
+  function item_challenge_top(){
+
+  }
+
 
   function item_challenge_get(){
     $this->session_manage();
@@ -133,12 +140,29 @@ class ItemController extends AppController{
     //セッションから会員番号を取得
     $member_id = $this->session_data['id'];
     $mdata = $this->Member->findById($member_id);
+    $power = $mdata['Member']['power'];
+    $max_power = $mdata['Member']['max_power'];
+    $money = $mdata['Member']['money'];
+    //パワーがあるかないかで表示を変える
+    $no_power_flag=0;
+    $least_time='';
+    if($power<50){
+      $no_power_flag=1;
+      //パワー回復までの時間表示
+      $least_power = ($max_power-$power);
+      $least_hour = ceil($least_power/60);
+      $least_minits = ceil($least_power%60);
+      $least_time = $least_hour.'時間'.$least_minits.'分';
+    }
+    $this->set('no_power_flag',$no_power_flag);
+    $this->set('least_time',$least_time);
     //アイテムがない場合は購入画面のリンクを出す
     $item_power = $mdata['Member']['item_power'];
     $no_itme_flag = 0;
     if($item_power<=0){
       $no_itme_flag=1;
     }
+    $this->set('money',$money);
     $this->set('member_id',$member_id);
     $this->set('amount',$item_power);
     $this->set('no_itme_flag',$no_itme_flag);
@@ -171,6 +195,9 @@ class ItemController extends AppController{
     $mdata = $this->Member->findById($member_id);
     //アバターがない場合は設定画面へ誘導
     $avater_id = $mdata['Member']['avater_id'];
+    $money = $mdata['Member']['money'];
+    $this->set('money',$money);
+
   }
 
   function item_star_exe(){

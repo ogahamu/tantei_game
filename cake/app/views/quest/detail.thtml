@@ -24,7 +24,7 @@ div .distance_gage_1{
         </tr>
         <tr>
           <th height="9"><H1 align="left"><img src="/img/shitai_icon.png" width="18" height="18"><?php echo $quest_title;?></H1>
-            <div align="right"><br>
+            <div align="right">
                 <a href="/cake/quest/datalist/<?php echo $member_quest_id;?>"><img src="/img/evidence2_icon.png" width="18" height="18">事件簿に戻る</a>
             </div>
             <hr></th>

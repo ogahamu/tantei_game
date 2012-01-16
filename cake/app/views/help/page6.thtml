@@ -1,26 +1,17 @@
-<style type="text/css">
-<!--
-.style1 {
-  color: #FFFFFF;
-  font-size: 14px;
-}
--->
-</style>
-<table width="320" height="439" border="0" bgcolor="#000000">
+<table width="320" height="128" border="0">
   <tr>
-    <td height="15"><img src="/jpg/help/help6.png" width="320" height="200"></td>
+    <td height="6">ヘルプ&gt;</td>
   </tr>
   <tr>
-    <td height="90"><p class="style1">これらのヒントを使って、
-      正解の数字３桁を導きだそう。</p>
-      <p class="style1">お宝の情報はメールで届けられるので、メールを定期的にチェックしておこう。</p>
-      <p class="style1">それではメールをチェックしてさっそくミッション開始だ！</p>
-    <p></p></td>
+    <td height="7"><H1></H1></td>
   </tr>
   <tr>
-    <td height="15"><div align="center"><a href="/cake/request/top/"><img src="/jpg/next_bottan.png" width="120" border="0"></a></div></td>
-  </tr>
-  <tr>
-    <td height="15">&nbsp;</td>
+    <td height="90"><table width="320" border="0">
+      <tr>
+        <td>
+
+        </td>
+      </tr>
+    </table></td>
   </tr>
 </table>

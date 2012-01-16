@@ -59,7 +59,7 @@ $(function(){
         </tr>
         <tr>
           <td>体力</td>
-          <td><div id="progressbar"> </div></td>
+          <td><div id="progressbar"> </div>満タンまで残り<?php echo $least_time;?></td>
         </tr>
         <tr>
           <td colspan="2"><hr></td>

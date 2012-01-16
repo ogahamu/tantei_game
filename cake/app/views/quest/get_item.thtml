@@ -36,7 +36,7 @@ location.href='http://bank.blamestitch.com/cake/quest/detail/<?php echo $member_
   </tr>
   <tr>
    <td rowspan="2" colspan="2"><img name="findevidence_r4_c2" src="/img/findevidence_r4_c2.png" width="58" height="177" border="0" alt=""></td>
-   <td><img name="findevidence_r4_c4" src="/jpg/<?php echo $evidence_id; ?>.png" width="166" height="166" border="0" alt=""></td>
+   <td><img name="findevidence_r4_c4" src="/jpg/<?php echo $item_id; ?>.png" width="166" height="166" border="0" alt=""></td>
    <td rowspan="2" colspan="2"><img name="findevidence_r4_c5" src="/img/findevidence_r4_c5.png" width="50" height="177" border="0" alt=""></td>
    <td><img src="/img/spacer.gif" width="1" height="166" border="0" alt=""></td>
   </tr>
@@ -46,7 +46,7 @@ location.href='http://bank.blamestitch.com/cake/quest/detail/<?php echo $member_
   </tr>
   <tr>
    <td rowspan="2"><img name="findevidence_r6_c2" src="/img/findevidence_r6_c2.png" width="8" height="76" border="0" alt=""></td>
-   <td colspan="3" background="/img/findevidence_r6_c3.png"><?php echo $evidence_name; ?>をみつけた<a href="/cake/quest/detail/<?php echo $member_quest_detail_id;?>/"><br>
+   <td colspan="3" background="/img/findevidence_r6_c3.png"><?php echo $item_name; ?>をみつけた<a href="/cake/quest/detail/<?php echo $member_quest_detail_id;?>/"><br>
     捜査に戻る</a></td>
    <td rowspan="2"><img name="findevidence_r6_c6" src="/img/findevidence_r6_c6.png" width="1" height="76" border="0" alt=""></td>
    <td><img src="/img/spacer.gif" width="1" height="63" border="0" alt=""></td>

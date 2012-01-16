@@ -1,25 +1,18 @@
-<style type="text/css">
-<!--
-.style1 {
-  color: #FFFFFF;
-  font-size: 14px;
-}
--->
-</style>
-<table width="320" height="439" border="0" bgcolor="#000000">
+<table width="320" height="128" border="0">
   <tr>
-    <td height="15"><img src="/jpg/help/help5.png" width="320" height="200"></td>
+    <td height="6">ヘルプ&gt;</td>
   </tr>
   <tr>
-    <td height="90"><p class="style1">正解が456だったとして、「123」と入力してみよう。</p>
-      <p class="style1">今度は数字も場所もまったく違うので</p>
-      <p class="style1">ツールは0Critical/0Hitと表示される。</p>
-    </td>
+    <td height="7"><H1>真相編の解き方</H1></td>
   </tr>
   <tr>
-    <td height="15"><div align="center"><a href="/cake/help/page6/"><img src="/jpg/next_bottan.png" width="120" border="0"></a></div></td>
-  </tr>
-  <tr>
-    <td height="15">&nbsp;</td>
+    <td height="90"><table width="320" border="0">
+      <tr>
+        <td>
+解決編と解きかたは同じです。ただし、回答回数が５回に制限される上、
+１つのマスには爆薬が仕掛けられており、爆発すると失敗となります。
+        </td>
+      </tr>
+    </table></td>
   </tr>
 </table>

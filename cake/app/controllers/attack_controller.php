@@ -9,6 +9,21 @@ class AttackController extends AppController{
     $this->session_manage();
     //セッションから会員番号を取得
     $member_id = $this->session_data['id'];
+    $mdata = $this->Member->findById($member_id);
+    $power = $mdata['Member']['power'];
+    if($power < $this->attack_cost){
+      $this->redirect('/item/item_power_top/');
+    }
+    //power減らす
+    $power -= $this->attack_cost;
+    $data = array(
+      'Member' => array(
+        'id' => $member_id,
+        'power' => $power,
+        'update_time' => date("Y-m-d H:i:s")
+      )
+    );
+    $this->Member->save($data);
     $mqdata = $this->MemberQuest->findById($member_quest_id);
     $quest_id = $mqdata['MemberQuest']['quest_id'];
     //犯人の残した証拠数
@@ -21,27 +36,12 @@ class AttackController extends AppController{
     $this->set('challenge_count',$challenge_count);
     $this->set('me_count',$ev_count);
     $this->set('max_challenge_count',$max_challenge_count);
-
     $resolved_flag = $mqdata['MemberQuest']['resolved_flag'];
     if($resolved_flag==1){
       $this->redirect('/attack/already_end/');
     }
     $this->Session->write('QuestId',$quest_id);
-    //パワー増減+実績の登録
-    $mdata = $this->Member->findById($member_id);
-    $power = $mdata['Member']['power'];
-    //power減らす
-    $power -= $attack_cost;
-    $data = array(
-      'Member' => array(
-        'id' => $member_id,
-        'power' => $power,
-        'update_time' => date("Y-m-d H:i:s")
-      )
-    );
-    $this->Member->save($data);
     $this->set('quest_id',$quest_id);
-
     //答えとなるキーワードを作成する
     $keyword_num = $this->keyword_maker(8);
     $num_0=0;
@@ -83,13 +83,14 @@ class AttackController extends AppController{
     }
     //今のクエスト情報を取得し、加算する経験値とお金を取得
     $mq_data = $this->MemberQuest->find(array("quest_id"=>$quest_id,"member_id"=>$member_id));
+    $member_quest_id = $mq_data['MemberQuest']['id'];
     $quest_exp = $mq_data['MemberQuest']['quest_exp'];
     $quest_price = $mq_data['MemberQuest']['quest_price'];
     $this->StructureSql->call_get_bank_exp($member_id,$add_exp);
     //今のクエストを済にする
     $data = array(
       'MemberQuest' => array(
-        'id' => $member_id,
+        'id' => $member_quest_id,
         'resolved_flag' => 1,
         'update_time' => date("Y-m-d H:i:s")
        )
@@ -142,20 +143,27 @@ class AttackController extends AppController{
          )
       );
       $this->MemberQuestDetail->save($data);
+      //メッセージ送信（次の事件について）
+      $title = '「'.$qdata['Quest']['title'].'」が追加されました。';
+      $comment = '';
+      $this->send_message($member_id,$title,$comment,2);
     }
-    $title = '事件解決！'.$quest_exp.'Exp経験値が増えました。';
+    //メッセージ送信
+    $title = '事件解決！経験値'.$quest_exp.'Exp,お金 $'.$quest_price.',ステータス上昇ポイント×1を得ました';
     $comment = '';
-    $this->send_message($member_id,$title,$comment);
+    //ご褒美
+    $this->StructureSql->get_money($member_id,$quest_price,1);
+    $this->send_message($member_id,$title,$comment,3);
   }
 
-  function send_message($member_id,$title,$comment){
+  function send_message($member_id,$title,$comment,$genre_id){
     //メッセージを入れる
     $msdata = array(
       'Message' => array(
         'member_id' => $member_id,
         'title' => $title,
         'comment' => $comment,
-        'genre_id' => 1,
+        'genre_id' => $genre_id,
         'read_flag' => 0,
         'insert_time' => date("Y-m-d H:i:s")
        )
@@ -177,6 +185,13 @@ class AttackController extends AppController{
     $member_quest_id = $mq_data['MemberQuest']['id'];
     $this->set('member_quest_id',$member_quest_id);
   }
+
+  function no_queset(){
+    $this->session_manage();
+    //セッションから会員番号を取得
+    $member_id = $this->session_data['id'];
+  }
+
 
   function keyword_maker($max_spell){
     $rand_number = array();

@@ -1,6 +1,11 @@
 <table width="320" border="0">
   <tr>
-    <td>&nbsp;</td>
+    <td>
+  <?php if($no_power_flag == 1){ ?>
+  <img src="/img_0113.png" width="320" height="60"><br>
+      残り<?php echo $least_time; ?>
+  <?php } ?>
+  </td>
   </tr>
   <tr>
     <td><div align="center"><img src="/jpg/no_battle.png" width="156" height="144"></div></td>

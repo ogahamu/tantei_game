@@ -25,8 +25,12 @@
    <td><img src="/img/spacer.gif" width="1" height="12" border="0" alt=""></td>
   </tr>
   <tr>
-   <td colspan="6"><input type="image" src="/img/login_top_r3_c1.png" name="button1" alt="実行ボタン"></td>
-   <td><img src="/img/spacer.gif" width="1" height="37" border="0" alt=""></td>
+   <td colspan="6"><br>
+     <br></td>
+   <td rowspan="2"><img src="/img/spacer.gif" width="1" height="37" border="0" alt=""></td>
+  </tr>
+  <tr>
+    <td colspan="6"><input type="image" src="/img/login_top_r3_c1.png" name="button12" alt="実行ボタン"></td>
   </tr>
   <tr>
    <td colspan="5"><img name="login_top_r4_c1" src="/img/login_top_r4_c1.png" width="319" height="103" border="0" alt=""></td>

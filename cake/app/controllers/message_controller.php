@@ -10,9 +10,19 @@ class MessageController extends AppController{
     $this->session_manage();
     //セッションから会員番号を取得
     $member_id = $this->session_data['id'];
-    //$data = $this->StructureSql->select_own_treasure_list($member_id);
-    $this->Message->findAllByMemberId($member_id,null,'id desc');
-    $this->set('data',$data);
+    $data1 = $this->Message->findAll(array("member_id"=>$member_id,"genre_id"=>1),null,'id desc',3);
+    $data2 = $this->Message->findAll(array("member_id"=>$member_id,"genre_id"=>2),null,'id desc',3);
+    $data3 = $this->Message->findAll(array("member_id"=>$member_id,"genre_id"=>3),null,'id desc',3);
+    $data4 = $this->Message->findAll(array("member_id"=>$member_id,"genre_id"=>4),null,'id desc',3);
+    //$data1 = $this->Message->findAllByMemberId($member_id,null,'id desc');
+    $this->set('data1',$data1);
+    $this->set('data2',$data2);
+    $this->set('data3',$data3);
+  }
+
+  function detail($genre_id){
+
+
   }
 
   function return_useragent_code(){
