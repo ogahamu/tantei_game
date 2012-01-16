@@ -186,7 +186,8 @@ class QuestController extends AppController{
     );
     $this->MemberQuestDetail->save($mqd_data);
     //ある確率で証拠を取得(ただし画面遷移するため解決時は除く)基本的には4前後が望ましい
-    $rand_no = mt_rand(0,$evidence_appear_rate);
+    //$rand_no = mt_rand(0,$evidence_appear_rate);
+    $rand_no = mt_rand(0,4);
     //$rand_no = 1;
     if(($first_resolved_flag==0)&&($rand_no == 1)){
       $ev_data = $this->StructureSql->select_evidence_by_rand($quest_id);
