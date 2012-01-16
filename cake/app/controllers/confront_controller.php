@@ -105,13 +105,12 @@ class ConfrontController extends AppController{
 
   function rob_evidence(){
     $this->session_manage();
-    $member_evidence_id = $this->params['named']['member_evidence_id'];
-    $enemy_member_id = $this->params['named']['enemy_member_id'];
-
     //セッションから会員番号を取得
     $member_id = $this->session_data['id'];
+    $member_evidence_id = $this->params['named']['member_evidence_id'];
+    $enemy_member_id = $this->params['named']['enemy_member_id'];
     //自分のデータを取得
-    $own_data = $this->Member->findById($enemy_id);
+    $own_data = $this->Member->findById($member_id);
     $own_name = $own_data['Member']['name'];
     $power = $own_data['Member']['power'];
     //敵のデータを取得
@@ -125,19 +124,23 @@ class ConfrontController extends AppController{
     $this->set('power',$power);
   }
 
-  function rob_battle($member_evidence_id){
+  function rob_battle(){
     $this->session_manage();
     //セッションから会員番号を取得
     $member_id = $this->session_data['id'];
+    //パラメータを取得
+    $member_evidence_id = $this->params['named']['member_evidence_id'];
+    $enemy_member_id = $this->params['named']['enemy_member_id'];
     //自分のデータを取得
-    $own_data = $this->Member->findById($enemy_id);
+    $own_data = $this->Member->findById($member_id);
     $own_name = $own_data['Member']['name'];
     $own_thumnail_url = $own_data['Member']['name'];
     $own_attack_power = $own_data['Member']['attack_power'];
     $own_defence_power = $own_data['Member']['defence_power'];
     $own_fortune_power = $own_data['Member']['fortune_power'];
+    $own_power = $own_data['Member']['power'];
     //相手のデータを取得
-    $me_data = $this->MemeberEvidence->findById($member_evidence_id);
+    $me_data = $this->MemberEvidence->findById($member_evidence_id);
     $enemy_id = $me_data['MemeberEvidence']['member_id'];
     $evidence_id = $me_data['MemeberEvidence']['evidence_id'];
     $enemy_data = $this->Member->findById($enemy_id);
