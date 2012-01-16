@@ -1,3 +1,178 @@
+create table m_evidences(
+id int NOT NULL auto_increment,
+name varchar(250),
+img_id varchar(250),
+PRIMARY KEY (`id`)
+)TYPE=InnoDB AUTO_INCREMENT=1;
+
+
+
+create table quest_detail_titles(
+id int NOT NULL auto_increment,
+title_1 varchar(250),
+comment_1 varchar(250),
+title_2 varchar(250),
+comment_2 varchar(250),
+title_3 varchar(250),
+comment_3 varchar(250),
+PRIMARY KEY (`id`)
+)TYPE=InnoDB AUTO_INCREMENT=1;
+
+
+
+事件現場で感じた違和感の原因を突き止めろ
+何かおかしい。通常の事件現場にはない雰囲気の元を調べろ
+
+複数犯の可能性あり！？
+被害者に残された傷跡の形や状態が違うようだ。被害状態を観察せよ。
+
+
+
+
+insert into quest_detail_titles(
+title_1,
+comment_1,
+title_2,
+comment_2,
+title_3,
+comment_3
+)values(
+'1.現場検証から手掛かりを探せ...',
+'殺害現場には何か証拠になるものがあるかもしれない... ',
+'2.聞き込みで怪しい人物を探せ...',
+'被害者に関係する人物を洗い出して、被疑者の可能性を探れ....',
+'3.殺害トリックを導き出せ',
+'いよいよ殺害を行ったトリックを考え、確信を突くのだ....'
+);
+
+insert into quest_detail_titles(
+title_1,
+comment_1,
+title_2,
+comment_2,
+title_3,
+comment_3,
+)values(
+'1.現場検証から手掛かりを探せ...',
+'殺害現場には何か証拠になるものがあるかもしれない... ',
+'2.聞き込みで怪しい人物を探せ...',
+'被害者に関係する人物を洗い出して、被疑者の可能性を探れ....',
+'3.殺害トリックを導き出せ',
+'いよいよ殺害を行ったトリックを考え、確信を突くのだ....'
+);
+
+insert into quest_detail_titles(
+title_1,
+comment_1,
+title_2,
+comment_2,
+title_3,
+comment_3,
+)values(
+'1.現場検証から手掛かりを探せ...',
+'殺害現場には何か証拠になるものがあるかもしれない... ',
+'2.聞き込みで怪しい人物を探せ...',
+'被害者に関係する人物を洗い出して、被疑者の可能性を探れ....',
+'3.殺害トリックを導き出せ',
+'いよいよ殺害を行ったトリックを考え、確信を突くのだ....'
+);
+
+insert into quest_detail_titles(
+title_1,
+comment_1,
+title_2,
+comment_2,
+title_3,
+comment_3,
+)values(
+'1.第一発見者から状況を聞け...',
+'捜査の第一鉄則は第一発見者を疑うことだ... ',
+'2.残された証拠から関連人物を挙げろ...',
+'被害者に残された証拠から誰が関係しているのかを調べるのだ....',
+'3.殺害トリックを導き出せ',
+'いよいよ殺害を行ったトリックを考え、確信を突くのだ....'
+);
+
+insert into quest_detail_titles(
+title_1,
+comment_1,
+title_2,
+comment_2,
+title_3,
+comment_3,
+)values(
+'1.現場検証から手掛かりを探せ...',
+'殺害現場には何か証拠になるものがあるかもしれない... ',
+'2.聞き込みで怪しい人物を探せ...',
+'被害者に関係する人物を洗い出して、被疑者の可能性を探れ....',
+'3.殺害トリックを導き出せ',
+'いよいよ殺害を行ったトリックを考え、確信を突くのだ....'
+);
+
+insert into quest_detail_titles(
+title_1,
+comment_1,
+title_2,
+comment_2,
+title_3,
+comment_3,
+)values(
+'1.現場検証から手掛かりを探せ...',
+'殺害現場には何か証拠になるものがあるかもしれない... ',
+'2.聞き込みで怪しい人物を探せ...',
+'被害者に関係する人物を洗い出して、被疑者の可能性を探れ....',
+'3.殺害トリックを導き出せ',
+'いよいよ殺害を行ったトリックを考え、確信を突くのだ....'
+);
+
+insert into quest_detail_titles(
+title_1,
+comment_1,
+title_2,
+comment_2,
+title_3,
+comment_3,
+)values(
+'1.現場検証から手掛かりを探せ...',
+'殺害現場には何か証拠になるものがあるかもしれない... ',
+'2.聞き込みで怪しい人物を探せ...',
+'被害者に関係する人物を洗い出して、被疑者の可能性を探れ....',
+'3.殺害トリックを導き出せ',
+'いよいよ殺害を行ったトリックを考え、確信を突くのだ....'
+);
+
+insert into quest_detail_titles(
+title_1,
+comment_1,
+title_2,
+comment_2,
+title_3,
+comment_3,
+)values(
+'1.現場検証から手掛かりを探せ...',
+'殺害現場には何か証拠になるものがあるかもしれない... ',
+'2.聞き込みで怪しい人物を探せ...',
+'被害者に関係する人物を洗い出して、被疑者の可能性を探れ....',
+'3.殺害トリックを導き出せ',
+'いよいよ殺害を行ったトリックを考え、確信を突くのだ....'
+);
+
+insert into quest_detail_titles(
+title_1,
+comment_1,
+title_2,
+comment_2,
+title_3,
+comment_3,
+)values(
+'1.現場検証から手掛かりを探せ...',
+'殺害現場には何か証拠になるものがあるかもしれない... ',
+'2.聞き込みで怪しい人物を探せ...',
+'被害者に関係する人物を洗い出して、被疑者の可能性を探れ....',
+'3.殺害トリックを導き出せ',
+'いよいよ殺害を行ったトリックを考え、確信を突くのだ....'
+);
+
 delete from members;
 delete from member_quests;
 delete from member_evidences;
@@ -106,7 +281,49 @@ delete from member_treasures;
 
 
 
+insert into quest_details(quest_id,detail_no,title,comment,exp,all_distance,last_marker_flag)values(12,1,'現場検証を行なって手掛かりを探せ','殺害現場には何か証拠になるものがあるかもしれない...',50,100,0);
+insert into quest_details(quest_id,detail_no,title,comment,exp,all_distance,last_marker_flag)values(12,2,'怪しい人物を特定せよ','被害者に関係する人物を洗い出して、被疑者の可能性を探れ....',50,100,0);
+insert into quest_details(quest_id,detail_no,title,comment,exp,all_distance,last_marker_flag)values(12,3,'殺害トリックを導き出せ ','いよいよ殺害を行ったトリックを考え、確信を突くのだ....',50,100,1);
 
+insert into quest_details(quest_id,detail_no,title,comment,exp,all_distance,last_marker_flag)values(13,1,'現場検証を行なって手掛かりを探せ','殺害現場には何か証拠になるものがあるかもしれない...',50,100,0);
+insert into quest_details(quest_id,detail_no,title,comment,exp,all_distance,last_marker_flag)values(13,2,'怪しい人物を特定せよ','被害者に関係する人物を洗い出して、被疑者の可能性を探れ....',50,100,0);
+insert into quest_details(quest_id,detail_no,title,comment,exp,all_distance,last_marker_flag)values(13,3,'殺害トリックを導き出せ ','いよいよ殺害を行ったトリックを考え、確信を突くのだ....',50,100,1);
+
+insert into quest_details(quest_id,detail_no,title,comment,exp,all_distance,last_marker_flag)values(14,1,'現場検証を行なって手掛かりを探せ','殺害現場には何か証拠になるものがあるかもしれない...',50,100,0);
+insert into quest_details(quest_id,detail_no,title,comment,exp,all_distance,last_marker_flag)values(14,2,'怪しい人物を特定せよ','被害者に関係する人物を洗い出して、被疑者の可能性を探れ....',50,100,0);
+insert into quest_details(quest_id,detail_no,title,comment,exp,all_distance,last_marker_flag)values(14,3,'殺害トリックを導き出せ ','いよいよ殺害を行ったトリックを考え、確信を突くのだ....',50,100,1);
+
+insert into quest_details(quest_id,detail_no,title,comment,exp,all_distance,last_marker_flag)values(15,1,'現場検証を行なって手掛かりを探せ','殺害現場には何か証拠になるものがあるかもしれない...',50,100,0);
+insert into quest_details(quest_id,detail_no,title,comment,exp,all_distance,last_marker_flag)values(15,2,'怪しい人物を特定せよ','被害者に関係する人物を洗い出して、被疑者の可能性を探れ....',50,100,0);
+insert into quest_details(quest_id,detail_no,title,comment,exp,all_distance,last_marker_flag)values(15,3,'殺害トリックを導き出せ ','いよいよ殺害を行ったトリックを考え、確信を突くのだ....',50,100,1);
+
+insert into quest_details(quest_id,detail_no,title,comment,exp,all_distance,last_marker_flag)values(16,1,'現場検証を行なって手掛かりを探せ','殺害現場には何か証拠になるものがあるかもしれない...',50,100,0);
+insert into quest_details(quest_id,detail_no,title,comment,exp,all_distance,last_marker_flag)values(16,2,'怪しい人物を特定せよ','被害者に関係する人物を洗い出して、被疑者の可能性を探れ....',50,100,0);
+insert into quest_details(quest_id,detail_no,title,comment,exp,all_distance,last_marker_flag)values(16,3,'殺害トリックを導き出せ ','いよいよ殺害を行ったトリックを考え、確信を突くのだ....',50,100,1);
+
+insert into quest_details(quest_id,detail_no,title,comment,exp,all_distance,last_marker_flag)values(17,1,'現場検証を行なって手掛かりを探せ','殺害現場には何か証拠になるものがあるかもしれない...',50,100,0);
+insert into quest_details(quest_id,detail_no,title,comment,exp,all_distance,last_marker_flag)values(17,2,'怪しい人物を特定せよ','被害者に関係する人物を洗い出して、被疑者の可能性を探れ....',50,100,0);
+insert into quest_details(quest_id,detail_no,title,comment,exp,all_distance,last_marker_flag)values(17,3,'殺害トリックを導き出せ ','いよいよ殺害を行ったトリックを考え、確信を突くのだ....',50,100,1);
+
+insert into quest_details(quest_id,detail_no,title,comment,exp,all_distance,last_marker_flag)values(17,1,'現場検証を行なって手掛かりを探せ','殺害現場には何か証拠になるものがあるかもしれない...',50,100,0);
+insert into quest_details(quest_id,detail_no,title,comment,exp,all_distance,last_marker_flag)values(17,2,'怪しい人物を特定せよ','被害者に関係する人物を洗い出して、被疑者の可能性を探れ....',50,100,0);
+insert into quest_details(quest_id,detail_no,title,comment,exp,all_distance,last_marker_flag)values(17,3,'殺害トリックを導き出せ ','いよいよ殺害を行ったトリックを考え、確信を突くのだ....',50,100,1);
+
+insert into quest_details(quest_id,detail_no,title,comment,exp,all_distance,last_marker_flag)values(18,1,'現場検証を行なって手掛かりを探せ','殺害現場には何か証拠になるものがあるかもしれない...',50,100,0);
+insert into quest_details(quest_id,detail_no,title,comment,exp,all_distance,last_marker_flag)values(18,2,'怪しい人物を特定せよ','被害者に関係する人物を洗い出して、被疑者の可能性を探れ....',50,100,0);
+insert into quest_details(quest_id,detail_no,title,comment,exp,all_distance,last_marker_flag)values(18,3,'殺害トリックを導き出せ ','いよいよ殺害を行ったトリックを考え、確信を突くのだ....',50,100,1);
+
+insert into quest_details(quest_id,detail_no,title,comment,exp,all_distance,last_marker_flag)values(19,1,'現場検証を行なって手掛かりを探せ','殺害現場には何か証拠になるものがあるかもしれない...',50,100,0);
+insert into quest_details(quest_id,detail_no,title,comment,exp,all_distance,last_marker_flag)values(19,2,'怪しい人物を特定せよ','被害者に関係する人物を洗い出して、被疑者の可能性を探れ....',50,100,0);
+insert into quest_details(quest_id,detail_no,title,comment,exp,all_distance,last_marker_flag)values(19,3,'殺害トリックを導き出せ ','いよいよ殺害を行ったトリックを考え、確信を突くのだ....',50,100,1);
+
+insert into quest_details(quest_id,detail_no,title,comment,exp,all_distance,last_marker_flag)values(20,1,'現場検証を行なって手掛かりを探せ','殺害現場には何か証拠になるものがあるかもしれない...',50,100,0);
+insert into quest_details(quest_id,detail_no,title,comment,exp,all_distance,last_marker_flag)values(20,2,'怪しい人物を特定せよ','被害者に関係する人物を洗い出して、被疑者の可能性を探れ....',50,100,0);
+insert into quest_details(quest_id,detail_no,title,comment,exp,all_distance,last_marker_flag)values(20,3,'殺害トリックを導き出せ ','いよいよ殺害を行ったトリックを考え、確信を突くのだ....',50,100,1);
+
+insert into quest_details(quest_id,detail_no,title,comment,exp,all_distance,last_marker_flag)values(21,1,'現場検証を行なって手掛かりを探せ','殺害現場には何か証拠になるものがあるかもしれない...',50,100,0);
+insert into quest_details(quest_id,detail_no,title,comment,exp,all_distance,last_marker_flag)values(21,2,'怪しい人物を特定せよ','被害者に関係する人物を洗い出して、被疑者の可能性を探れ....',50,100,0);
+insert into quest_details(quest_id,detail_no,title,comment,exp,all_distance,last_marker_flag)values(21,3,'殺害トリックを導き出せ ','いよいよ殺害を行ったトリックを考え、確信を突くのだ....',50,100,1);
 
 
 
