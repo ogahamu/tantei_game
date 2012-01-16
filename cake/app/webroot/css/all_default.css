@@ -47,6 +47,11 @@ a:link{
   color:white;
 }
 
+.mail_title{
+  color:grey;
+  font-size:12px;
+}
+
 .mini_message{
   color:pink;
   font-size:12px;
