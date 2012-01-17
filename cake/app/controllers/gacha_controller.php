@@ -11,6 +11,18 @@ class GachaController extends AppController{
     //セッションから会員番号を取得
     $member_id = $this->session_data['id'];
     $this->write('PageStepNo',1);
+
+    $mdata = $this->Member->findById($member_id);
+    $last_gacha_date = $mdata['Member']['last_gacha_date'];
+    $strf = strftime($last_gacha_date);
+    $last_exe_day = $strf['tm_mday'];
+    $last_exe_month = $strf['tm_mon'];
+    $now_month = date("m");
+    $now_day   = date("d");
+    if($last_exe_day==$now_day)&&($last_exe_month==$now_month){
+
+    }
+
   }
 
   function do_gacha(){
@@ -22,16 +34,48 @@ class GachaController extends AppController{
   }
 
   function exe_gacha(){
+    $this->session_manage();
+    //セッションから会員番号を取得
+    $member_id = $this->session_data['id'];
+    //ステップ管理
     $page_step_no = $this->Session->read('PageStepNo');
     if($page_step_no<>2){
       $this->redirect('/top/lost_way#header-menu');
     }
     $this->write('PageStepNo',3);
     //今日の日付をアップデートする
-
+    $data = array(
+      'id' => $member_id,
+      'last_gacha_date' => date("Y-m-d H:i:s"),
+      'update_date' => date("Y-m-d H:i:s")
+    );
+    $this->Member->save($data);
 
     //加える
-
+    $item_code = mt_rand(0,12);
+    if($item_code==1){
+      $title = '回復薬が出ました！';
+      $item_id = 1;
+      $this->update_item_count($member_id,1,1);
+    }else if($item_code==2){
+      $title = '回復薬が出ました！';
+      $item_id = 1;
+      $this->update_item_count($member_id,2,1);
+    }else if($item_code==3){
+      $title = '回復薬が出ました！';
+      $item_id = 1;
+      $this->update_item_count($member_id,2,1);
+    }else if($item_code==4){
+      $title = '回復薬が出ました！';
+      $item_id = 1;
+      $this->update_item_count($member_id,1,1);
+    }else{
+       $title = '回復薬が出ました！';
+       $item_id = 0;
+        //何もしない
+    }
+    $this->set('title',$title);
+    $this->set('item_id',$item_id);
   }
 
   //アイテム追加＆使用 $add_count:変更個数[1で１個追加、-1で１個減らす]

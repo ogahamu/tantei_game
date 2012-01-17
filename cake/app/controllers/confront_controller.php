@@ -33,7 +33,7 @@ class ConfrontController extends AppController{
 
   function battle_top($enemy_id){
     //ページステップ管理
-    $this->write('PageStepNo',1);
+    $this->Session->write('PageStepNo',1);
     $this->session_manage();
     //セッションから会員番号を取得
     $member_id = $this->session_data['id'];
@@ -69,7 +69,7 @@ class ConfrontController extends AppController{
     if($page_step_no<>1){
       $this->redirect('/top/lost_way#header-menu');
     }
-    $this->write('PageStepNo',2);
+    $this->Session->write('PageStepNo',2);
 
     $result_code = $this->params['named']['result_code'];
     $enemy_id = $this->params['named']['enemy_id'];
@@ -87,7 +87,7 @@ class ConfrontController extends AppController{
     if($page_step_no<>2){
       $this->redirect('/top/lost_way#header-menu');
     }
-    $this->write('PageStepNo',3);
+    $this->Session->write('PageStepNo',3);
 
     $this->session_manage();
     //セッションから会員番号を取得
@@ -124,7 +124,7 @@ class ConfrontController extends AppController{
     if($page_step_no<>2){
       $this->redirect('/top/lost_way#header-menu');
     }
-    $this->write('PageStepNo',3);
+    $this->Session->write('PageStepNo',3);
 
     $this->session_manage();
     //セッションから会員番号を取得
@@ -176,7 +176,7 @@ class ConfrontController extends AppController{
 
   function rob_battle(){
     //ページステップ管理
-    $this->write('PageStepNo',1);
+    $this->Session->write('PageStepNo',1);
     $this->session_manage();
     //セッションから会員番号を取得
     $member_id = $this->session_data['id'];
@@ -223,7 +223,7 @@ class ConfrontController extends AppController{
     if($page_step_no<>1){
       $this->redirect('/top/lost_way#header-menu');
     }
-    $this->write('PageStepNo',2);
+    $this->Session->write('PageStepNo',2);
     $result_code = $this->params['named']['result_code'];
     $member_evidence_id = $this->params['named']['m_e_i'];
     if($result_code==1){
@@ -239,7 +239,7 @@ class ConfrontController extends AppController{
     if($page_step_no<>2){
       $this->redirect('/top/lost_way#header-menu');
     }
-    $this->write('PageStepNo',3);
+    $this->Session->write('PageStepNo',3);
     $this->session_manage();
     //セッションから会員番号を取得
     $member_id = $this->session_data['id'];
@@ -294,7 +294,7 @@ class ConfrontController extends AppController{
     if($page_step_no<>2){
       $this->redirect('/top/lost_way#header-menu');
     }
-    $this->write('PageStepNo',3);
+    $this->Session->write('PageStepNo',3);
     $this->session_manage();
     //セッションから会員番号を取得
     $member_id = $this->session_data['id'];

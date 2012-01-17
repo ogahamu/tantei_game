@@ -7,6 +7,7 @@ CREATE INDEX idx_mqd_on_mi ON member_quest_details(member_id);
 CREATE INDEX idx_me_on_mi ON member_evidences(member_id);
 CREATE INDEX idx_me_on_ei ON member_evidences(evidence_id);
 CREATE INDEX idx_me_on_mi ON member_evidences(member_id);
+CREATE INDEX idx_me_on_mqi ON member_evidences(member_quest_id);
 
 create table test_names(
 id int NOT NULL auto_increment,

@@ -77,6 +77,8 @@ public $useTable = 'members';
     $strSql  .= "and member_evidences.compleate_flag = 0 \n";
     $strSql  .= "group by  \n";
     $strSql  .= "members.id,members.name,members.thumnail_url,members.lv,members.win_count,members.lose_count \n";
+    $strSql  .= "order by rand()  \n";
+    $strSql  .= "limit 5  \n";
     return $this->query($strSql);
   }
 

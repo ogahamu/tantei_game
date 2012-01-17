@@ -7,7 +7,7 @@ class AttackController extends AppController{
 
   function top($member_quest_id){
     //ページステップ管理
-    $this->write('PageStepNo',1);
+    $this->Session->write('PageStepNo',1);
     $this->session_manage();
     //セッションから会員番号を取得
     $member_id = $this->session_data['id'];
@@ -81,7 +81,7 @@ class AttackController extends AppController{
     if($page_step_no<>1){
       $this->redirect('/top/lost_way#header-menu');
     }
-    $this->write('PageStepNo',2);
+    $this->Session->write('PageStepNo',2);
     $this->session_manage();
     //セッションから会員番号を取得
     $member_id = $this->session_data['id'];
@@ -187,7 +187,7 @@ class AttackController extends AppController{
     if($page_step_no<>1){
       $this->redirect('/top/lost_way#header-menu');
     }
-    $this->write('PageStepNo',2);
+    $this->Session->write('PageStepNo',2);
     $this->session_manage();
     //セッションから会員番号を取得
     $member_id = $this->session_data['id'];
