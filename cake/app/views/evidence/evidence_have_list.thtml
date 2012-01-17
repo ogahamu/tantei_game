@@ -17,7 +17,7 @@
           <td width="48" height="33"><img src="<?php echo $datas['members']['thumnail_url'] ?>" width="48" height="55"></td>
           <td width="164"><?php echo $datas['members']['name'] ?>さん(Lv<?php echo $datas['members']['lv'] ?>)<br>
             <?php echo $datas['members']['win_count'] ?>勝<?php echo $datas['members']['lose_count'] ?>敗</td>
-          <td><a href="/cake/confront/rob_battle/member_evidence_id:<?php echo $datas[0]['member_evidence_id'] ?>/enemy_member_id:<?php echo $datas['members']['id'] ?>">事情聴取</a></td>
+          <td><a href="/cake/confront/rob_battle/member_evidence_id:<?php echo $datas[0]['member_evidence_id'] ?>/enemy_member_id:<?php echo $datas['members']['id'] ?>#header-menu">事情聴取</a></td>
         </tr>
         <tr>
           <td colspan="5"><hr></td>

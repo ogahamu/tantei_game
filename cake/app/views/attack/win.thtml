@@ -1,3 +1,4 @@
+
 <table width="320" border="0">
   <tr>
     <td><div align="center"><a href="/cake/top/top/">トップに戻る</a> / <a href="/cake/quest/datalist/<?php echo $member_quest_id;?>">捜査に戻る</a></div></td>

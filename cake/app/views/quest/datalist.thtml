@@ -71,7 +71,7 @@ div .distance_gage_3{
                 <td height="56"><img src="/img/sousa_finish_img.png" width="320" height="99"></td>
               </tr>
               <tr>
-                <td><a href="/cake/attack/top/<?php echo $member_quest_id;?>">犯人は分った！[証拠:<?php echo $max_challenge_count; ?>件(収集した証拠<?php echo $ev_count; ?>:件+犯人が残した証拠:<?php echo $challenge_count; ?>件)]</a> <a href="/cake/item/item_challenge_top/<?php echo $member_quest_id;?>">アイテムを使う[<?php echo $item_challenge;?>個]</a></td>
+                <td><a href="/cake/attack/top/<?php echo $member_quest_id;?>">犯人は分った！[回数:<?php echo $max_challenge_count; ?>件(証拠<?php echo $ev_count; ?>:件+目撃者:<?php echo $challenge_count; ?>人)]</a> <a href="/cake/item/item_challenge_top/<?php echo $member_quest_id;?>">アイテムを使う[<?php echo $item_challenge;?>個]</a></td>
               </tr>
               <tr>
                 <td>&nbsp;</td>
@@ -121,7 +121,7 @@ $(document).ready(function(){
           <td>&nbsp;</td>
         </tr>
         <tr>
-          <td><div align="center"><a href="/cake/quest/detail/<?php echo $datas['MemberQuestDetail']['id'];?>"><img src="/img/sousa.png" width="200" height="50"></a></div></td>
+          <td><div align="center"><a href="/cake/quest/detail/<?php echo $datas['MemberQuestDetail']['id'];?>#header-menu"><img src="/img/sousa.png" width="200" height="50"></a></div></td>
         </tr>
         <tr>
           <td>&nbsp;</td>

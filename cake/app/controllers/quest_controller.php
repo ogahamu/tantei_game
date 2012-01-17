@@ -16,10 +16,10 @@ class QuestController extends AppController{
       $page_no=1;
     }
     //所持クエスト数を数える
-    $quest_count = $this->MemberQuest->findCountByMemberId($member_id);
+    $quest_count = $this->MemberQuest->findCount(array("member_id"=>$member_id));
     $divide_no = 10;
     //ページ表示部分
-    $vlist = $this->Pager->pagelink($divide_no,$count_num,'/cake/quest/top/',$page_no);
+    $vlist = $this->Pager->pagelink($divide_no,$quest_count,'/cake/quest/top/',$page_no);
     $this->set('vlist',$vlist);
     $page_end_no = $divide_no * $page_no;
     $page_start_no = $page_end_no - ($divide_no - 1) -1;
@@ -142,7 +142,7 @@ class QuestController extends AppController{
     $detail_no = $data['MemberQuestDetail']['detail_no'];
     $mq_data = $this->MemberQuest->findById($member_quest_id);
     $quest_id = $mq_data['MemberQuest']['quest_id'];
-    $evidence_appear_rate = $data['MemberQuest']['evidence_appear_rate'];
+    $evidence_appear_rate = $mq_data['MemberQuest']['evidence_appear_rate'];
     if(strlen($distance)==0){$distance=0;}
     $after_distance=$distance + $this->quest_distance;
     $resoluved_flag = 0;
@@ -284,7 +284,8 @@ class QuestController extends AppController{
     $ev_data = $this->Evidence->findById($evidence_id);
     $quest_id = $ev_data['Evidence']['quest_id'];
     $compleate_count = $ev_data['Evidence']['compleate_count'];
-    $member_quest_id = $this->MemeberQuest->findByQuestId($quest_id);
+    $mq_data = $this->MemberQuest->find(array("quest_id"=>$quest_id));
+    $member_quest_id = $mq_data['MemberQuest']['id'];
     //自分が集めた証拠数
     $ev_c_data = $this->StructureSql->count_evidence_by_member_quest($member_quest_id);
     $ev_count = $ev_c_data[0][0]['count'];

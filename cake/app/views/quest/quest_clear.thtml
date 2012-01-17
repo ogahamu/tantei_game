@@ -1,6 +1,6 @@
 <SCRIPT type="text/javascript">
 <!--
-setTimeout("link()", 7000);
+setTimeout("link()", 5000);
 function link(){
 location.href='http://bank.blamestitch.com/cake/quest/datalist/<?php echo $member_quest_id;?>#header-menu/';
 }

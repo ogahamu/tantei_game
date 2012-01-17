@@ -27,6 +27,8 @@ public $useTable = 'members';
     $strSql  .= "    group by \n";
     $strSql  .= "      evidence_id \n";
     $strSql  .= "  ) target \n";
+    $strSql  .= "where \n";
+    $strSql  .= "  target.evidence_id is not null \n";
     return $this->query($strSql);
   }
 

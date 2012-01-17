@@ -7,9 +7,8 @@
   </tr>
   <tr>
     <td>購買部<br>
-
     <?php if($no_item_flag==0){ ?>
-      <a href="/cake/item/item_power_exe/">-アイテム使う[残り<?php echo $amount; ?>個]-</a>
+      <a href="/cake/top/status/">-アイテム使う[残り<?php echo $amount; ?>個]-</a>
     <?php } ?>
     <?php if($no_item_flag==1){ ?>
            アイテムがありません。

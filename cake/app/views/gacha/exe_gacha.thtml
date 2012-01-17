@@ -1,0 +1,22 @@
+<SCRIPT type="text/javascript">
+<!--
+setTimeout("link()", 3000);
+function link(){
+location.href='http://bank.blamestitch.com/cake/gacha/do_gacha#header-menu/';
+}
+-->
+</SCRIPT>
+<table width="320" border="0">
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td><div align="center"><img src="/human.png" width="107" height="120"></div></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+</table>

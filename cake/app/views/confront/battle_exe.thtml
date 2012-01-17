@@ -3,7 +3,7 @@
 <!--
 setTimeout("link()", 3000);
 function link(){
-location.href='<?php echo $jump_url;?>';
+location.href='<?php echo $jump_url;?>#header-menu';
 }
 -->
 </script>

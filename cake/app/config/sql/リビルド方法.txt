@@ -1,0 +1,6 @@
+//会員を再構築[members,member_quests,member_evidences,member_quest_details,messages]
+call build_test_data(300,600);
+
+
+//申請データ再作成[quest_details,evidenceを再作成]
+call build_quest_detail(1);

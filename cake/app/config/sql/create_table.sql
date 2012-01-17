@@ -1,3 +1,13 @@
+CREATE unique INDEX idx_mqd_on_mqi_and_dn ON member_quest_details(member_quest_id, detail_no);
+CREATE unique INDEX idx_qd_on_qi_and_dn ON quest_details(quest_id,detail_no);
+CREATE unique INDEX idx_mq_on_mi_and_qi ON member_quests(member_id,quest_id);
+
+CREATE INDEX idx_mq_on_mi ON member_quests(member_id);
+CREATE INDEX idx_mqd_on_mi ON member_quest_details(member_id);
+CREATE INDEX idx_me_on_mi ON member_evidences(member_id);
+CREATE INDEX idx_me_on_ei ON member_evidences(evidence_id);
+CREATE INDEX idx_me_on_mi ON member_evidences(member_id);
+
 create table test_names(
 id int NOT NULL auto_increment,
 name varchar(250),

@@ -9,8 +9,8 @@
     </div></td>
   </tr>
   <tr>
-    <td height="20"><a href="/cake/quest/datalist/<?php echo $member_quest_id; ?>">捜査に戻る<br>
+    <td height="20"><a href="/cake/quest/datalist/<?php echo $member_quest_id; ?>#header-menu">捜査に戻る<br>
       <br>
-    </a><a href="/cake/evidence/evidence_have_list/<?php echo $evidence_id; ?>">この証拠を持っている人物を疑う</a></td>
+    </a><a href="/cake/evidence/evidence_have_list/<?php echo $evidence_id; ?>#header-menu">この証拠を持っている人物を疑う</a></td>
   </tr>
 </table>
