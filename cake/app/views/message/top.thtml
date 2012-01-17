@@ -9,7 +9,6 @@
       <tr bgcolor="#000000">
         <td></td>
         <td><span class="mail_title"><?php echo $datas1['Message']['title'] ?>(<?php echo $datas1['Message']['insert_time'] ?>)</span></td>
-        <td>詳細</td>
       </tr>
       <tr>
         <td colspan="3"><hr></td>
@@ -27,7 +26,6 @@
       <tr bgcolor="#000000">
         <td></td>
         <td><span class="mail_title"><?php echo $datas2['Message']['title'] ?>(<?php echo $datas2['Message']['insert_time'] ?>)</span></td>
-        <td>詳細</td>
       </tr>
       <tr>
         <td colspan="3"><hr></td>
@@ -45,7 +43,6 @@
       <tr bgcolor="#000000">
         <td></td>
         <td><span class="mail_title"><?php echo $datas3['Message']['title'] ?>(<?php echo $datas3['Message']['insert_time'] ?>)</span></td>
-        <td>詳細</td>
       </tr>
       <tr>
         <td colspan="3"><hr></td>
@@ -63,7 +60,6 @@
       <tr bgcolor="#000000">
         <td></td>
         <td><span class="mail_title"><?php echo $datas4['Message']['title'] ?>(<?php echo $datas4['Message']['insert_time'] ?>)</span></td>
-        <td>詳細</td>
       </tr>
       <tr>
         <td colspan="3"><hr></td>

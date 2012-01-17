@@ -154,6 +154,7 @@ class AttackController extends AppController{
     //ご褒美
     $this->StructureSql->get_money($member_id,$quest_price,1);
     $this->send_message($member_id,$title,$comment,3);
+    $this->set('display_message',$title);
   }
 
   function send_message($member_id,$title,$comment,$genre_id){
@@ -184,6 +185,7 @@ class AttackController extends AppController{
     $mq_data = $this->MemberQuest->find(array("quest_id"=>$quest_id,"member_id"=>$member_id));
     $member_quest_id = $mq_data['MemberQuest']['id'];
     $this->set('member_quest_id',$member_quest_id);
+    $this->set('display_message','失敗しました。体力が111に減りました');
   }
 
   function no_queset(){

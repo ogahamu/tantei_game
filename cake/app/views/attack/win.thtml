@@ -66,6 +66,11 @@ function draw(){
   //}else{
     ctx.drawImage(char_img, 0, 0);
   //}
+
+  //追加分
+  ctx.font = "26px 'ＭＳ Ｐゴシック'";
+  ctx.fillStyle = "White";
+  ctx.fillText("<?php echo $display_message;?>",50,20);
 }
 </script>
 <table width="320" border="0">

@@ -91,7 +91,7 @@ function draw(){
   ctx.font = "16px 'ＭＳ Ｐゴシック'";
   ctx.fillStyle = "Red";
   ctx.fillText("残り回数 "+Math.ceil(max_challenge_count-challenge_count)+"回",50,20);
-　ctx.fillText("手掛かり "+score+"/3",50,35);
+  ctx.fillText("手掛かり "+score+"/3",50,35);
   //ctx.fillText("集めた証拠の数:  " + max_challenge_count,50,25);
   //ctx.fillText("得点:  " + score,5,20);
   //ctx.fillText("挑戦数:  " + challenge_count,5,32,10);

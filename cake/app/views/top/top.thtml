@@ -45,14 +45,14 @@ $(function(){
       <table width="304" border="0">
         <tr>
           <td width="71"><img src="<?php echo $mdatas['thumnail_url'];?>" width="44"></td>
-          <td width="215"><?php echo $mdatas['name'];?> [Lv<?php echo $mdatas['lv'];?>]</td>
+          <td width="215"><?php echo $mdatas['name'];?><span class="mini_message">[Lv<?php echo $mdatas['lv'];?>]</span></td>
         </tr>
         <tr>
           <td colspan="2"><hr></td>
         </tr>
         <tr>
           <td width="71">Exp</td>
-          <td width="215">Exp<?php echo $mdatas['exp'];?>[次のレベルまで<?php echo $mdatas['least_next_exp'];?>] </td>
+          <td width="215">Exp<?php echo $mdatas['exp'];?><span class="mini_message">[次のレベルまで<?php echo $mdatas['least_next_exp'];?>]</span> </td>
         </tr>
         <tr>
           <td colspan="2"><hr></td>

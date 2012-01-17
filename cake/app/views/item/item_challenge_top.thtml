@@ -1,25 +1,29 @@
 <table width="320" border="0" cellpadding="0" cellspacing="0">
   <tr>
-    <td>&nbsp;</td>
+    <td><a href="/cake/item/top/">購買部に戻る</a> </td>
   </tr>
   <tr>
     <td><div align="center"><img src="/jpg/no_battle.png" width="156" height="144"></div></td>
   </tr>
   <tr>
-    <td>購買部[挑戦回数:<?php echo $max_challenge_count; ?>回[集めた証拠：<?php echo $ev_count;?>個  + 犯人が残した手がかり:<?php echo $challenge_count; ?>]<br>
+    <td>
 
-    <?php if($no_item_flag==0){ ?>
+  <?php if(strlen($member_quest_id)>0){ ?>
+  購買部[挑戦回数:<?php echo $max_challenge_count; ?>回[集めた証拠：<?php echo $ev_count;?>個  + 犯人が残した手がかり:<?php echo $challenge_count; ?>]<br>
+
+
       <a href="/cake/item/item_power_exe/">-アイテム使う[残り<?php echo $amount; ?>個]-</a>
-    <?php } ?>
-    <?php if($no_item_flag==1){ ?>
-           アイテムがありません。
+    <br><br>
+    <a href="/cake/quest/datalist/<?php echo $member_quest_id;?>">捜査に戻る</a>
+<?php }else{ ?>
+--ここでは使用できません。[<?php echo $item_challenge;?>個所持]--
+<?php } ?>
+<br><br>
       <a href="/cake/item/item_challenge_get/">-購入する[所持金<?php echo $money;?>-><?php echo $after_money;?>]-</a>
-    <?php } ?>
-    <a href="/cake/quest/datalist/<?php echo $member_quest_id;?>">戻る</a> </td>
+
+    </td>
   </tr>
   <tr>
-    <td><div align="center"><a href="/cake/request/top/"><br>
-        <br>
-    </a></div></td>
+    <td></td>
   </tr>
 </table>

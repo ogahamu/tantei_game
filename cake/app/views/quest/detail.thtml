@@ -39,7 +39,7 @@ div .distance_gage_1{
         <tr>
           <td><table width="320" border="0" class="quest_detail_comment">
               <tr>
-                <td><H2><?php echo $datas['MemberQuestDetail']['comment'] ?></H2></td>
+                <td><H2><?php echo $datas['MemberQuestDetail']['comment'] ?></H2><span class="mini_message_red">経験値<?php echo $datas['MemberQuestDetail']['exp'] ?>↑</span></td>
               </tr>
             </table></td>
         </tr>

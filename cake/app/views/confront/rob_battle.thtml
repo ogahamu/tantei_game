@@ -11,7 +11,7 @@
   <tr>
     <td height="17"><div align="center"><table class="treasure" border="0">
               <tr>
-                <td><img src="/jpg/collection/<?php echo $treasure_id;?>.png" width="120"> </td>
+                <td><img src="/img/evidence/<?php echo $evidence_img_id;?>.png" width="120"> </td>
               </tr>
             </table>
       </div></td>

@@ -2,7 +2,7 @@
 
 class EvidenceController extends AppController{
 
-  var $uses = array('MemberEvidence','StructureSql','Member','Message','Quest','QuestDetail','MemberQuest','MemberQuestDetail');
+  var $uses = array('Evidence','MemberEvidence','StructureSql','Member','Message','Quest','QuestDetail','MemberQuest','MemberQuestDetail');
   var $session_data;
   var $components = array('Pager');
 
@@ -44,6 +44,11 @@ class EvidenceController extends AppController{
     $member_id = $this->session_data['id'];
     $data = $this->StructureSql->evidence_own_members($member_id,$evidence_id);
     $this->set('data',$data);
+    $ev_data = $this->Evidence->findById($evidence_id);
+    $evidence_name = $ev_data['Evidence']['name'];
+    $ev_img_id = $ev_data['Evidence']['img_id'];
+    $this->set('evidence_name',$evidence_name);
+    $this->set('img_id',$ev_img_id);
   }
 
   function return_useragent_code(){

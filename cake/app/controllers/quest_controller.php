@@ -6,12 +6,25 @@ class QuestController extends AppController{
   var $quest_cost=20;
   var $quest_distance=20;
   var $once_quest_exp = 10;
+  var $components = array('Pager');
 
-  function top(){
+  function top($page_no){
     $this->session_manage();
     //セッションから会員番号を取得
     $member_id = $this->session_data['id'];
-    $data = $this->MemberQuest->findAllByMemberId($member_id,null,'id desc');
+    if(strlen($page_no)==0){
+      $page_no=1;
+    }
+    //所持クエスト数を数える
+    $quest_count = $this->MemberQuest->findCountByMemberId($member_id);
+    $divide_no = 10;
+    //ページ表示部分
+    $vlist = $this->Pager->pagelink($divide_no,$count_num,'/cake/quest/top/',$page_no);
+    $this->set('vlist',$vlist);
+    $page_end_no = $divide_no * $page_no;
+    $page_start_no = $page_end_no - ($divide_no - 1) -1;
+    $data = $this->MemberQuest->findAll(array('member_id'=>$member_id), null, 'id desc',$divide_no,$page_no);
+    //$data = $this->MemberQuest->findAllByMemberId($member_id,null,'id desc');
     $this->set('data',$data);
   }
 
@@ -204,7 +217,7 @@ class QuestController extends AppController{
       );
       $this->MemberEvidence->save($medata);
       //コンプリートチェック
-      //$this->check_evidence_compleate($member_id,$ev_data[0]['evidences']['id']);
+      $this->check_evidence_compleate($member_id,$ev_data[0]['evidences']['id']);
       $this->redirect('/quest/get_evidence/mqd_i:'.$member_quest_detail_id.'/evi_i:'.$ev_data[0]['evidences']['id']);
     }
     //ある確率でアイテムゲット(ただし画面遷移するため解決時は除く)
@@ -279,18 +292,20 @@ class QuestController extends AppController{
     if($ev_count>=$compleate_count){
       //update_evidence
       $this->StructureSql->update_evidence_compleate_flag($member_quest_id);
-      //member_quests
-      $mq_data = array(
-        'MemberQuest' => array(
-          'id' =>$member_quest_id,
-          'evidence_compleate_flag' =>1,
-          'update_time' =>date("Y-m-d H:i:s")
-        )
-      );
-      $this->MemberQuest->save($mq_data);
-      //コンプリートにリダイレクト？
+      $evidence_compleate_flag=1;
+    }else{
+      $evidence_compleate_flag=0;
     }
-
+    //個数をアップデート
+    $mq_data = array(
+      'MemberQuest' => array(
+        'id' => $member_quest_id,
+        'evidence_count' => $ev_count,
+        'evidence_compleate_flag' => $evidence_compleate_flag,
+        'update_time' =>date("Y-m-d H:i:s")
+      )
+    );
+    $this->MemberQuest->save($mq_data);
   }
 
   function insert_item($item_id){

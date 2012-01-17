@@ -196,8 +196,8 @@ class TopController extends AppController{
 
   function session_manage(){
     //テスト時は下記２行を追記
-    //$data['id']=1;
-    //$this->Session->write("member_info",$data);
+    $data['id']=1;
+    $this->Session->write("member_info",$data);
 
     $session_data = $this->Session->read("member_info");
     $this->session_data = $session_data;

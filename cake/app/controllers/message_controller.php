@@ -18,7 +18,7 @@ class MessageController extends AppController{
     $this->set('data1',$data1);
     $this->set('data2',$data2);
     $this->set('data3',$data3);
-    $this->set('data4',$data3);
+    $this->set('data4',$data4);
   }
 
   function detail($genre_id){

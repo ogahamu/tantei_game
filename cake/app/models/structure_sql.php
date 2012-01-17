@@ -64,7 +64,7 @@ public $useTable = 'members';
 
   function evidence_own_members($member_id,$evidence_id){
     $strSql   = "select \n";
-    $strSql  .= "members.id,members.name,members.thumnail_url,max(member_evidences.id) as member_evidence_id \n";
+    $strSql  .= "members.id,members.name,members.thumnail_url,members.lv,members.win_count,members.lose_count,max(member_evidences.id) as member_evidence_id \n";
     $strSql  .= "from \n";
     $strSql  .= "member_evidences, \n";
     $strSql  .= "members \n";
@@ -74,7 +74,7 @@ public $useTable = 'members';
     $strSql  .= "and member_evidences.evidence_id = ".$evidence_id." \n";
     $strSql  .= "and member_evidences.compleate_flag = 0 \n";
     $strSql  .= "group by  \n";
-    $strSql  .= "members.id,members.name,members.thumnail_url \n";
+    $strSql  .= "members.id,members.name,members.thumnail_url,members.lv,members.win_count,members.lose_count \n";
     return $this->query($strSql);
   }
 

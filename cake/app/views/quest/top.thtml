@@ -9,6 +9,8 @@
           <img src="/img/shitai_icon.png" width="20" height="20">未解決<img src="/img/shitai_icon.png" width="20" height="20">犯人逮捕<img src="/img/shitai_icon.png" width="20" height="20">真相究明<br></td>
         </tr>
       </table>
+      <br>
+      <?php echo $vlist;?>
       <table width="310" border="0" cellpadding="0" cellspacing="0">
       <tr>
         <th width="210" height="19">&nbsp;</th>
@@ -16,9 +18,10 @@
       </tr>
       <?php foreach($data as $datas): ?>
       <tr>
-        <td><H2><img src="/img/shitai_icon.png" width="18" height="18"><?php echo $datas['MemberQuest']['title'] ?></H2>証拠発見難易度：Lｖ<?php $data['MemberQuest']['evidence_appear_rate'];?>
+        <td><H2><img src="/img/shitai_icon.png" width="18" height="18"><?php echo $datas['MemberQuest']['title'] ?></H2>
+          目撃者：<?php for($i=0;$i<=$datas['MemberQuest']['challenge_count'];$i++){?><img src="/img/foot_icon.png" width="15" height="15"><?php } ?>
           <br>
-          鑑識が発見した証拠：<?php for($i=0;$i<=$datas['MemberQuest']['challenge_count'];$i++){?><img src="/img/evidence2_icon.png" width="18" height="18"><?php } ?>
+          集めた証拠：<?php for($i=0;$i<=$datas['MemberQuest']['evidence_count'];$i++){?><img src="/img/foot_icon.png" width="15" height="15"><?php } ?>
         </td>
         <td><a href="/cake/quest/datalist/<?php echo $datas['MemberQuest']['id'] ?>"><img src="/img/evidence2_icon.png" width="18" height="18">事件簿を見る</a></td>
       </tr>

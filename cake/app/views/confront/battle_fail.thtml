@@ -1,6 +1,7 @@
+<?php echo $display_message;?>
 <table width="320" border="0">
   <tr>
-    <td><div align="center"><a href="/cake/attack/top/<?php echo $member_quest_id; ?>">再挑戦する</a>/<a href="/cake/top/top/">トップに戻る</a> / <a href="/cake/quest/datalist/<?php echo $member_quest_id;?>">捜査に戻る</a></div></td>
+    <td><div align="center"><a href="/cake/evidence/evidence_have_list/<?php echo $evidence_id; ?>">再度探す</a>/<a href="/cake/top/top/">トップに戻る</a></div></td>
   </tr>
 </table>
 
@@ -73,6 +74,6 @@ function draw(){
 
 <table width="320" border="0">
   <tr>
-    <td><div align="center"><a href="/cake/attack/top/<?php echo $member_quest_id; ?>">再挑戦する</a>/<a href="/cake/top/top/">トップに戻る</a> / <a href="/cake/quest/datalist/<?php echo $member_quest_id;?>">捜査に戻る</a></div></td>
+    <td><div align="center"><a href="/cake/evidence/evidence_have_list/<?php echo $evidence_id; ?>">再度探す</a>/<a href="/cake/top/top/">トップに戻る</a></div></td>
   </tr>
 </table>

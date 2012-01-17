@@ -26,7 +26,7 @@ function return_wordwrap($line){
       <tr bgcolor="#000000">
         <td><img src="<?php echo $datas['Member']['thumnail_url'] ?>" width="27" height="34"><?php echo $datas['Member']['name'] ?>(Lv.<?php echo $datas['Member']['lv'] ?>)</td>
         <td><?php echo $datas['Member']['mission_count'] ?>件</td>
-        <td><?php echo $datas['Member']['mislead_count'] ?>勝/<?php echo $datas['Member']['mislead_count'] ?>敗</td>
+        <td><?php echo $datas['Member']['win_count'] ?>勝/<?php echo $datas['Member']['lose_count'] ?>敗</td>
         <td>&nbsp;</td>
       </tr>
       <tr>

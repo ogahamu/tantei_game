@@ -1,6 +1,6 @@
 body{
   background-color:black
-  font-size:12px;
+  font-size:11px;
   color:white;
 }
 h1{
@@ -53,6 +53,11 @@ a:link{
 }
 
 .mini_message{
+  color:pink;
+  font-size:12px;
+}
+
+.mini_message_red{
   color:pink;
   font-size:12px;
 }
@@ -168,4 +173,47 @@ hr {
 height: 1px;
 border: none;
 border-top: 1px #CCCCCC dotted;
+}
+
+ul.pager {
+    list-style:none;
+    font-size: 15px;
+      margin: 0px;
+}
+ul.pager li {
+   list-style:none;
+      float: left;
+      margin-right: 5px;
+      border: 1px #666666 solid;
+      font-weight: bold;
+}
+ul.pager li.prev,
+ul.pager li.next {
+    list-style:none;
+      border: none;
+}
+ul.pager li a {
+    list-style:none;
+      position: relative;
+      display: block;
+      padding: 3px 8px;
+      color: #666666;
+}
+ul.pager li a:link,
+ul.pager li a:visited {
+    list-style:none;
+      text-decoration: none;
+}
+ul.pager li a:hover,
+ul.pager li a:active {
+    list-style:none;
+      background-color: #CCCCCC;
+      text-decoration: none;
+}
+ul.pager li em {
+    list-style:none;
+      display: block;
+      padding: 3px 8px;
+      background: #666666;
+      color: #FFFFFF;
 }
