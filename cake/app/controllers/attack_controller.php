@@ -33,8 +33,11 @@ class AttackController extends AppController{
     //自分が集めた証拠数
     $ev_c_data = $this->StructureSql->count_evidence_by_member_quest($member_quest_id);
     $ev_count = $ev_c_data[0][0]['count'];
-    //最大証拠数
+    //最大証拠数(ただしhtml5ゲームの内容により９が最大)
     $max_challenge_count = $challenge_count + $ev_count;
+    if($max_challenge_count>=9){
+      $max_challenge_count=9;
+    }
     $this->set('challenge_count',$challenge_count);
     $this->set('me_count',$ev_count);
     $this->set('max_challenge_count',$max_challenge_count);
@@ -162,7 +165,10 @@ class AttackController extends AppController{
     //ご褒美
     $this->StructureSql->get_money($member_id,$quest_price,1);
     $this->send_message($member_id,$title,$comment,3);
-    $this->set('display_message',$title);
+    $display_message_1 = "経験＋".$quest_exp."↑/お金＋".$quest_price."↑";
+    $display_message_2 = "推理小説+1↑..をゲット";
+    $this->set('display_message_1',$display_message_1);
+    $this->set('display_message_2',$display_message_2);
   }
 
   function send_message($member_id,$title,$comment,$genre_id){
@@ -199,7 +205,10 @@ class AttackController extends AppController{
     $mq_data = $this->MemberQuest->find(array("quest_id"=>$quest_id,"member_id"=>$member_id));
     $member_quest_id = $mq_data['MemberQuest']['id'];
     $this->set('member_quest_id',$member_quest_id);
-    $this->set('display_message','失敗しました。体力が111に減りました');
+    $display_message_1 = "推理に失敗しました...";
+    $display_message_2 = "体力 -100↓";
+    $this->set('display_message_1',$display_message_1);
+    $this->set('display_message_2',$display_message_2);
   }
 
   function no_queset(){

@@ -53,13 +53,13 @@ enemies[8] = new initEnemy(210,320,<?php echo $num_8;?>);
 setInterval("draw()", 100);
 setInterval("score_check()", 100);
 function score_check(){
-  if(challenge_count >= max_challenge_count){
-    result_char = 'lose';
-    load_lose_movie();
-  }
   if(score >= 3){
     result_char = 'win';
     load_win_movie();
+  }
+  if(challenge_count >= max_challenge_count){
+    result_char = 'lose';
+    load_lose_movie();
   }
 }
 /*的１個ずつの状態を保つメソッド（配列に入れて使用する）*/

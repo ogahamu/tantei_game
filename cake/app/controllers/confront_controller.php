@@ -50,6 +50,10 @@ class ConfrontController extends AppController{
     $enemy_attack_power = $enemy_data['Member']['attack_power'];
     $enemy_defence_power = $enemy_data['Member']['defence_power'];
     $enemy_fortune_power = $enemy_data['Member']['fortune_power'];
+    //体力確認
+    if($own_power < $this->power_cost){
+      $this->redirect('/item/item_power_top/');
+    }
     //自身の攻撃力>相手の防御力
     if($own_attack_power>$enemy_defence_power){
       //勝ち
@@ -115,7 +119,10 @@ class ConfrontController extends AppController{
     $result_txt = $this->win_and_lose_manage($member_id,1);
     $this->win_and_lose_manage($enemy_id,2);
     $m_title .= $result_txt;
-    $this->set('display_message',$m_title);
+    $display_message_1 = $enemy_name."の犯行が証明された";
+    $display_message_2 = "経験 +".$this->battle_get_exp."↑/報酬+$".$this->battle_get_money."↑";
+    $this->set('display_message_1',$display_message_1);
+    $this->set('display_message_2',$display_message_2);
   }
 
   function battle_fail(){
@@ -125,7 +132,6 @@ class ConfrontController extends AppController{
       $this->redirect('/top/lost_way#header-menu');
     }
     $this->Session->write('PageStepNo',3);
-
     $this->session_manage();
     //セッションから会員番号を取得
     $member_id = $this->session_data['id'];
@@ -150,7 +156,10 @@ class ConfrontController extends AppController{
     $result_txt = $this->win_and_lose_manage($member_id,2);
     $this->win_and_lose_manage($enemy_id,1);
     $m_title .= $result_txt;
-    $this->set('display_message',$m_title);
+    $display_message_1 = $enemy_name."は無実だった...";
+    $display_message_2 = '体力'.$own_power.'->'.$added_power.'↓';
+    $this->set('display_message_1',$display_message_1);
+    $this->set('display_message_2',$display_message_2);
   }
 
   function rob_evidence(){
@@ -163,12 +172,15 @@ class ConfrontController extends AppController{
     $own_data = $this->Member->findById($member_id);
     $own_name = $own_data['Member']['name'];
     $power = $own_data['Member']['power'];
+    //体力確認
+    if($power < $this->power_cost){
+      $this->redirect('/item/item_power_top/');
+    }
     //敵のデータを取得
     $enemy_data = $this->Member->findById($enemy_member_id);
     $enemy_thumnail_url = $enemy_data['Member']['thumnail_url'];
     $enemy_member_name = $enemy_data['Member']['name'];
-    //$me_data = $this->MemberEvidence->find(array("id"=>$member_evidence_id,"member_id <>"=>$member_id));
-    //$this->set('data',$me_data);
+    //view
     $this->set('enemy_thumnail_url',$enemy_thumnail_url);
     $this->set('enemy_member_name',$enemy_member_name);
     $this->set('power',$power);
@@ -285,7 +297,10 @@ class ConfrontController extends AppController{
     $this->win_and_lose_manage($enemy_id,2);
     $m_title .= $result_txt;
     $this->set('member_quest_id',$member_quest_id);
-    $this->set('display_message',$m_title);
+    $display_message_1 = $enemy_name."の犯行を証明した...";
+    $display_message_2 = $evidence_name.'を取り返した。';
+    $this->set('display_message_1',$display_message_1);
+    $this->set('display_message_2',$display_message_2);
   }
 
   function rob_fail($member_evidence_id){
@@ -321,7 +336,10 @@ class ConfrontController extends AppController{
     $result_txt = $this->win_and_lose_manage($member_id,2);
     $title .= $result_txt;
     $this->win_and_lose_manage($enemy_id,1);
-    $this->set('display_message',$m_title);
+    $display_message_1 = $enemy_name."は無実だった...";
+    $display_message_2 = '体力'.$own_power.'->'.$added_power.'↓';
+    $this->set('display_message_1',$display_message_1);
+    $this->set('display_message_2',$display_message_2);
     $this->set('evidence_id',$evidence_id);
   }
 
@@ -416,6 +434,18 @@ class ConfrontController extends AppController{
       )
     );
     $this->MemberQuest->save($mq_data);
+    //コンプ数を１個増加
+    $mdata = $this->Member->findById($member_id);
+    $compleate_evidence_count = $mdata['Member']['compleate_evidence_count'];
+    $compleate_evidence_count+=1;
+    $m_data = array(
+      'Member' => array(
+        'id' => $member_id,
+        'compleate_evidence_count' => $compleate_evidence_count,
+        'update_time' =>date("Y-m-d H:i:s")
+      )
+    );
+    $this->Member->save($m_data);
   }
 
   private function return_useragent_code(){

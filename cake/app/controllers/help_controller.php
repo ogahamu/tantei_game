@@ -55,7 +55,10 @@ class HelpController extends AppController{
   }
   function test6(){
   }
-
+  function test7(){
+  }
+  function test8(){
+  }
   function session_manage(){
     $session_data = $this->Session->read("member_info");
     $this->session_data = $session_data;

@@ -1,22 +1,14 @@
-<SCRIPT type="text/javascript">
-<!--
-setTimeout("link()", 3000);
-function link(){
-location.href='http://bank.blamestitch.com/cake/gacha/do_gacha#header-menu/';
-}
--->
-</SCRIPT>
 <table width="320" border="0">
   <tr>
     <td>&nbsp;</td>
   </tr>
   <tr>
-    <td><div align="center"><img src="/human.png" width="107" height="120"></div></td>
+    <td><div align="center"><img src="<?php echo $item_id;?>.png" width="107" height="120"></div></td>
   </tr>
   <tr>
-    <td>&nbsp;</td>
+    <td><H2><?php echo $item_title;?></H2></td>
   </tr>
   <tr>
-    <td>&nbsp;</td>
+    <td><a href="/cake/top/top/">トップに戻る</a></td>
   </tr>
 </table>

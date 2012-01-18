@@ -6,7 +6,6 @@ class EvidenceController extends AppController{
   var $session_data;
   var $components = array('Pager');
 
-
   function top(){
     $this->session_manage();
     //セッションから会員番号を取得

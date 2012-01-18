@@ -8,6 +8,11 @@ public $useTable = 'members';
     return $this->query($strSql);
   }
 
+  function update_message_read_flag($member_id){
+    $strSql   = "update messages set read_flag=1 where member_id= ".$member_id." and read_flag=0  \n";
+    return $this->query($strSql);
+  }
+
   function update_evidence_compleate_flag($member_quest_id){
     $strSql   = "update member_evidences set compleate_flag = 1 where member_quest_id = ".$member_quest_id."  \n";
     return $this->query($strSql);

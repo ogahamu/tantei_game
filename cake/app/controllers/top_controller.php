@@ -37,7 +37,7 @@ class TopController extends AppController{
     //各種メッセージの表示
     $message_txt = '';
     if($power<=50){
-      $message_txt .= '●体力がなくなりました。<a href="/cake/item/item_power_top/">栄養ドリンクを飲む</a>か１５分程待って下さい。<br>';
+      $message_txt .= '●体力がなくなりました。<a href="/cake/item/item_power_top/">栄養ドリンクを飲む</a>か休憩してください。<br>';
     }
     //読んでないリクエストの件数を表示
     $no_read_count = $this->Message->findCount(array("member_id"=>$member_id,"read_flag"=>0));
@@ -93,11 +93,11 @@ class TopController extends AppController{
       if($genre_id==1){
         $max_power+=5;
       }elseif($genre_id==2){
-        $attack_power+=5;
+        $attack_power+=1;
       }elseif($genre_id==3){
-        $defence_power+=5;
+        $defence_power+=1;
       }elseif($genre_id==4){
-        $fortune_power+=5;
+        $fortune_power+=1;
       }
       $data = array(
         'id' => $member_id,
@@ -193,6 +193,7 @@ class TopController extends AppController{
     else if($isAndroid){return 2;}
     else{return 2;}
   }
+
 
   function session_manage(){
     //テスト時は下記２行を追記

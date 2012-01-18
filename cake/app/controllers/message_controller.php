@@ -15,6 +15,7 @@ class MessageController extends AppController{
     $data3 = $this->Message->findAll(array("member_id"=>$member_id,"genre_id"=>3),null,'id desc',3);
     $data4 = $this->Message->findAll(array("member_id"=>$member_id,"genre_id"=>4),null,'id desc',3);
     //$data1 = $this->Message->findAllByMemberId($member_id,null,'id desc');
+    $this->StructureSql->update_message_read_flag($member_id);
     $this->set('data1',$data1);
     $this->set('data2',$data2);
     $this->set('data3',$data3);
@@ -22,8 +23,8 @@ class MessageController extends AppController{
   }
 
   function detail($genre_id){
-
-
+    $data = $this->Message->findAll(array("member_id"=>$member_id,"genre_id"=>$genre_id),null,'id desc',10);
+    $this->set('data',$data);
   }
 
   function return_useragent_code(){

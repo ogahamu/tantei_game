@@ -67,6 +67,12 @@ function draw(){
   //}else{
     ctx.drawImage(char_img, 0, 0);
   //}
+
+  //文字表示（２行 19文字まで）
+  ctx.font = "18px 'ＭＳ Ｐゴシック'";
+  ctx.fillStyle = "White";
+  ctx.fillText("<?php echo $display_message_1;?>",10,250);
+  ctx.fillText("<?php echo $display_message_2;?>",10,270);
 }
 </script>
 <table width="320" border="0">

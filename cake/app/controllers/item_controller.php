@@ -63,11 +63,15 @@ class ItemController extends AppController{
     $member_id = $this->session_data['id'];
     $mdata = $this->Member->findById($member_id);
     $money = $mdata['Member']['money'];
-    $money = $money-$this->item_power_price;
-    //ゲットする member,item(1.回復 2.武器 3.本),count
-    $this->update_item_count($member_id,1,1);
-    //お金を減らす
-    $this->pay_money($member_id,$money);
+    //残高チェック
+    $item_power_price = $this->item_power_price;
+    if($money>=$item_power_price){
+      $money = $money-$this->item_power_price;
+      //ゲットする member,item(1.回復 2.武器 3.本),count
+      $this->update_item_count($member_id,1,1);
+      //お金を減らす
+      $this->pay_money($member_id,$money);
+    }
     $this->redirect('/item/item_power_top/');
   }
 
@@ -79,8 +83,9 @@ class ItemController extends AppController{
     $mdata = $this->Member->findById($member_id);
     //下記操作はパワーが満タンの場合は弾く
     $power = $mdata['Member']['power'];
+    $item_power = $mdata['Member']['item_power'];
     $max_power = $mdata['Member']['max_power'];
-    if($max_power>$power){
+    if(($max_power>$power)&&($item_power>0)){
       //全回復＋１個減らす
       $max_power = $mdata['Member']['max_power'];
       $data = array(
@@ -137,11 +142,14 @@ class ItemController extends AppController{
     $member_id = $this->session_data['id'];
     $mdata = $this->Member->findById($member_id);
     $money = $mdata['Member']['money'];
-    $money = $money-$this->item_challenge_price;
-    //ゲットする member,item(1.回復 2.武器 3.本),count
-    $this->update_item_count($member_id,2,1);
-    //お金を減らす
-    $this->pay_money($member_id,$money);
+    //残高チェック
+    if($money>=$this->item_challenge_price){
+      $money = $money-$this->item_challenge_price;
+      //ゲットする member,item(1.回復 2.武器 3.本),count
+      $this->update_item_count($member_id,2,1);
+      //お金を減らす
+      $this->pay_money($member_id,$money);
+    }
     $this->redirect('/item/item_challenge_top/');
   }
 
@@ -167,7 +175,7 @@ class ItemController extends AppController{
     $this->MemberQuest->save($data);
     //アイテムを使用し、減らす member,item(1.回復 2.武器 3.本),count
     $this->update_item_count($member_id,2,-1);
-    $this->redirect('/item/item_challenge_top/');
+    $this->redirect('/item/item_challenge_top/'.$member_quest_id);
   }
 
   //本＿トップ
@@ -179,8 +187,10 @@ class ItemController extends AppController{
     //アバターがない場合は設定画面へ誘導
     $avater_id = $mdata['Member']['avater_id'];
     $money = $mdata['Member']['money'];
+    $item_star = $mdata['Member']['star_count'];
     $after_money = $money-$this->item_star_price;
     $this->set('money',$money);
+    $this->set('item_star',$item_star);
     $this->set('after_money',$after_money);
   }
 
@@ -191,11 +201,14 @@ class ItemController extends AppController{
     $member_id = $this->session_data['id'];
     $mdata = $this->Member->findById($member_id);
     $money = $mdata['Member']['money'];
-    $money = $money-$this->item_star_price;
-    //ゲットする member,item(1.回復 2.武器 3.本),count
-    $this->update_item_count($member_id,3,1);
-    //お金を減らす
-    $this->pay_money($member_id,$money);
+    //残高チェック
+    if($money>=$this->item_challenge_price){
+      $money = $money-$this->item_star_price;
+      //ゲットする member,item(1.回復 2.武器 3.本),count
+      $this->update_item_count($member_id,3,1);
+      //お金を減らす
+      $this->pay_money($member_id,$money);
+    }
     $this->redirect('/item/item_star_top/');
   }
 
@@ -231,7 +244,7 @@ class ItemController extends AppController{
       $item_power+=$add_count;
     }elseif($item_id==2){
       $item_challenge+=$add_count;
-    }elseif($item_id==2){
+    }elseif($item_id==3){
       $item_star+=$add_count;
     }
     $id = $mdata['Member']['id'];
@@ -239,7 +252,7 @@ class ItemController extends AppController{
       'id' => $member_id,
       'item_power' => $item_power,
       'item_challenge' => $item_challenge,
-      'item_star' => $item_star,
+      'star_count' => $item_star,
       'update_date' => date("Y-m-d H:i:s")
     );
     $this->Member->save($data);

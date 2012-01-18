@@ -6,20 +6,20 @@ class RealfactController extends AppController{
   var $attack_cost=50;
 
   function top($member_quest_id){
+    //ページステップ管理
+    $this->Session->write('PageStepNo',1);
     $this->session_manage();
     //セッションから会員番号を取得
     $member_id = $this->session_data['id'];
-
     //最大証拠数
     $this->set('challenge_count',0);
     $this->set('me_count',5);
     $this->set('max_challenge_count',5);
-
     //パワー増減+実績の登録
     $mdata = $this->Member->findById($member_id);
     $power = $mdata['Member']['power'];
     //power減らす
-    $power -= $attack_cost;
+    $power -= $this->attack_cost;
     $data = array(
       'Member' => array(
         'id' => $member_id,
@@ -62,6 +62,13 @@ class RealfactController extends AppController{
   }
 
   function win($quest_id){
+    //ページステップ管理
+    $page_step_no = $this->Session->read('PageStepNo');
+    if($page_step_no<>1){
+      $this->redirect('/top/lost_way#header-menu');
+    }
+    $this->Session->write('PageStepNo',2);
+
     $this->session_manage();
     //セッションから会員番号を取得
     $member_id = $this->session_data['id'];
@@ -77,6 +84,13 @@ class RealfactController extends AppController{
   }
 
   function lose($quest_id){
+    //ページステップ管理
+    $page_step_no = $this->Session->read('PageStepNo');
+    if($page_step_no<>1){
+      $this->redirect('/top/lost_way#header-menu');
+    }
+    $this->Session->write('PageStepNo',2);
+
     $this->session_manage();
     //セッションから会員番号を取得
     $member_id = $this->session_data['id'];

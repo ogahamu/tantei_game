@@ -1,12 +1,11 @@
-<script type="text/javascript">
+<SCRIPT type="text/javascript">
 <!--
-settimeout("link()", 5000);
+setTimeout("link()", 2000);
 function link(){
-location.href='http://bank.blamestitch.com/cake/quest/detail/<?php echo $member_quest_detail_id;?>/#header-menu/';
+location.href='http://bank.blamestitch.com/cake/quest/detail/<?php echo $member_quest_detail_id;?>';
 }
 -->
-</script>
-<body bgcolor="#000000">
+</SCRIPT>
 <table border="0" cellpadding="0" cellspacing="0" width="320">
 <!-- fwtable fwsrc="/img/findevidence.png" fwbase="findevidence.png" fwstyle="Dreamweaver" fwdocid = "744887863" fwnested="0" -->
   <tr>

@@ -17,8 +17,8 @@
 
       <a href="/cake/item/item_power_exe/">-アイテム使う[残り<?php echo $amount; ?>個]-</a><br><br>
 
-
-    <a href="/cake/item/item_power_get">-購入する[所持金<?php echo $money;?>-><?php echo $after_money;?>]-</a>    </td>
+<?php if($after_money<0){ ?><span class="warning01">残高が不足しています..</span><br><?php } ?>
+    <a href="/cake/item/item_power_get">-購入する[所持金$<?php echo $money;?>->$<?php echo $after_money;?>]-</a>    </td>
   </tr>
   <tr>
     <td><div align="center"><a href="/cake/request/top/"><br>

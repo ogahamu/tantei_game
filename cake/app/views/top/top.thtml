@@ -38,7 +38,7 @@ $(function(){
       </table></td>
   </tr>
   <tr>
-    <td height="11">&nbsp;</td>
+    <td height="11"><a href="/cake/quest/top/"><img src="/img/aaaa.png" width="320" height="50" border="0"></a></td>
   </tr>
   <tr>
     <td height="135"> <?php foreach($mdata as $mdatas): ?>
@@ -59,7 +59,7 @@ $(function(){
         </tr>
         <tr>
           <td>体力</td>
-          <td><div id="progressbar"> </div><span class="mini_message">満タンまで残り<?php echo $least_time;?></span></td>
+          <td><div id="progressbar"> </div><?php echo $mdatas['power'];?>/<?php echo $mdatas['max_power'];?><span class="mini_message">満タンまで残り<?php echo $least_time;?></span></td>
         </tr>
         <tr>
           <td colspan="2"><hr></td>
@@ -82,7 +82,9 @@ $(function(){
         </tr>
       </table>
       <?php endforeach; ?>
-      <p><a href="/cake/manage/series/"><img src="/jpg/own_item_list_banner.png" width="320" height="50" border="0"></a></p>
+      <p><a href="/cake/gacha/top/"><img src="/img/aaaa.png" width="320" height="50" border="0"><br>
+        <br>
+      <img src="/img/aaaa.png" width="320" height="50" border="0">      </a></p>
       <a href="/cake/help/top/">HELP </a> </td>
   </tr>
 </table>
