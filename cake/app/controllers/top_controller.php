@@ -46,7 +46,7 @@ class TopController extends AppController{
     }
     //ステータスの更新情報を表示する
     if($star_count>=1){
-      $message_txt .= '●ステータスを上げることができます。<a href="/cake/top/status/">ステータスアップ画面</a>へ入って下さい。<br>';
+      $message_txt .= '●推理小説を読んでステータスUPできます。<a href="/cake/top/status/">図書室</a>へ入って下さい。<br>';
     }
     //view
     $this->set('least_time',$least_hour.'時間'.$least_minits.'分');

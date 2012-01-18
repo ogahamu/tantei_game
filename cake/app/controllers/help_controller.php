@@ -3,7 +3,7 @@
 
 class HelpController extends AppController{
 
-  var $uses = array('StructureSql','Member','Message');
+  var $uses = array('StructureSql','Member','Message','Quest','QuestDetail','MemberQuest','MemberQuestDetail');
   var $session_data;
 
   function top(){
@@ -42,6 +42,21 @@ class HelpController extends AppController{
     //$this->session_manage();
   }
 
+  function transaction_test(){
+
+      $data = array(
+        'Member' => array(
+          'name' => 'AA',
+          'insert_date' => date("Y-m-d H:i:s")
+        )
+      );
+      $this->Member->create();
+      $this->Member->save($data);
+
+
+
+
+  }
 
   function test1(){
   }
