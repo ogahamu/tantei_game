@@ -18,7 +18,7 @@ class GachaController extends AppController{
     //最終更新日が昨日かどうかを比較して確認する
     $gacha_effective_flag=1;
     if (strtotime($today_date) > strtotime($last_gacha_date)) {
-      $gacha_effective_flag = 1;
+      $gacha_effective_flag = 0;
     }
     $this->set('gacha_effective_flag',$gacha_effective_flag);
   }
@@ -70,7 +70,7 @@ class GachaController extends AppController{
     }else{
        $title = '小銭袋が出ました!';
        $item_id = 0;
-       $this->StructureSql->get_money($member_id,50,1);
+       $this->StructureSql->call_get_money($member_id,50,1);
         //何もしない
     }
     $this->set('item_title',$title);

@@ -76,7 +76,7 @@ begin
 
   while local_counter_1 < local_max_counter_1 do
     set local_counter_2 = 1;
-       select convert(name USING utf8) into local_test_name from test_names order by rand() limit 1;
+       select name into local_test_name from test_names order by rand() limit 1;
     select
       concat('http://bank.blamestitch.com/jpg/test/',local_counter_1,'.jpg')
     into
@@ -131,4 +131,4 @@ begin
 end
 //
 delimiter ;
-call build_test_data(5,5);
+call build_test_data(100,100);

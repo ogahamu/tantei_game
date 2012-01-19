@@ -38,7 +38,7 @@ $(function(){
       </table></td>
   </tr>
   <tr>
-    <td height="11"><a href="/cake/quest/top/"><img src="/img/aaaa.png" width="320" height="50" border="0"></a></td>
+    <td height="11"><a href="/cake/quest/top/"><img src="/img/sousa_start.png" width="320" height="50" border="0"></a></td>
   </tr>
   <tr>
     <td height="135"> <?php foreach($mdata as $mdatas): ?>
@@ -82,7 +82,7 @@ $(function(){
         </tr>
       </table>
       <?php endforeach; ?>
-      <p><a href="/cake/gacha/top/"><img src="/img/aaaa.png" width="320" height="50" border="0"><br>
+      <p><a href="/cake/gacha/top/"><img src="/img/gacha_start.png" width="320" height="50" border="0"><br>
         <br>
       <img src="/img/aaaa.png" width="320" height="50" border="0">      </a></p>
       <a href="/cake/help/top/">HELP </a> </td>

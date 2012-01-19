@@ -19,9 +19,9 @@
       <?php foreach($data as $datas): ?>
       <tr>
         <td><H2><?php if($datas['MemberQuest']['resolved_flag']==1){ ?><img src="/img/shitai_icon.png" width="18" height="18"><?php }else{ ?><img src="/img/shitai_icon.png" width="18" height="18"><?php } ?><?php echo $datas['MemberQuest']['title'] ?></H2>
-          目撃者：<?php for($i=0;$i<$datas['MemberQuest']['challenge_count'];$i++){?><img src="/img/foot_icon.png" width="15" height="15"><?php } ?>
+          目撃者：<?php for($i=0;$i<$datas['MemberQuest']['challenge_count'];$i++){?><img src="/img/eye_icon.png" width="15" height="15"><?php } ?>
           <br>
-          集めた証拠：<?php for($i=0;$i<$datas['MemberQuest']['evidence_count'];$i++){?><img src="/img/foot_icon.png" width="15" height="15"><?php } ?>
+          集めた証拠：<?php for($i=0;$i<$datas['MemberQuest']['evidence_count'];$i++){?><img src="/img/evidence_icon.png" width="15" height="15"><?php } ?>
           <br>
           <?php if(($datas['MemberQuest']['resolved_flag']==1)&&($datas['MemberQuest']['evidence_compleate_flag']==1)&&($datas['MemberQuest']['real_fact_resolved_flag']==0)){ ?><img src="/img_0113.png" alt="真相の扉" width="163" height="20"><?php } ?>
       <?php if(($datas['MemberQuest']['resolved_flag']==1)&&($datas['MemberQuest']['evidence_compleate_flag']==1)&&($datas['MemberQuest']['real_fact_resolved_flag']==1)){ ?><img src="/img_0113.png" alt="真相解決" width="163" height="20"><?php } ?>
