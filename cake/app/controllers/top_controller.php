@@ -27,7 +27,8 @@ class TopController extends AppController{
     $star_count = $mdata['Member']['star_count'];
     //ランク情報
     $ranking_data = $this->StructureSql->select_member_ranking_count($member_id);
-    $all_member_count = $this->Member->findCount();
+    //$all_member_count = $this->Member->find('count');
+    $all_member_count = 1000;
     $max_power = $mdata['Member']['max_power'];
     $gage_power = ceil($power/$max_power*100);
     //パワー回復までの時間表示
@@ -40,7 +41,7 @@ class TopController extends AppController{
       $message_txt .= '●体力がなくなりました。<a href="/cake/item/item_power_top/">栄養ドリンクを飲む</a>か休憩してください。<br>';
     }
     //読んでないリクエストの件数を表示
-    $no_read_count = $this->Message->findCount(array("member_id"=>$member_id,"read_flag"=>0));
+    $no_read_count = $this->Message->find('count',array("member_id"=>$member_id,"read_flag"=>0));
     if($no_read_count>0){
       $message_txt .= '<a href="/cake/message/top/">●'.$no_read_count.'件の未読メールがあります。</a><br>';
     }
@@ -62,7 +63,7 @@ class TopController extends AppController{
     $this->session_manage();
     //セッションから会員番号を取得
     $member_id = $this->session_data['id'];
-    $data = $this->Member->findAllById($member_id);
+    $data = $this->Member->find("all",array('conditions'=>array("id"=>$member_id)));
     $this->set('data',$data);
   }
 
@@ -121,26 +122,13 @@ class TopController extends AppController{
     $mdata = $this->Member->findById($member_id);
     //会員情報を分解
     $power = $mdata['Member']['power'];
-    $mission_count = $mdata['Member']['mission_count'];
-    $success_count = $mdata['Member']['success_count'];
-    $mistake_count = $mdata['Member']['mistake_count'];
     $max_power = $mdata['Member']['power'];
-    $member_request_id = $mdata['Member']['member_request_id'];
     //ランク情報
-    $srrdata = $this->StructureSql->select_result_rank($member_id);
-    $cdata = $this->StructureSql->select_count_compleate_treasure($member_id);
-    $compleate_count = $cdata[0][0]['count'];
-    //$treasure_count = $this->MemberTreasure->find('count', array('conditions' => array('member_id' => $member_id)));
+    $compleate_count = $mdata['Member']['compleate_evidence_count'];
     $ranking_data = $this->StructureSql->select_member_ranking_count($member_id);
-    $all_member_count = $this->Member->findCount();
-    //アベレージ
-    $ave_data = $this->StructureSql->select_average_point($member_id);
-    $average_point = $ave_data[0][0]['average_point'];
+    $all_member_count = 1000;
     //view
-    $this->set('srrdata',$srrdata);
-    $this->set('average_point',$average_point);
     $this->set('compleate_count',$compleate_count);
-    $this->set('treasure_count',$treasure_count);
     $this->set('ranking_txt',$ranking_data[0][0]['count'].'/'.$all_member_count);
     $this->set('power',ceil($power/$max_power*100));
     $this->set('mdata',$mdata);

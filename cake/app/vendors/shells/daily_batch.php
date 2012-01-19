@@ -4,12 +4,12 @@
 
 class DailyBatchShell extends Shell {
 
-  var $uses = array('MemberTreasure','TreasureSerie','Bank','Treasure','Member','MemberItem','MemberRequest','MemberSpell','Request','StructureSql');
+  var $uses = array('Member');
 
   function main(){
     echo "start";
     //全会員を取得
-    $all_member_data = $this->Member->findAll();
+    $all_member_data = $this->Member->find('all');
     foreach($all_member_data as $mdata){
       $this->update_member_hp($mdata['Member']['id'],$mdata['Member']['power'],$mdata['Member']['max_power']);
     }

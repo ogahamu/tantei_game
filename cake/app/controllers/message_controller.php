@@ -10,11 +10,10 @@ class MessageController extends AppController{
     $this->session_manage();
     //セッションから会員番号を取得
     $member_id = $this->session_data['id'];
-    $data1 = $this->Message->findAll(array("member_id"=>$member_id,"genre_id"=>1),null,'id desc',3);
-    $data2 = $this->Message->findAll(array("member_id"=>$member_id,"genre_id"=>2),null,'id desc',3);
-    $data3 = $this->Message->findAll(array("member_id"=>$member_id,"genre_id"=>3),null,'id desc',3);
-    $data4 = $this->Message->findAll(array("member_id"=>$member_id,"genre_id"=>4),null,'id desc',3);
-    //$data1 = $this->Message->findAllByMemberId($member_id,null,'id desc');
+    $data1 = $this->Message->find('all',array('conditions'=>array("member_id"=>$member_id,"genre_id"=>1),'order'=>array('id desc'),'limit'=>3,'page'=>0));
+    $data2 = $this->Message->find('all',array('conditions'=>array("member_id"=>$member_id,"genre_id"=>2),'order'=>array('id desc'),'limit'=>3,'page'=>0));
+    $data3 = $this->Message->find('all',array('conditions'=>array("member_id"=>$member_id,"genre_id"=>3),'order'=>array('id desc'),'limit'=>3,'page'=>0));
+    $data4 = $this->Message->find('all',array('conditions'=>array("member_id"=>$member_id,"genre_id"=>4),'order'=>array('id desc'),'limit'=>3,'page'=>0));
     $this->StructureSql->update_message_read_flag($member_id);
     $this->set('data1',$data1);
     $this->set('data2',$data2);
@@ -23,7 +22,7 @@ class MessageController extends AppController{
   }
 
   function detail($genre_id){
-    $data = $this->Message->findAll(array("member_id"=>$member_id,"genre_id"=>$genre_id),null,'id desc',10);
+    $data = $this->Message->find('all',array("member_id"=>$member_id,"genre_id"=>$genre_id),null,'id desc',10);
     $this->set('data',$data);
   }
 

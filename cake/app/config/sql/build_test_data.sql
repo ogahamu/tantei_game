@@ -12,12 +12,11 @@ begin
   declare local_treasure_member int;
   set local_counter_1 = 2;
   set local_counter_2 = 2;
-  delete from members;
-  delete from member_quests;
-  delete from member_evidences;
-  delete from member_quest_details;
-  delete from messages;
-
+  truncate table members;
+  truncate table member_quests;
+  truncate table member_evidences;
+  truncate table member_quest_details;
+  truncate table messages;
 
   insert into members (id,mixi_account_id,name,power,max_power,money,lv,exp,least_next_exp,sum_exp,star_count
   )values(
@@ -77,7 +76,7 @@ begin
 
   while local_counter_1 < local_max_counter_1 do
     set local_counter_2 = 1;
-    select name into local_test_name from test_names order by rand() limit 1;
+       select convert(name USING utf8) into local_test_name from test_names order by rand() limit 1;
     select
       concat('http://bank.blamestitch.com/jpg/test/',local_counter_1,'.jpg')
     into
@@ -132,4 +131,4 @@ begin
 end
 //
 delimiter ;
-call build_test_data(10,20);
+call build_test_data(5,5);

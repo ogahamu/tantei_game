@@ -4,7 +4,6 @@ class QuestController extends AppController{
   var $uses = array('Evidence','MemberEvidence','StructureSql','Member','Message','Quest','QuestDetail','MemberQuest','MemberQuestDetail');
   var $session_data;
   var $components = array('Pager');
-
   var $quest_cost=20;
   var $quest_distance=20;
   var $once_quest_exp = 10;
@@ -17,15 +16,14 @@ class QuestController extends AppController{
       $page_no=1;
     }
     //所持クエスト数を数える
-    $quest_count = $this->MemberQuest->findCount(array("member_id"=>$member_id));
+    $quest_count = $this->MemberQuest->find('count',array('conditions'=>array("member_id"=>$member_id)));
     $divide_no = 10;
     //ページ表示部分
     $vlist = $this->Pager->pagelink($divide_no,$quest_count,'/cake/quest/top/',$page_no);
     $this->set('vlist',$vlist);
     $page_end_no = $divide_no * $page_no;
     $page_start_no = $page_end_no - ($divide_no - 1) -1;
-    $data = $this->MemberQuest->findAll(array('member_id'=>$member_id), null, 'id desc',$divide_no,$page_no);
-    //$data = $this->MemberQuest->findAllByMemberId($member_id,null,'id desc');
+    $data = $this->MemberQuest->find('all',array('conditions'=>array("member_id"=>$member_id),'order'=>array('id desc'),'limit'=>$divide_no,'page'=>$page_no));
     $this->set('data',$data);
   }
 
@@ -40,7 +38,7 @@ class QuestController extends AppController{
     //アイテムの個数を取得
     $item_challenge = $mdata['Member']['item_challenge'];
     $this->set('item_challenge',$item_challenge);
-    $data = $this->MemberQuestDetail->findAllByMemberQuestId($member_quest_id,null,'id desc');
+    $data = $this->MemberQuestDetail->find('all',array('conditions'=>array("member_quest_id"=>$member_quest_id),'order'=>array('id desc'),null,null));
     $mq_data = $this->MemberQuest->findById($member_quest_id);
     $quest_resolved_flag = $mq_data['MemberQuest']['resolved_flag'];
     $quest_id = $mq_data['MemberQuest']['quest_id'];
@@ -98,17 +96,15 @@ class QuestController extends AppController{
     }
     //セッションから会員番号を取得
     $member_id = $this->session_data['id'];
-    $data = $this->MemberQuestDetail->findAllById($member_quest_detail_id);
+    $data = $this->MemberQuestDetail->find('all',array('conditions'=>array('id'=>$member_quest_detail_id),'order'=>array('id desc'),'limit'=>3,'page'=>0));
     $this->set('data',$data);
-
     $member_quest_id= $data[0]['MemberQuestDetail']['member_quest_id'];
     $q_data = $this->MemberQuest->findById($member_quest_id);
     $quest_title = $q_data['MemberQuest']['title'];
     $this->set('member_quest_id',$member_quest_id);
     $this->set('member_quest_detail_id',$member_quest_detail_id);
     $this->set('quest_title',$quest_title);
-
-    $mdata = $this->Member->findAllById($member_id);
+    $mdata = $this->Member->find('all',array('conditions'=>array('id'=>$member_id)));
     $this->set('mdata',$mdata);
   }
 
@@ -161,7 +157,7 @@ class QuestController extends AppController{
       //超えた場合+最終行でない場合
       if($last_marker_flag == 0){
         $next_detail_no=$detail_no+1;
-        $next_stage_count = $this->MemberQuestDetail->findCount(array("member_quest_id"=>$member_quest_id,"detail_no"=>$next_detail_no));
+        $next_stage_count = $this->MemberQuestDetail->find('count',array("conditions"=>array("member_quest_id"=>$member_quest_id,"detail_no"=>$next_detail_no)));
         if($next_stage_count==0){
           //追加処理
           $qd_data = $this->QuestDetail->find(array("quest_id"=>$quest_id,"detail_no"=>$next_detail_no));
@@ -189,7 +185,6 @@ class QuestController extends AppController{
           $comment = '';
           //メッセージ送信
           $this->send_message($member_id,$title,$comment);
-          //$this->redirect('/quest/datalist/'.$member_quest_id);
         }
       }elseif($last_marker_flag == 1){
          $return_datalist_flag=1;

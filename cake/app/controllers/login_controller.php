@@ -14,6 +14,7 @@ class LoginController extends AppController{
       self::s_t_out();
     }
     $this->Session->write("RefleshImgFlag",1);
+    //OAuthでユーザー情報を取得する
     $user_data = $this->oauth_get_user_account($mixi_account_id);
     $mixi_name = $user_data['nickname'];
     $mixi_name = mysql_escape_string($mixi_name);
@@ -24,6 +25,10 @@ class LoginController extends AppController{
     $this->Session->write("mixi_thumbnail",$user_data['thumbnailUrl']);
     $count = $this->Member->findCount(array('mixi_account_id'=>$mixi_account_id));
     if($count == 0){
+      //transaction開始
+      $this->Member->begin();
+      $this->MemberQuest->begin();
+      $this->MemberQuestDetail->begin();
       $data = array(
         'Member' => array(
           'mixi_account_id' => $mixi_account_id,
@@ -46,11 +51,22 @@ class LoginController extends AppController{
           'insert_date' => date("Y-m-d H:i:s")
         )
       );
-      $this->Member->save($data);
+      $m_result = $this->Member->save($data);
       $member_id = $this->Member->getLastInsertID();
       //最初の依頼を生成その１
-      $this->insert_request($member_id);
-      //メッセージの追加
+      $first_quests_result = $this->insert_first_quests($member_id);
+      //transaction終了
+      if($m_result!==false&&$first_quests_result!==false){
+        $this->Member->commit();
+        $this->MemberQuest->commit();
+        $this->MemberQuestDetail->commit();
+      }else{
+        $this->Member->rollback();
+        $this->MemberQuest->rollback();
+        $this->MemberQuestDetail->rollback();
+        $this->redirect('/login/session_timeout/');
+      }
+      //メッセージの追加（これはトランザクション外でOK..）
       $title = '「観覧車殺人事件」が追加されました。';
       $this->send_message($member_id,$title,'');
       self::login_f_mixi();
@@ -150,9 +166,7 @@ class LoginController extends AppController{
     $this->Message->save($msdata);
   }
 
-  private function insert_request($member_id){
-    $member_data = $this->Member->findById($member_id);
-    //$q_data = $this->Quest->findById(1);
+  private function insert_first_quests($member_id){
     $data = array(
       'MemberQuest' => array(
         'member_id' => $member_id,
@@ -167,7 +181,8 @@ class LoginController extends AppController{
         'insert_time' => date("Y-m-d H:i:s")
        )
     );
-    $this->MemberQuest->save($data);
+    $this->MemberQuest->create();
+    $mq_result = $this->MemberQuest->save($data);
     $member_quest_id = $this->MemberQuest->getLastInsertID();
     $data = array(
       'MemberQuestDetail' => array(
@@ -185,6 +200,12 @@ class LoginController extends AppController{
         'insert_time' =>date("Y-m-d H:i:s")
        )
     );
-    $this->MemberQuestDetail->save($data);
+    $this->MemberQuestDetail->create();
+    $mqd_result = $this->MemberQuestDetail->save($data);
+    if($mq_result!==false&&$mqd_result!==false){
+      return true;
+    }else{
+      return false;
+    }
   }
 }

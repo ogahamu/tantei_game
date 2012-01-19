@@ -4,6 +4,7 @@ class AttackController extends AppController{
   var $uses = array('MemberEvidence','StructureSql','Member','Message','Quest','QuestDetail','MemberQuest','MemberQuestDetail');
   var $session_data;
   var $attack_cost=50;
+  var $add_exp=50;
 
   function top($member_quest_id){
     //ページステップ管理
@@ -45,7 +46,6 @@ class AttackController extends AppController{
     if($resolved_flag==1){
       $this->redirect('/attack/already_end/');
     }
-    $this->Session->write('QuestId',$quest_id);
     $this->set('quest_id',$quest_id);
     //答えとなるキーワードを作成する
     $keyword_num = $this->keyword_maker(8);
@@ -97,7 +97,17 @@ class AttackController extends AppController{
     $member_quest_id = $mq_data['MemberQuest']['id'];
     $quest_exp = $mq_data['MemberQuest']['quest_exp'];
     $quest_price = $mq_data['MemberQuest']['quest_price'];
-    $this->StructureSql->call_get_bank_exp($member_id,$add_exp);
+    //次のクエストIDを確認
+    $next_quest_id = $quest_id + 1;
+    //クエストIDが存在するかチェックする
+    $qdata = $this->Quest->findById($next_quest_id);
+    if(count($qdata)==0){
+      $this->redirect('/quest/no_queset/');
+    }
+    //transaction開始
+    $this->StructureSql->begin();
+    $this->MemberQuest->begin();
+    $this->MemberQuestDetail->begin();
     //今のクエストを済にする
     $data = array(
       'MemberQuest' => array(
@@ -106,64 +116,63 @@ class AttackController extends AppController{
         'update_time' => date("Y-m-d H:i:s")
        )
     );
-    $this->MemberQuest->save($data);
-    //次のクエストID
-    $next_quest_id = $quest_id + 1;
-    //クエストIDが存在するかチェックする
-    $qdata = $this->Quest->findById($next_quest_id);
-    if(count($qdata)==0){
-      //存在しない場合はクエストがありません画面へ
-      $this->redirect('/quest/no_queset/');
+    $mq_result_u = $this->MemberQuest->save($data);
+    $data = array(
+      'MemberQuest' => array(
+        'member_id' => $member_id,
+        'title' => $qdata['Quest']['title'],
+        'comment' => $qdata['Quest']['comment'],
+        'quest_exp' => $qdata['Quest']['quest_exp'],
+        'quest_price' => $qdata['Quest']['quest_price'],
+        'resolved_flag' => 0,
+        'evidence_appear_rate' => $qdata['Quest']['evidence_appear_rate'],
+        'challenge_count' => $qdata['Quest']['challenge_count'],
+        'quest_id' => $next_quest_id,
+        'insert_time' => date("Y-m-d H:i:s")
+       )
+    );
+    $this->MemberQuest->create();
+    $mq_result_i = $this->MemberQuest->save($data);
+    $member_quest_id = $this->MemberQuest->getLastInsertID();
+    $qd_data = $this->QuestDetail->find(array("quest_id"=>$next_quest_id,"detail_no"=>1));
+    $data = array(
+      'MemberQuestDetail' => array(
+        'member_quest_id' =>$member_quest_id,
+        'detail_no' => 1,
+        'resoluved_flag' =>0,
+        'member_id' =>$member_id,
+        'title' =>$qd_data['QuestDetail']['title'],
+        'comment' =>$qd_data['QuestDetail']['comment'],
+        'exp' =>$qd_data['QuestDetail']['exp'],
+        'distance' =>0,
+        'all_distance' =>$qd_data['QuestDetail']['all_distance'],
+        'last_marker_flag' =>$qd_data['QuestDetail']['last_marker_flag'],
+        'quest_detail_id' =>$qd_data['QuestDetail']['id'],
+        'insert_time' =>date("Y-m-d H:i:s")
+       )
+    );
+    $mqd_result = $this->MemberQuestDetail->save($data);
+    //ご褒美
+    $call_exp_result = $this->StructureSql->call_get_bank_exp($member_id,$this->add_exp);
+    $call_money_result = $this->StructureSql->call_get_money($member_id,$quest_price,1);
+    //transaction終了
+    if($mq_result_u!==false&&$mq_result_i!==false&&$call_exp_result!==false&&$call_money_result!==false){
+      $this->StructureSql->commit();
+      $this->MemberQuest->commit();
+      $this->MemberQuestDetail->commit();
+    }else{
+      $this->StructureSql->rollback();
+      $this->MemberQuest->rollback();
+      $this->MemberQuestDetail->rollback();
+      $this->redirect('/login/session_timeout/');
     }
-    //既にこのクエストIDを持っていないか検査する
-    $mq_data = $this->MemberQuest->findCount(array("quest_id"=>$next_quest_id,"member_id"=>$member_id));
-    if($mq_data==0){
-      //$q_data = $this->Quest->findById($next_quest_id);
-      $data = array(
-        'MemberQuest' => array(
-          'member_id' => $member_id,
-          'title' => $qdata['Quest']['title'],
-          'comment' => $qdata['Quest']['comment'],
-          'quest_exp' => $qdata['Quest']['quest_exp'],
-          'quest_price' => $qdata['Quest']['quest_price'],
-          'resolved_flag' => 0,
-          'evidence_appear_rate' => $qdata['Quest']['evidence_appear_rate'],
-          'challenge_count' => $qdata['Quest']['challenge_count'],
-          'quest_id' => $next_quest_id,
-          'insert_time' => date("Y-m-d H:i:s")
-         )
-      );
-      $this->MemberQuest->create();
-      $this->MemberQuest->save($data);
-      $member_quest_id = $this->MemberQuest->getLastInsertID();
-      $qd_data = $this->QuestDetail->find(array("quest_id"=>$next_quest_id,"detail_no"=>1));
-      $data = array(
-        'MemberQuestDetail' => array(
-          'member_quest_id' =>$member_quest_id,
-          'detail_no' => 1,
-          'resoluved_flag' =>0,
-          'member_id' =>$member_id,
-          'title' =>$qd_data['QuestDetail']['title'],
-          'comment' =>$qd_data['QuestDetail']['comment'],
-          'exp' =>$qd_data['QuestDetail']['exp'],
-          'distance' =>0,
-          'all_distance' =>$qd_data['QuestDetail']['all_distance'],
-          'last_marker_flag' =>$qd_data['QuestDetail']['last_marker_flag'],
-          'quest_detail_id' =>$qd_data['QuestDetail']['id'],
-          'insert_time' =>date("Y-m-d H:i:s")
-         )
-      );
-      $this->MemberQuestDetail->save($data);
-      //メッセージ送信（次の事件について）
-      $title = '「'.$qdata['Quest']['title'].'」が追加されました。';
-      $comment = '';
-      $this->send_message($member_id,$title,$comment,2);
-    }
+    //メッセージ送信（次の事件について）
+    $title = '「'.$qdata['Quest']['title'].'」が追加されました。';
+    $comment = '';
+    $this->send_message($member_id,$title,$comment,2);
     //メッセージ送信
     $title = '事件解決！経験値'.$quest_exp.'Exp,お金 $'.$quest_price.',ステータス上昇ポイント×1を得ました';
     $comment = '';
-    //ご褒美
-    $this->StructureSql->get_money($member_id,$quest_price,1);
     $this->send_message($member_id,$title,$comment,3);
     $display_message_1 = "経験＋".$quest_exp."↑/お金＋".$quest_price."↑";
     $display_message_2 = "推理小説+1↑..をゲット";

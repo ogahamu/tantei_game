@@ -3,7 +3,6 @@ call build_test_data(300,600);
 call build_test_data(10,50);
 
 //ﾃｽﾄ用に距離を短く
-
 update quest_details set all_distance = 67;
 
 //申請データ再作成[quest_details,evidenceを再作成]

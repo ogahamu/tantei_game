@@ -14,7 +14,6 @@ class ConfrontController extends AppController{
     $this->session_manage();
     //セッションから会員番号を取得
     $member_id = $this->session_data['id'];
-    //$data = $this->MemberQuest->findAllByMemberId($member_id);
     $this->set('data',$data);
   }
 
@@ -347,7 +346,7 @@ class ConfrontController extends AppController{
     $this->session_manage();
     //セッションから会員番号を取得
     $member_id = $this->session_data['id'];
-    $data = $this->MemberQuest->findAllByMemberId($member_id);
+    //$data = $this->MemberQuest->find('all',array("member_id"=>$member_id));
   }
 
   //1:勝利 2:敗北 3:失敗

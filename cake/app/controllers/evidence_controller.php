@@ -10,7 +10,7 @@ class EvidenceController extends AppController{
     $this->session_manage();
     //セッションから会員番号を取得
     $member_id = $this->session_data['id'];
-    $data = $this->MemberQuest->findAllByMemberId($member_id);
+    $data = $this->MemberQuest->find('all',array('conditions'=>array("member_id"=>$member_id)));
     $this->set('data',$data);
   }
 
