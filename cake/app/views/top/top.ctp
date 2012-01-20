@@ -73,7 +73,7 @@ $(function(){
         </tr>
         <tr>
           <td>順位</td>
-          <td><?php echo $ranking_txt; ?> <a href="/cake/ranking/top/">ランキングを見る </a></td>
+          <td><?php echo $mdatas['rank_no'];?>/<?php echo $mdatas['total_members'];?> <a href="/cake/ranking/top/">ランキングを見る </a></td>
         </tr>
         <tr>
           <td colspan="2"><hr>

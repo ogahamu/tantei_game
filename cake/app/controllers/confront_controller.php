@@ -6,8 +6,7 @@ class ConfrontController extends AppController{
   var $session_data;
   var $components = array('Pager');
   var $power_cost = 50;
-  var $get_exp = 100;
-  var $battle_get_exp = 70;
+  var $battle_get_exp = 50;
   var $battle_get_money = 15;
 
   function top(){

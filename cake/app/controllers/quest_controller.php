@@ -43,6 +43,8 @@ class QuestController extends AppController{
     $quest_resolved_flag = $mq_data['MemberQuest']['resolved_flag'];
     $quest_id = $mq_data['MemberQuest']['quest_id'];
     $member_quest_title = $mq_data['MemberQuest']['title'];
+    $member_quest_exp = $mq_data['MemberQuest']['quest_exp'];
+    $member_quest_price = $mq_data['MemberQuest']['quest_price'];
     $real_fact_resolved_flag = $mq_data['MemberQuest']['real_fact_resolved_flag'];
     //犯人が残した証拠数
     $challenge_count = $mq_data['MemberQuest']['challenge_count'];
@@ -86,6 +88,8 @@ class QuestController extends AppController{
     $this->set('last_stage_link_flag',$last_stage_link_flag);
     $this->set('member_quest_id',$member_quest_id);
     $this->set('member_quest_title',$member_quest_title);
+    $this->set('member_quest_exp',$member_quest_exp);
+    $this->set('member_quest_price',$member_quest_price);
     $this->set('data',$data);
   }
 

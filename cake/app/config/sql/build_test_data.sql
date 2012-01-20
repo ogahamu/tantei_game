@@ -9,9 +9,15 @@ begin
   declare local_evidence_img_id int;
   declare local_counter_1 int;
   declare local_counter_2 int;
+  declare local_member_quests_id_counter int;
+  declare local_member_quests_id_max_counter int;
   declare local_treasure_member int;
+  declare local_mission_count int;
+  declare local_quest_id int;
   set local_counter_1 = 2;
   set local_counter_2 = 2;
+  set local_member_quests_id_counter = 10;
+
   truncate table members;
   truncate table member_quests;
   truncate table member_evidences;
@@ -75,6 +81,8 @@ begin
   );
 
   while local_counter_1 < local_max_counter_1 do
+    set local_member_quests_id_counter = local_member_quests_id_counter+1;
+    set local_member_quests_id_max_counter = local_member_quests_id_counter + 10;
     set local_counter_2 = 1;
        select name into local_test_name from test_names order by rand() limit 1;
     select
@@ -82,6 +90,7 @@ begin
     into
       local_thumnail_url
     ;
+    select FLOOR( REVERSE( RAND() ) ) %(500 - 5 + 1) + 5 into local_mission_count;
     insert into members (
       id,
       mixi_account_id,
@@ -94,6 +103,7 @@ begin
       exp,
       least_next_exp,
       sum_exp,
+      mission_count,
       star_count,
       attack_power,
       defence_power,
@@ -110,7 +120,8 @@ begin
       0,
       1000,
       0,
-      10,
+      local_mission_count,
+      5,
       5,
       10,
       5
@@ -126,9 +137,19 @@ begin
       );
       set local_counter_2 = local_counter_2 + 1;
     end while;
+
+    set local_quest_id = 1;
+    while local_member_quests_id_counter < local_member_quests_id_max_counter do
+      insert into member_quests(id,member_id,quest_id)values(local_member_quests_id_counter,local_counter_1,local_quest_id);
+      insert into member_quest_details(member_quest_id,detail_no,resoluved_flag,member_id)values(local_member_quests_id_counter,1,1,local_counter_1);
+      set local_quest_id =local_quest_id+1;
+      set local_member_quests_id_counter=local_member_quests_id_counter+1;
+    end while;
+
     set local_counter_1 = local_counter_1 + 1;
   end while;
+
 end
 //
 delimiter ;
-call build_test_data(100,100);
+call build_test_data(5,5);

@@ -25,10 +25,6 @@ class TopController extends AppController{
     //各条件設定
     $power = $mdata['Member']['power'];
     $star_count = $mdata['Member']['star_count'];
-    //ランク情報
-    $ranking_data = $this->StructureSql->select_member_ranking_count($member_id);
-    //$all_member_count = $this->Member->find('count');
-    $all_member_count = 1000;
     $max_power = $mdata['Member']['max_power'];
     $gage_power = ceil($power/$max_power*100);
     //パワー回復までの時間表示
@@ -53,7 +49,6 @@ class TopController extends AppController{
     $this->set('least_time',$least_hour.'時間'.$least_minits.'分');
     $this->set('message_txt',$message_txt);
     $this->set('mdata',$mdata);
-    $this->set('ranking_txt',$ranking_data[0][0]['count'].'/'.$all_member_count);
     $this->set('avater_id',$avater_id);
     $this->set('power',$gage_power);
     $this->Session->write('ActionFlag',0);
@@ -92,7 +87,7 @@ class TopController extends AppController{
       fortune_power
       */
       if($genre_id==1){
-        $max_power+=5;
+        $max_power+=1;
       }elseif($genre_id==2){
         $attack_power+=1;
       }elseif($genre_id==3){
@@ -125,11 +120,8 @@ class TopController extends AppController{
     $max_power = $mdata['Member']['power'];
     //ランク情報
     $compleate_count = $mdata['Member']['compleate_evidence_count'];
-    $ranking_data = $this->StructureSql->select_member_ranking_count($member_id);
-    $all_member_count = 1000;
     //view
     $this->set('compleate_count',$compleate_count);
-    $this->set('ranking_txt',$ranking_data[0][0]['count'].'/'.$all_member_count);
     $this->set('power',ceil($power/$max_power*100));
     $this->set('mdata',$mdata);
   }

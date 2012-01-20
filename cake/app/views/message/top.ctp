@@ -1,6 +1,6 @@
 <table width="310" height="127" border="0" cellpadding="0" cellspacing="0">
   <tr>
-    <td width="310"><H2>1.お知らせ</H2>
+    <td width="310"><H2>1.お知らせ</H2><a href="/cake/message/detail/1/">-もっと見る-</a>
       <hr></td>
   </tr>
   <tr>
@@ -17,7 +17,7 @@
     </table></td>
   </tr>
   <tr>
-    <td><H2>2.事件の通知</H2>
+    <td><H2>2.事件の通知</H2><a href="/cake/message/detail/2/">-もっと見る-</a>
       <hr></td>
   </tr>
   <tr>
@@ -34,7 +34,7 @@
     </table></td>
   </tr>
   <tr>
-    <td><H2>3.事件解決の記録</H2>
+    <td><H2>3.事件解決の記録</H2><a href="/cake/message/detail/3/">-もっと見る-</a>
     <hr></td>
   </tr>
   <tr>
@@ -51,7 +51,7 @@
     </table></td>
   </tr>
   <tr>
-    <td><H2>4.対決の記録</H2><br>
+    <td><H2>4.対決の記録</H2><a href="/cake/message/detail/1/">-もっと見る-</a><br>
     <hr></td>
   </tr>
   <tr>

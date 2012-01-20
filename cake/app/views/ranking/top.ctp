@@ -13,24 +13,23 @@ function return_wordwrap($line){
   return $rtntxt;
 }
 ?>
+<?php echo $vlist;?>
 <table width="310" height="127" border="0" cellpadding="0" cellspacing="0">
   <tr>
     <td width="310"><table width="310" border="0" cellpadding="0" cellspacing="0">
       <tr>
-        <th width="179" height="19">名前 </th>
-        <th width="75">解決</th>
-        <th width="26">真相</th>
-        <th width="28">勝率</th>
-      </tr>
+        <th width="158" height="19" class="status_title">名前 </th>
+        <th width="57" class="status_title">解決</th>
+        <th class="status_title">真相</th>
+        </tr>
       <?php foreach($data as $datas): ?>
       <tr bgcolor="#000000">
-        <td><img src="<?php echo $datas['Member']['thumnail_url'] ?>" width="27" height="34"><?php echo $datas['Member']['name'] ?>(Lv.<?php echo $datas['Member']['lv'] ?>)</td>
-        <td><?php echo $datas['Member']['mission_count'] ?>件</td>
-        <td><?php echo $datas['Member']['win_count'] ?>勝/<?php echo $datas['Member']['lose_count'] ?>敗</td>
-        <td>&nbsp;</td>
-      </tr>
+        <td class="status_data"><?php echo $datas['Member']['rank_no'] ?>位 / <img src="<?php echo $datas['Member']['thumnail_url'] ?>" width="27" height="34"><?php echo $datas['Member']['name'] ?>(Lv.<?php echo $datas['Member']['lv'] ?>)</td>
+        <td class="status_data"><?php echo $datas['Member']['mission_count'] ?>件</td>
+        <td class="status_data"><?php echo $datas['Member']['win_count'] ?>勝/<?php echo $datas['Member']['lose_count'] ?>敗</td>
+        </tr>
       <tr>
-        <td colspan="4"><hr></td>
+        <td colspan="3"><hr></td>
         </tr>
       <?php endforeach; ?>
     </table></td>

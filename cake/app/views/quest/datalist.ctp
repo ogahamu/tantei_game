@@ -32,7 +32,7 @@ div .distance_gage_3{
 </style>
 <table width="310" height="127" border="0" cellpadding="0" cellspacing="0">
   <tr>
-    <td width="310"> <H1><img src="/img/shitai_icon.png" width="18" height="18"><?php echo $member_quest_title; ?></H1>
+    <td width="310"> <H1><img src="/img/shitai_icon.png" width="18" height="18"><?php echo $member_quest_title; ?></H1>[報酬]Exp<?php echo $member_quest_exp; ?>/$<?php echo $member_quest_price; ?>
       <a href="/cake/quest/top/">一覧ページに戻る</a>
       <hr>
       <br>

@@ -22,6 +22,9 @@ class MessageController extends AppController{
   }
 
   function detail($genre_id){
+    $this->session_manage();
+    //セッションから会員番号を取得
+    $member_id = $this->session_data['id'];
     $data = $this->Message->find('all',array("member_id"=>$member_id,"genre_id"=>$genre_id),null,'id desc',10);
     $this->set('data',$data);
   }

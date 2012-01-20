@@ -87,23 +87,6 @@ public $useTable = 'members';
     return $this->query($strSql);
   }
 
-  function select_member_ranking_count($member_id){
-    $strSql    = "select  \n";
-    $strSql   .= "count(*) + 1 as count  \n";
-    $strSql   .= "from  \n";
-    $strSql   .= "members  \n";
-    $strSql   .= "where  \n";
-    $strSql   .= "sum_exp > ( \n";
-    $strSql   .= "select  \n";
-    $strSql   .= "sum_exp  \n";
-    $strSql   .= "from  \n";
-    $strSql   .= "members  \n";
-    $strSql   .= "where  \n";
-    $strSql   .= "id = ".$member_id." \n";
-    $strSql   .= ") \n";
-    return $this->query($strSql);
-  }
-
   function select_own_evidence_list($quest_id,$member_id){
     $strSql   = "select    \n";
     $strSql  .= "evidences.id,  \n";

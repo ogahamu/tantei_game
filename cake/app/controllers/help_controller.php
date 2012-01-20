@@ -5,7 +5,7 @@ class HelpController extends AppController{
 
   var $uses = array('StructureSql','Member','Message','Quest','QuestDetail','MemberQuest','MemberQuestDetail');
   var $session_data;
-  var $components = array('Transaction');
+  //var $components = array('Transaction');
 
   function top(){
     $this->session_manage();

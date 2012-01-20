@@ -4,7 +4,6 @@ class AttackController extends AppController{
   var $uses = array('MemberEvidence','StructureSql','Member','Message','Quest','QuestDetail','MemberQuest','MemberQuestDetail');
   var $session_data;
   var $attack_cost=50;
-  var $add_exp=50;
 
   function top($member_quest_id){
     //ページステップ管理
@@ -153,7 +152,7 @@ class AttackController extends AppController{
     );
     $mqd_result = $this->MemberQuestDetail->save($data);
     //ご褒美
-    $call_exp_result = $this->StructureSql->call_get_bank_exp($member_id,$this->add_exp);
+    $call_exp_result = $this->StructureSql->call_get_bank_exp($member_id,$quest_exp);
     $call_money_result = $this->StructureSql->call_get_money($member_id,$quest_price,1);
     //transaction終了
     if($mq_result_u!==false&&$mq_result_i!==false&&$call_exp_result!==false&&$call_money_result!==false){

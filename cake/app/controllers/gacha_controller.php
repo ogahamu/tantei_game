@@ -13,6 +13,9 @@ class GachaController extends AppController{
     $this->Session->write('PageStepNo',1);
     $mdata = $this->Member->findById($member_id);
     $last_gacha_date = $mdata['Member']['last_gacha_date'];
+    if(strlen($last_gacha_date)==0){
+      $last_gacha_date = '1999-10-10';
+    }
     //今日の日付を取得
     $today_date = date('Y-m-d');
     //最終更新日が昨日かどうかを比較して確認する
