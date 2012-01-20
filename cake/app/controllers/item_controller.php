@@ -66,11 +66,19 @@ class ItemController extends AppController{
     //残高チェック
     $item_power_price = $this->item_power_price;
     if($money>=$item_power_price){
+      //transaction
+      $this->Member->begin();
       $money = $money-$this->item_power_price;
       //ゲットする member,item(1.回復 2.武器 3.本),count
-      $this->update_item_count($member_id,1,1);
+      $result_item_update = $this->update_item_count($member_id,1,1);
       //お金を減らす
-      $this->pay_money($member_id,$money);
+      $result_money_update = $this->pay_money($member_id,$money);
+      if(($result_item_update!==false)&&($result_money_update==false)){
+        $this->Member->commit();
+      }else{
+        $this->Member->rollback();
+        $this->redirect('/item/item_db_error/');
+      }
     }
     $this->redirect('/item/item_power_top/');
   }
@@ -228,7 +236,8 @@ class ItemController extends AppController{
       'money' => $money,
       'update_date' => date("Y-m-d H:i:s")
     );
-    $this->Member->save($data);
+    $result = $this->Member->save($data);
+    return $result;
   }
 
   //アイテム追加＆使用 $add_count:変更個数[1で１個追加、-1で１個減らす]
@@ -255,9 +264,14 @@ class ItemController extends AppController{
       'star_count' => $item_star,
       'update_date' => date("Y-m-d H:i:s")
     );
-    $this->Member->save($data);
-    return $item_id;
+    $result = $this->Member->save($data);
+    return $result;
   }
+
+  function item_db_error(){
+
+  }
+
 
   function session_manage(){
     $session_data = $this->Session->read("member_info");

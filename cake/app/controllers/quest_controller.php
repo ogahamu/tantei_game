@@ -143,7 +143,7 @@ class QuestController extends AppController{
     $detail_no = $data['MemberQuestDetail']['detail_no'];
     $member_quest_detail_title = $data['MemberQuestDetail']['title'];
     $last_marker_flag = $data['MemberQuestDetail']['last_marker_flag'];
-    $resoluved_flag = $data['MemberQuestDetail']['resoluved_flag'];
+    $before_resoluved_flag = $data['MemberQuestDetail']['resoluved_flag'];
     $all_distance = $data['MemberQuestDetail']['all_distance'];
     $distance = $data['MemberQuestDetail']['distance'];
     $detail_no = $data['MemberQuestDetail']['detail_no'];
@@ -236,8 +236,8 @@ class QuestController extends AppController{
     if($first_resolved_flag==1){
       $this->redirect('/quest/quest_clear/'.$member_quest_id);
     }
-    //最終捜査終了後
-    if($return_datalist_flag==1){
+    //最終捜査終了後※ただし初回に限る
+    if((return_datalist_flag==1)&&($before_resoluved_flag=0){
       $this->redirect('/quest/datalist/'.$member_quest_id);
     }
     $this->redirect('/quest/detail/'.$member_quest_detail_id);
